@@ -10,6 +10,8 @@ import Firebase
 import Toast
 
 class MainViewController: UIViewController {
+    
+    //Hallo
 
     @IBOutlet var blurView: UIVisualEffectView!
     @IBOutlet var loginPopUpView: UIView!
