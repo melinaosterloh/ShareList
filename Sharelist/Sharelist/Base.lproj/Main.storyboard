@@ -276,7 +276,7 @@
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain" image="shield" catalog="system"/>
                                                     <connections>
-                                                        <action selector="logoutButton:" destination="GXz-GC-rEM" eventType="touchUpInside" id="iOZ-iN-4M9"/>
+                                                        <segue destination="dQQ-5a-6Z9" kind="unwind" unwindAction="logoutWithSegue:" id="FDC-CI-T1h"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d9d-bG-C3P">
@@ -374,10 +374,12 @@
                         <outlet property="emailLabel" destination="KkC-es-0UN" id="WOF-MN-7jo"/>
                         <outlet property="logoutBtn" destination="o1F-lz-Aoi" id="qaX-NN-z4l"/>
                         <outlet property="nameLabel" destination="NRE-e6-3JY" id="LtO-Er-AKD"/>
+                        <outlet property="overlayView" destination="Beh-ix-jps" id="3Yr-oc-Wgi"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="goToLoginScreen" id="f6M-U9-7iZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NOk-hG-Wff" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="dQQ-5a-6Z9" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1237.5999999999999" y="1318.9655172413793"/>
         </scene>
@@ -702,13 +704,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="cCp-Av-Fvu">
-                                <rect key="frame" x="16" y="406" width="343" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HcA-cf-QBJ">
-                                <rect key="frame" x="313" y="736" width="50" height="50"/>
+                                <rect key="frame" x="309" y="752" width="50" height="50"/>
                                 <color key="backgroundColor" red="0.89422911410000006" green="0.94133508210000005" blue="0.81379908320000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="7ZJ-7w-cGJ"/>
@@ -723,25 +720,26 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N0P-Pm-gbA">
-                                <rect key="frame" x="20" y="736" width="54" height="50"/>
+                                <rect key="frame" x="16" y="752" width="50" height="50"/>
                                 <color key="backgroundColor" red="0.62857574220000001" green="0.70564872030000003" blue="0.84029895070000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="50n-I5-PJC"/>
+                                    <constraint firstAttribute="width" constant="50" id="50n-I5-PJC"/>
                                     <constraint firstAttribute="height" constant="50" id="Thu-Da-xtx"/>
                                 </constraints>
                                 <color key="tintColor" red="0.3060487509" green="0.32154738900000002" blue="0.33382815119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="basket" catalog="system"/>
+                                <buttonConfiguration key="configuration" style="plain" image="line.3.horizontal" catalog="system"/>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="iL6-v4-b2p"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="iL6-v4-b2p" firstAttribute="trailing" secondItem="HcA-cf-QBJ" secondAttribute="trailing" constant="12" id="2P8-VL-4dl"/>
+                            <constraint firstItem="N0P-Pm-gbA" firstAttribute="leading" secondItem="iL6-v4-b2p" secondAttribute="leading" constant="16" id="6KS-pn-T86"/>
                             <constraint firstItem="VNG-9H-0bT" firstAttribute="centerX" secondItem="fBu-xa-zb3" secondAttribute="centerX" id="Fc1-z6-JmT"/>
-                            <constraint firstItem="iL6-v4-b2p" firstAttribute="bottom" secondItem="HcA-cf-QBJ" secondAttribute="bottom" constant="16" id="LhE-9g-WlS"/>
+                            <constraint firstItem="iL6-v4-b2p" firstAttribute="bottom" secondItem="N0P-Pm-gbA" secondAttribute="bottom" id="Kiz-9B-JnK"/>
                             <constraint firstItem="HcA-cf-QBJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="N0P-Pm-gbA" secondAttribute="trailing" constant="8" symbolic="YES" id="aGz-Aq-EyY"/>
-                            <constraint firstItem="N0P-Pm-gbA" firstAttribute="leading" secondItem="iL6-v4-b2p" secondAttribute="leading" constant="20" id="flq-fW-VeA"/>
+                            <constraint firstItem="iL6-v4-b2p" firstAttribute="trailing" secondItem="HcA-cf-QBJ" secondAttribute="trailing" constant="16" id="nxZ-vQ-eMP"/>
+                            <constraint firstItem="iL6-v4-b2p" firstAttribute="bottom" secondItem="HcA-cf-QBJ" secondAttribute="bottom" id="rsk-4z-rP7"/>
                             <constraint firstItem="VNG-9H-0bT" firstAttribute="top" secondItem="iL6-v4-b2p" secondAttribute="top" constant="122" id="sn1-Ks-iD4"/>
                             <constraint firstItem="HcA-cf-QBJ" firstAttribute="baseline" secondItem="N0P-Pm-gbA" secondAttribute="baseline" id="wE6-d7-7Zz"/>
                         </constraints>
@@ -751,6 +749,8 @@
                         <outlet property="basketDate" destination="yoq-sx-jLj" id="1aq-8B-d5Y"/>
                         <outlet property="basketDescription" destination="KtH-jJ-gR4" id="v6y-gM-CpO"/>
                         <outlet property="basketPrice" destination="jf6-Pw-qCc" id="xhl-jv-Bgg"/>
+                        <outlet property="checkBtn" destination="HcA-cf-QBJ" id="hP3-2V-NTe"/>
+                        <outlet property="menuBtn" destination="N0P-Pm-gbA" id="zAU-uK-e1i"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f0x-jh-ttQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -883,6 +883,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="GZ9-nP-exc"/>
         <segue reference="eI3-oI-Iz4"/>
         <segue reference="f6M-U9-7iZ"/>
     </inferredMetricsTieBreakers>

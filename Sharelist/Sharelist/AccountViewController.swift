@@ -15,12 +15,16 @@ class AccountViewController: UIViewController {
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var logoutBtn: UIButton!
+    @IBOutlet weak var overlayView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         
-        
+        overlayView.layer.shadowRadius = 5
+        overlayView.layer.shadowOpacity = 0.5
+        overlayView.layer.shadowColor = UIColor.darkGray.cgColor
+        overlayView.layer.shadowOffset = CGSize(width: 1, height: 1)
 
         if let user = Auth.auth().currentUser {
             let email = user.email

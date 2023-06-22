@@ -117,5 +117,8 @@ class MainViewController: UIViewController {
         })
     }
     
+    @IBAction func logout(segue: UIStoryboardSegue) {
+        print("TODO: Logout")
+    }
 
 }
