@@ -79,6 +79,9 @@ class MainViewController: UIViewController {
                 print("Error at Login")
             }
             else {
+                self.emailLogin.text = ""
+                self.passwordLogin.text = ""
+                
                 //Go to home screen
                 self.performSegue(withIdentifier: "goToListView", sender: self)
                 

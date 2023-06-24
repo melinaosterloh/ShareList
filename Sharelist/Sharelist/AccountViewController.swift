@@ -48,7 +48,7 @@ class AccountViewController: UIViewController {
         } catch {
             print("User Logout failed!")
         }
-        self.performSegue(withIdentifier: "goToLoginScreen", sender: self)
+        //self.performSegue(withIdentifier: "goToLoginScreen", sender: self)
     }
     
 
