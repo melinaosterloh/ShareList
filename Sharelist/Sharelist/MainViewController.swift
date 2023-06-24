@@ -79,6 +79,8 @@ class MainViewController: UIViewController {
                 print("Error at Login")
             }
             else {
+                self.animateOut(loginView: self.blurView)
+                self.animateOut(loginView: self.loginPopUpView)
                 self.emailLogin.text = ""
                 self.passwordLogin.text = ""
                 
