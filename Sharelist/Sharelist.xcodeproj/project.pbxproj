@@ -93,11 +93,11 @@
 				DB45D06E2A421E1000379574 /* ArticleTableViewCell.swift */,
 				DB4A8FE62A3E7A2900545CEB /* RegistrationViewController.swift */,
 				DB4A8FD62A3E749600545CEB /* MainViewController.swift */,
+				DBBA838A2A4339FD008BA714 /* AccountViewController.swift */,
 				DB4A8FCB2A3E731600545CEB /* Assets.xcassets */,
 				DB4A8FCD2A3E731600545CEB /* LaunchScreen.storyboard */,
 				DB4A8FD02A3E731600545CEB /* Info.plist */,
 				DB4A8FDA2A3E763500545CEB /* GoogleService-Info.plist */,
-				DBBA838A2A4339FD008BA714 /* AccountViewController.swift */,
 			);
 			path = Sharelist;
 			sourceTree = "<group>";
@@ -362,7 +362,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = melinaosterloh.Sharelist;
+				PRODUCT_BUNDLE_IDENTIFIER = melinaosterloh.ShoppingList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -390,7 +390,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = melinaosterloh.Sharelist;
+				PRODUCT_BUNDLE_IDENTIFIER = melinaosterloh.ShoppingList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

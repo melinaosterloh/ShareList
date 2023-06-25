@@ -216,7 +216,6 @@
                                 <buttonConfiguration key="configuration" style="plain" title="Registrieren"/>
                                 <connections>
                                     <action selector="registrationBtn:" destination="cp1-jc-mOf" eventType="touchUpInside" id="wMr-Su-weZ"/>
-                                    <segue destination="IYt-Ht-p4r" kind="show" identifier="goToList" id="ohe-ps-eG7"/>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DXd-Zv-q99">
@@ -242,6 +241,7 @@
                         <outlet property="passwordRegistration" destination="0Yk-Mi-m4X" id="Kkf-tJ-3Fc"/>
                         <outlet property="pwRepeat" destination="QnV-67-Vgd" id="mlX-eM-hTJ"/>
                         <outlet property="registrationBtn" destination="ab6-wB-pCU" id="aLI-3o-lV4"/>
+                        <segue destination="IYt-Ht-p4r" kind="show" identifier="goToList" id="BKY-X8-Drk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r8G-kS-goM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -883,7 +883,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="eI3-oI-Iz4"/>
+        <segue reference="BKY-X8-Drk"/>
         <segue reference="f6M-U9-7iZ"/>
     </inferredMetricsTieBreakers>
     <resources>

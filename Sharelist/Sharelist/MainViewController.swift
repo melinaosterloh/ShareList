@@ -7,12 +7,13 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
 import Toast
 
 class MainViewController: UIViewController {
     
     //Hallo
-
+    
     @IBOutlet var blurView: UIVisualEffectView!
     @IBOutlet var loginPopUpView: UIView!
     
@@ -25,8 +26,7 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-
+        
         emailLogin.layer.borderColor = UIColor.darkGray.cgColor
         emailLogin.layer.borderWidth = 1
         emailLogin.layer.cornerRadius = 5
@@ -53,7 +53,6 @@ class MainViewController: UIViewController {
         popUpLoginBtn.layer.shadowColor = UIColor.darkGray.cgColor
         popUpLoginBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
         
-        
         // blurView Größe ist gleich der Größe von der gesamten View
         blurView.bounds = self.view.bounds
         
@@ -61,7 +60,7 @@ class MainViewController: UIViewController {
         loginPopUpView.bounds = CGRect(x: 0, y: 0, width: self.view.bounds.width * 0.8, height: self.view.bounds.height * 0.3)
         loginPopUpView.layer.cornerRadius = 20
         
-        
+       
     }
     
     @IBAction func loginButton(_ sender: UIButton) {
@@ -73,21 +72,26 @@ class MainViewController: UIViewController {
         guard let email = emailLogin.text else { return }
         guard let password = passwordLogin.text else { return }
         
-        Auth.auth().signIn(withEmail: email, password: password) { firebaseResult, error in
-            if let error = error  {
-                self.view.makeToast("E-Mail und/oder Passwort stimmen nicht!", duration: 2.0)
-                print("Error at Login")
+        Auth.auth().signIn(withEmail: email, password: password) { [weak self] firebaseResult, error in
+            guard let strongSelf = self else {
+                return
             }
-            else {
-                //Go to home screen
-                self.performSegue(withIdentifier: "goToListView", sender: self)
-                
+            guard error == nil else {
+                if let err = error as NSError? {
+                    print("Fehler bei der Anmeldung:", err.localizedDescription)
+                    strongSelf.view.makeToast(err.localizedDescription, duration: 2.0)
+                }
+                return;
             }
+            //Go to home screen
+            strongSelf.performSegue(withIdentifier: "goToListView", sender: self)
         }
-        //animateOut(loginView: blurView)
-        //animateOut(loginView: loginPopUpView)
-        //self.performSegue(withIdentifier: "goToListView", sender: self)
+        
     }
+    //animateOut(loginView: blurView)
+    //animateOut(loginView: loginPopUpView)
+    //self.performSegue(withIdentifier: "goToListView", sender: self)
+    
     
     
     func animateIn(loginView: UIView) {
@@ -116,6 +120,4 @@ class MainViewController: UIViewController {
             loginView.removeFromSuperview()
         })
     }
-    
-
 }

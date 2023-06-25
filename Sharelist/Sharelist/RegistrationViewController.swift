@@ -41,6 +41,7 @@ class RegistrationViewController: UIViewController {
         passwordRegistration.layer.borderColor = UIColor.darkGray.cgColor
         passwordRegistration.layer.borderWidth = 1
         passwordRegistration.layer.cornerRadius = 10
+        passwordRegistration.isSecureTextEntry = true
         
         // Passwort wiederholen Feld
         pwRepeat.layer.borderColor = UIColor.darkGray.cgColor
@@ -76,23 +77,36 @@ class RegistrationViewController: UIViewController {
         
         let db = Firestore.firestore()
         
-        let newUser = db.collection("users").document()
-        
         
         // neuen User erstellen/ Registrieren
-        // if password == pwRepeat {
-            newUser.setData(["firstname":firstname, "lastname":lastname, "email":email, "id": newUser.documentID])
-            Auth.auth().createUser(withEmail: email, password: password) { firebaseResult, error in
-                if let e = error {
-                    print("newUser")
-                }
-                // Go to our home screen
-                //self.performSegue(withIdentifier: "goToList", sender: self)
+        Auth.auth().createUser(withEmail: email, password: password) { [weak self] firebaseResult, error in
+            guard let strongSelf = self else {
+                return
             }
+            guard password == pwRepeat else {
+                strongSelf.view.makeToast("Passwort stimmt nicht überein", duration: 2.0)
+                print("Error at Registration")
+                return;
+            }
+            guard error == nil else {
+                if let err = error as NSError? {
+                    print("Fehler bei der Registrierung:", err.localizedDescription)
+                    strongSelf.view.makeToast(err.localizedDescription, duration: 2.0)
+                }
+            return;
+            }
+            
+            
+            strongSelf.performSegue(withIdentifier: "goToList", sender: self)
+        }
         //}
         //else {
             //self.view.makeToast("Die Passwörter stimmen nicht überein!", duration: 2.0)
         //}
+        let newUser = db.collection("users").document()
+ 
+        newUser.setData(["firstname":firstname, "lastname":lastname, "email":email, "id": newUser.documentID])
+        
     }
     
 
