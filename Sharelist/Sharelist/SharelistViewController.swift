@@ -177,7 +177,7 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
         basketBtn.layer.shadowColor = UIColor.darkGray.cgColor
         basketBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
         
-        menuBtn.layer.cornerRadius = addBtn.bounds.height / 2
+        menuBtn.layer.cornerRadius = menuBtn.bounds.height / 2
         menuBtn.layer.shadowRadius = 2
         menuBtn.layer.shadowOpacity = 0.5
         menuBtn.layer.shadowColor = UIColor.darkGray.cgColor

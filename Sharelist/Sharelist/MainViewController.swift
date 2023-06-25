@@ -120,4 +120,16 @@ class MainViewController: UIViewController {
             loginView.removeFromSuperview()
         })
     }
+    
+    @IBAction func logout(_ unwindSegue: UIStoryboardSegue) {
+        if let destinationVC = unwindSegue.source as? AccountViewController {
+            let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            if let desiredViewController = mainStoryboard.instantiateViewController(withIdentifier: "MainViewController") as? MainViewController {
+                // Wechsel zu dem gewünschten View Controller
+                navigationController?.pushViewController(desiredViewController, animated: true)
+            }
+        }
+    }
+    
+
 }
