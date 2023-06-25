@@ -64,6 +64,12 @@ class BasketViewController: UIViewController {
         return dateFormat.string(from: date)
     }
 
-
+    @IBAction func menuButton(_ sender: UIButton) {
+        let accountViewController = storyboard?.instantiateViewController(withIdentifier: "AccountViewController") as! AccountViewController
+        accountViewController.modalPresentationStyle = .overCurrentContext
+        accountViewController.modalTransitionStyle = .crossDissolve
+        present(accountViewController, animated: true, completion: nil)
+    }
+    
 
 }

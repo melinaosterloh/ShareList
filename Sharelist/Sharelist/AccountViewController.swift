@@ -40,6 +40,10 @@ class AccountViewController: UIViewController {
     }
     
     @IBAction func logoutButton(_ sender: UIButton) {
+        let mainViewController = storyboard?.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
+        mainViewController.modalPresentationStyle = .overCurrentContext
+        mainViewController.modalTransitionStyle = .crossDissolve
+        present(mainViewController, animated: true, completion: nil)
         
         let auth = Auth.auth()
         
@@ -48,10 +52,13 @@ class AccountViewController: UIViewController {
         } catch {
             print("User Logout failed!")
         }
-        //self.performSegue(withIdentifier: "goToLoginScreen", sender: self)
+        self.performSegue(withIdentifier: "goToLoginScreen", sender: self)
     }
     
-
+    @IBAction func closeButton(_ sender: UIButton) {
+        dismiss(animated: true)
+    }
+    
     
 
 }
