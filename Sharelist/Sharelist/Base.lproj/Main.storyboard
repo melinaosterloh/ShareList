@@ -366,12 +366,57 @@
                                                 <constraint firstItem="KkC-es-0UN" firstAttribute="leading" secondItem="sln-F1-FTH" secondAttribute="trailing" constant="8" symbolic="YES" id="zd2-mc-GoO"/>
                                             </constraints>
                                         </view>
+                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsMultipleSelection="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="mJU-zV-I8j">
+                                            <rect key="frame" x="21" y="229" width="198" height="333"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="333" id="mSq-26-cu7"/>
+                                            </constraints>
+                                            <prototypes>
+                                                <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ListTableViewCell" rowHeight="65" id="d1S-12-jqV" customClass="ArticleTableViewCell" customModule="Sharelist">
+                                                    <rect key="frame" x="0.0" y="50" width="198" height="65"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="d1S-12-jqV" id="8bt-9F-RNW">
+                                                        <rect key="frame" x="0.0" y="0.0" width="198" height="65"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FmJ-7Z-xuQ">
+                                                                <rect key="frame" x="139" y="12.666666666666664" width="40" height="40"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="40" id="Mrd-Sr-04f"/>
+                                                                    <constraint firstAttribute="width" constant="40" id="igd-HE-Soi"/>
+                                                                </constraints>
+                                                                <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain" image="trash" catalog="system"/>
+                                                                <connections>
+                                                                    <action selector="deleteButtonTapped:" destination="d1S-12-jqV" eventType="touchUpInside" id="pZ1-Mn-LoQ"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="tintColor" red="0.3060487509" green="0.32154738900000002" blue="0.33382815119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstItem="FmJ-7Z-xuQ" firstAttribute="centerY" secondItem="8bt-9F-RNW" secondAttribute="centerY" id="Z6W-Nr-12e"/>
+                                                            <constraint firstAttribute="trailingMargin" secondItem="FmJ-7Z-xuQ" secondAttribute="trailing" constant="3" id="muk-5q-yxH"/>
+                                                        </constraints>
+                                                    </tableViewCellContentView>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="tintColor" red="0.3060487509" green="0.32154738900000002" blue="0.33382815119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <connections>
+                                                        <outlet property="deleteButton" destination="FmJ-7Z-xuQ" id="zAc-5C-epM"/>
+                                                    </connections>
+                                                </tableViewCell>
+                                            </prototypes>
+                                        </tableView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="Beh-ix-jps" secondAttribute="trailing" constant="135" id="C2M-Z7-cw2"/>
+                                        <constraint firstItem="mJU-zV-I8j" firstAttribute="centerX" secondItem="Beh-ix-jps" secondAttribute="centerX" id="LKn-xM-PVk"/>
                                         <constraint firstItem="Beh-ix-jps" firstAttribute="top" secondItem="v7Q-lE-lwT" secondAttribute="top" id="Omw-n6-TPE"/>
+                                        <constraint firstItem="mJU-zV-I8j" firstAttribute="leading" secondItem="v7Q-lE-lwT" secondAttribute="leading" constant="21" id="hTS-7x-IP1"/>
                                         <constraint firstItem="Beh-ix-jps" firstAttribute="centerY" secondItem="v7Q-lE-lwT" secondAttribute="centerY" id="kft-F0-9y8"/>
                                         <constraint firstItem="Beh-ix-jps" firstAttribute="leading" secondItem="v7Q-lE-lwT" secondAttribute="leading" id="pho-vF-hrn"/>
+                                        <constraint firstItem="mJU-zV-I8j" firstAttribute="top" secondItem="v7Q-lE-lwT" secondAttribute="top" constant="229" id="s73-ZI-Kc3"/>
                                     </constraints>
                                 </view>
                                 <blurEffect style="regular"/>
@@ -389,6 +434,7 @@
                     <navigationItem key="navigationItem" id="2R8-n8-yqA"/>
                     <connections>
                         <outlet property="emailLabel" destination="KkC-es-0UN" id="WOF-MN-7jo"/>
+                        <outlet property="listTableView" destination="mJU-zV-I8j" id="cQ8-rI-i1P"/>
                         <outlet property="logoutBtn" destination="o1F-lz-Aoi" id="qaX-NN-z4l"/>
                         <outlet property="nameLabel" destination="NRE-e6-3JY" id="LtO-Er-AKD"/>
                         <outlet property="overlayView" destination="Beh-ix-jps" id="3Yr-oc-Wgi"/>
@@ -398,7 +444,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NOk-hG-Wff" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="dQQ-5a-6Z9" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1237.5999999999999" y="1318.9655172413793"/>
+            <point key="canvasLocation" x="1004" y="838.66995073891633"/>
         </scene>
         <!--WG Liste-->
         <scene sceneID="BS4-QR-2wk">
@@ -904,7 +950,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="eI3-oI-Iz4"/>
+        <segue reference="sWb-yN-1xd"/>
         <segue reference="GZ9-nP-exc"/>
         <segue reference="IZr-Ry-0iS"/>
     </inferredMetricsTieBreakers>

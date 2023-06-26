@@ -66,9 +66,17 @@ class AddArticleViewController: UIViewController {
         }
         else {
             let db = Firestore.firestore()
+            let userRef = db.collection("user").document("3MCeDNUzyRtZ5TYnkmqM")
+            let shoppinglistRef = userRef.collection("shoppinglist").document("l2lyKnQGD99h4LVTLwWe")
             
-            let newArticle = db.collection("shoppinglist").document()
-            newArticle.setData(["productname":name, "brand":brand, "quantity":quantity, "cathegory":cathegory, "id": newArticle.documentID])
+            let listRef = shoppinglistRef.collection("WG Liste").document()
+            listRef.setData(["productname":name, "brand":brand, "quantity":quantity, "cathegory":cathegory, "id": listRef.documentID]) { error in
+                if let error = error {
+                    print("Error saving user data:")
+                } else {
+                    print("User data saved successfully")
+                }
+            }
             
             self.performSegue(withIdentifier: "goBackToSharelist", sender: self)
         }

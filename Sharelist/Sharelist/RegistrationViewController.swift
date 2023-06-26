@@ -76,23 +76,30 @@ class RegistrationViewController: UIViewController {
         
         let db = Firestore.firestore()
         
-        let newUser = db.collection("users").document()
-        
-        
-        // neuen User erstellen/ Registrieren
-        // if password == pwRepeat {
-            newUser.setData(["firstname":firstname, "lastname":lastname, "email":email, "id": newUser.documentID])
-            Auth.auth().createUser(withEmail: email, password: password) { firebaseResult, error in
-                if let e = error {
-                    print("newUser")
-                }
-                // Go to our home screen
-                //self.performSegue(withIdentifier: "goToList", sender: self)
+        Auth.auth().createUser(withEmail: email, password: password) { firebaseResult, error in
+            if let e = error {
+                print("newUser")
+                return
             }
-        //}
-        //else {
-            //self.view.makeToast("Die Passwörter stimmen nicht überein!", duration: 2.0)
-        //}
+            
+            guard let user = firebaseResult?.user else {
+                print("No user found")
+                return
+            }
+            
+            // Generierte User ID des authentifizierten Benutzers
+            let userId = user.uid
+            
+            let newUser = db.collection("user").document(userId)
+            newUser.setData(["firstname": firstname, "lastname": lastname, "email": email, "user_id": userId]) { error in
+                if let error = error {
+                    print("Error saving user data: \(error.localizedDescription)")
+                } else {
+                    print("User data saved successfully")
+                }
+            }
+        }
+        
     }
     
 
