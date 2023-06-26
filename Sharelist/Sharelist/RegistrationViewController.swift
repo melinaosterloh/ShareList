@@ -91,20 +91,16 @@ class RegistrationViewController: UIViewController {
                 if let err = error as NSError? {
                     print("Fehler bei der Registrierung:", err.localizedDescription)
                     strongSelf.view.makeToast(err.localizedDescription, duration: 2.0)
-        Auth.auth().createUser(withEmail: email, password: password) { firebaseResult, error in
-            if let e = error {
-                print("newUser")
-                return
+                }
+                return;
             }
-            
             guard let user = firebaseResult?.user else {
-                print("No user found")
-                return
+                print("user not found")
+                return;
             }
             
             // Generierte User ID des authentifizierten Benutzers
             let userId = user.uid
-            
             let newUser = db.collection("user").document(userId)
             newUser.setData(["firstname": firstname, "lastname": lastname, "email": email, "user_id": userId]) { error in
                 if let error = error {
@@ -112,20 +108,10 @@ class RegistrationViewController: UIViewController {
                 } else {
                     print("User data saved successfully")
                 }
-            return;
+            //return;
             }
-            
-            
             strongSelf.performSegue(withIdentifier: "goToList", sender: self)
         }
-        //}
-        //else {
-            //self.view.makeToast("Die Passwörter stimmen nicht überein!", duration: 2.0)
-        //}
-        let newUser = db.collection("users").document()
- 
-        newUser.setData(["firstname":firstname, "lastname":lastname, "email":email, "id": newUser.documentID])
-        
     }
     
 
