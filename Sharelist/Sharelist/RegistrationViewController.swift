@@ -77,7 +77,6 @@ class RegistrationViewController: UIViewController {
         
         let db = Firestore.firestore()
         
-        
         // neuen User erstellen/ Registrieren
         Auth.auth().createUser(withEmail: email, password: password) { [weak self] firebaseResult, error in
             guard let strongSelf = self else {
@@ -92,6 +91,26 @@ class RegistrationViewController: UIViewController {
                 if let err = error as NSError? {
                     print("Fehler bei der Registrierung:", err.localizedDescription)
                     strongSelf.view.makeToast(err.localizedDescription, duration: 2.0)
+        Auth.auth().createUser(withEmail: email, password: password) { firebaseResult, error in
+            if let e = error {
+                print("newUser")
+                return
+            }
+            
+            guard let user = firebaseResult?.user else {
+                print("No user found")
+                return
+            }
+            
+            // Generierte User ID des authentifizierten Benutzers
+            let userId = user.uid
+            
+            let newUser = db.collection("user").document(userId)
+            newUser.setData(["firstname": firstname, "lastname": lastname, "email": email, "user_id": userId]) { error in
+                if let error = error {
+                    print("Error saving user data: \(error.localizedDescription)")
+                } else {
+                    print("User data saved successfully")
                 }
             return;
             }

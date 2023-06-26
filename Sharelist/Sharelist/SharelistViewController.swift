@@ -114,7 +114,15 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
         
         //initalize Database
         let db = Firestore.firestore()
-        db.collection("shoppinglist").getDocuments() { (snapshot, error) in
+        
+        let userRef = db.collection("user").document("3MCeDNUzyRtZ5TYnkmqM")
+        let shoppinglistRef = userRef.collection("shoppinglist").document()
+        
+        //let listRef = shoppinglistRef.collection("WG Liste").document()
+        
+        
+        
+        shoppinglistRef.collection("WG Liste").getDocuments() { (snapshot, error) in
             if let error = error {
                 print("error")
             } else {

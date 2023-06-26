@@ -11,11 +11,20 @@ import Toast
 
 
 class AccountViewController: UIViewController {
+    
+    
+    
 
+    @IBOutlet weak var listTableView: UITableView!
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var logoutBtn: UIButton!
     @IBOutlet weak var overlayView: UIView!
+
+    
+    //var listArray = [Article]()
+    //var article: Article?
+    //private var document: [DocumentSnapshot] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,12 +41,37 @@ class AccountViewController: UIViewController {
         } else {
             emailLabel.text = "Benutzer ist nicht eingeloggt"
         }
+
+     //   self.listTableView.delegate = self
+     //  self.listTableView.dataSource = self
         
-        
-        
-      
-        
+    //    loadData()
     }
+    
+    //func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    //    return listArray.count
+    //}
+    
+    //func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    //    let cell = tableView.dequeueReusableCell(withIdentifier: "ListTableViewCell", for: indexPath)
+        //let article = articleArray[indexPath.row]
+
+        //cell.textLabel?.text = "\(article.quantity + " " + article.productname)"
+        
+        //cell.layer.cornerRadius = 10
+        //cell.layer.borderColor = UIColor.darkGray.cgColor
+        //cell.layer.borderWidth = 0.3
+        
+        //cell.delegate = self
+        //cell.indexPath = indexPath
+        //cell.infoButton.tag = indexPath.row
+        
+    //    return cell
+    //}
+    
+   // func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+  //      return 50  // Set the desired height for each cell
+   // }
     
     @IBAction func logoutButton(_ sender: UIButton) {
         let mainViewController = storyboard?.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
@@ -59,6 +93,30 @@ class AccountViewController: UIViewController {
         dismiss(animated: true)
     }
     
+    
+    
+    /* func loadData() {
+        
+        //initalize Database
+        let db = Firestore.firestore()
+        
+        let userRef = db.collection("user").document("3MCeDNUzyRtZ5TYnkmqM")
+
+        userRef.collection("shoppinglist").getDocuments() { (snapshot, error) in
+            if let error = error {
+                print("error")
+            } else {
+                if let snapshot = snapshot {
+                    for document in snapshot.documents {
+                        let data = document.data()
+                        
+                        
+                    }
+                    self.listTableView.reloadData()
+                }
+            }
+        }
+    } */
     
 
 }
