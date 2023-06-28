@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mnY-fT-HYB">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -274,7 +274,7 @@
                                                     </constraints>
                                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="plain" image="shield" catalog="system"/>
+                                                    <buttonConfiguration key="configuration" style="plain" image="rectangle.portrait.and.arrow.right" catalog="system"/>
                                                     <connections>
                                                         <action selector="logoutButton:" destination="GXz-GC-rEM" eventType="touchUpInside" id="YuD-aS-Lz3"/>
                                                         <segue destination="dQQ-5a-6Z9" kind="unwind" unwindAction="logoutWithSegue:" id="FDC-CI-T1h"/>
@@ -565,7 +565,7 @@
                                 </constraints>
                                 <color key="tintColor" red="0.3060487509" green="0.32154738900000002" blue="0.33382815119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="line.3.horizontal" catalog="system"/>
+                                <buttonConfiguration key="configuration" style="plain" image="line.3.horizontal.decrease" catalog="system"/>
                                 <connections>
                                     <action selector="menuButton:" destination="IYt-Ht-p4r" eventType="touchUpInside" id="Lzc-5D-eUb"/>
                                     <segue destination="GXz-GC-rEM" kind="presentation" id="GZ9-nP-exc"/>
@@ -791,7 +791,7 @@
                                 </constraints>
                                 <color key="tintColor" red="0.3060487509" green="0.32154738900000002" blue="0.33382815119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="line.3.horizontal" catalog="system"/>
+                                <buttonConfiguration key="configuration" style="plain" image="line.3.horizontal.decrease" catalog="system"/>
                                 <connections>
                                     <action selector="menuButton:" destination="KQX-al-rna" eventType="touchUpInside" id="QQh-pk-nNw"/>
                                     <segue destination="GXz-GC-rEM" kind="presentation" id="KUU-UJ-Vmc"/>
@@ -950,17 +950,18 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="Zyd-Jf-nvT"/>
         <segue reference="sWb-yN-1xd"/>
-        <segue reference="GZ9-nP-exc"/>
+        <segue reference="KUU-UJ-Vmc"/>
         <segue reference="IZr-Ry-0iS"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="basket" catalog="system" width="128" height="108"/>
         <image name="checkmark" catalog="system" width="128" height="114"/>
         <image name="info" catalog="system" width="93" height="128"/>
-        <image name="line.3.horizontal" catalog="system" width="128" height="65"/>
+        <image name="line.3.horizontal.decrease" catalog="system" width="128" height="73"/>
         <image name="plus" catalog="system" width="128" height="113"/>
-        <image name="shield" catalog="system" width="128" height="121"/>
+        <image name="rectangle.portrait.and.arrow.right" catalog="system" width="128" height="109"/>
         <image name="trash" catalog="system" width="117" height="128"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
