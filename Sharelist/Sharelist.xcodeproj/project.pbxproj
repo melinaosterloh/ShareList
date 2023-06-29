@@ -24,6 +24,7 @@
 		DB4A8FE52A3E77B900545CEB /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = DB4A8FE42A3E77B900545CEB /* Toast */; };
 		DB4A8FE72A3E7A2900545CEB /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A8FE62A3E7A2900545CEB /* RegistrationViewController.swift */; };
 		DBA85CE42A3FCAFE000E31D1 /* AddArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA85CE32A3FCAFE000E31D1 /* AddArticleViewController.swift */; };
+		DBA8B6A52A4E023E00A941C6 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA8B6A42A4E023E00A941C6 /* NavigationViewController.swift */; };
 		DBBA838B2A4339FD008BA714 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBA838A2A4339FD008BA714 /* AccountViewController.swift */; };
 		DBC71B602A4CCF54004E9455 /* NewListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC71B5F2A4CCF54004E9455 /* NewListViewController.swift */; };
 		DBEF45882A3F40E1008CAC23 /* SharelistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEF45872A3F40E1008CAC23 /* SharelistViewController.swift */; };
@@ -46,6 +47,7 @@
 		DB4A8FDA2A3E763500545CEB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DB4A8FE62A3E7A2900545CEB /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		DBA85CE32A3FCAFE000E31D1 /* AddArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddArticleViewController.swift; sourceTree = "<group>"; };
+		DBA8B6A42A4E023E00A941C6 /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		DBBA838A2A4339FD008BA714 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		DBC71B5F2A4CCF54004E9455 /* NewListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewListViewController.swift; sourceTree = "<group>"; };
 		DBEF45872A3F40E1008CAC23 /* SharelistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharelistViewController.swift; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 				DB4A8FC42A3E731400545CEB /* SceneDelegate.swift */,
 				DB4A8FC62A3E731400545CEB /* ViewController.swift */,
 				DB4A8FC82A3E731400545CEB /* Main.storyboard */,
+				DBA8B6A42A4E023E00A941C6 /* NavigationViewController.swift */,
 				DBC71B5F2A4CCF54004E9455 /* NewListViewController.swift */,
 				DB3C694E2A4CBA4D0037C4D8 /* PaymentViewController.swift */,
 				DB45D0432A40F50800379574 /* BasketViewController.swift */,
@@ -210,6 +213,7 @@
 				DBA85CE42A3FCAFE000E31D1 /* AddArticleViewController.swift in Sources */,
 				DBEF45882A3F40E1008CAC23 /* SharelistViewController.swift in Sources */,
 				DB4A8FE72A3E7A2900545CEB /* RegistrationViewController.swift in Sources */,
+				DBA8B6A52A4E023E00A941C6 /* NavigationViewController.swift in Sources */,
 				DBBA838B2A4339FD008BA714 /* AccountViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

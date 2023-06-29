@@ -59,10 +59,10 @@ class AccountViewController: UIViewController {
 
     
     @IBAction func logoutButton(_ sender: UIButton) {
-        let mainViewController = storyboard?.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
-        mainViewController.modalPresentationStyle = .overCurrentContext
-        mainViewController.modalTransitionStyle = .crossDissolve
-        present(mainViewController, animated: true, completion: nil)
+        let navigationViewController = storyboard?.instantiateViewController(withIdentifier: "NavigationViewController") as! NavigationViewController
+        navigationViewController.modalPresentationStyle = .overCurrentContext
+        navigationViewController.modalTransitionStyle = .crossDissolve
+        present(navigationViewController, animated: true, completion: nil)
         
         let auth = Auth.auth()
         
