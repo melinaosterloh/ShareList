@@ -11,6 +11,13 @@ import Toast
 
 class AddArticleViewController: UIViewController {
 
+    
+    @IBOutlet weak var carrotBtn: UIButton!
+    @IBOutlet weak var panBtn: UIButton!
+    @IBOutlet weak var popcornBtn: UIButton!
+    @IBOutlet weak var coffeeBtn: UIButton!
+    @IBOutlet weak var wineBtn: UIButton!
+    
     @IBOutlet weak var productname: UITextField!
     @IBOutlet weak var brand: UITextField!
     @IBOutlet weak var quantity: UITextField!
@@ -20,6 +27,12 @@ class AddArticleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        carrotBtn.layer.cornerRadius = 10
+        panBtn.layer.cornerRadius = 10
+        popcornBtn.layer.cornerRadius = 10
+        coffeeBtn.layer.cornerRadius = 10
+        wineBtn.layer.cornerRadius = 10
+        
         productname.layer.borderColor = UIColor.darkGray.cgColor
         productname.layer.borderWidth = 1
         productname.layer.cornerRadius = 10

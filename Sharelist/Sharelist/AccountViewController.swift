@@ -17,10 +17,11 @@ class AccountViewController: UIViewController {
 
     @IBOutlet weak var listTableView: UITableView!
     @IBOutlet weak var emailLabel: UILabel!
-    @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var logoutBtn: UIButton!
     @IBOutlet weak var overlayView: UIView!
-
+    @IBOutlet weak var closeBtn: UIButton!
+    @IBOutlet weak var addListBtn: UIButton!
+    
     
     //var listArray = [Article]()
     //var article: Article?
@@ -29,6 +30,16 @@ class AccountViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        addListBtn.layer.cornerRadius = addListBtn.bounds.height / 2
+        addListBtn.layer.shadowOpacity = 0.5
+        addListBtn.layer.shadowColor = UIColor.darkGray.cgColor
+        addListBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
+        
+        closeBtn.layer.cornerRadius = closeBtn.bounds.height / 2
+        closeBtn.layer.shadowRadius = 2
+        closeBtn.layer.shadowOpacity = 0.5
+        closeBtn.layer.shadowColor = UIColor.darkGray.cgColor
+        closeBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
         
         overlayView.layer.shadowRadius = 5
         overlayView.layer.shadowOpacity = 0.5
@@ -42,36 +53,10 @@ class AccountViewController: UIViewController {
             emailLabel.text = "Benutzer ist nicht eingeloggt"
         }
 
-     //   self.listTableView.delegate = self
-     //  self.listTableView.dataSource = self
-        
-    //    loadData()
+
     }
     
-    //func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    //    return listArray.count
-    //}
-    
-    //func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    //    let cell = tableView.dequeueReusableCell(withIdentifier: "ListTableViewCell", for: indexPath)
-        //let article = articleArray[indexPath.row]
 
-        //cell.textLabel?.text = "\(article.quantity + " " + article.productname)"
-        
-        //cell.layer.cornerRadius = 10
-        //cell.layer.borderColor = UIColor.darkGray.cgColor
-        //cell.layer.borderWidth = 0.3
-        
-        //cell.delegate = self
-        //cell.indexPath = indexPath
-        //cell.infoButton.tag = indexPath.row
-        
-    //    return cell
-    //}
-    
-   // func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-  //      return 50  // Set the desired height for each cell
-   // }
     
     @IBAction func logoutButton(_ sender: UIButton) {
         let mainViewController = storyboard?.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
@@ -93,30 +78,14 @@ class AccountViewController: UIViewController {
         dismiss(animated: true)
     }
     
+    @IBAction func addListButton(_ sender: UIButton) {
+        let newListViewController = storyboard?.instantiateViewController(withIdentifier: "NewListViewController") as! NewListViewController
+        newListViewController.modalPresentationStyle = .overCurrentContext
+        newListViewController.modalTransitionStyle = .crossDissolve
+        present(newListViewController, animated: true, completion: nil)
+    }
     
     
-    /* func loadData() {
-        
-        //initalize Database
-        let db = Firestore.firestore()
-        
-        let userRef = db.collection("user").document("3MCeDNUzyRtZ5TYnkmqM")
 
-        userRef.collection("shoppinglist").getDocuments() { (snapshot, error) in
-            if let error = error {
-                print("error")
-            } else {
-                if let snapshot = snapshot {
-                    for document in snapshot.documents {
-                        let data = document.data()
-                        
-                        
-                    }
-                    self.listTableView.reloadData()
-                }
-            }
-        }
-    } */
-    
 
 }

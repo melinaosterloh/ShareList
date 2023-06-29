@@ -29,11 +29,21 @@ class MainViewController: UIViewController {
         
         emailLogin.layer.borderColor = UIColor.darkGray.cgColor
         emailLogin.layer.borderWidth = 1
-        emailLogin.layer.cornerRadius = 5
+        emailLogin.layer.cornerRadius = 10
+        emailLogin.layer.masksToBounds = true
+        emailLogin.layer.shadowRadius = 2
+        emailLogin.layer.shadowOpacity = 0.5
+        emailLogin.layer.shadowColor = UIColor.darkGray.cgColor
+        emailLogin.layer.shadowOffset = CGSize(width: 1, height: 1)
         
         passwordLogin.layer.borderColor = UIColor.darkGray.cgColor
         passwordLogin.layer.borderWidth = 1
-        passwordLogin.layer.cornerRadius = 5
+        passwordLogin.layer.cornerRadius = 10
+        passwordLogin.layer.masksToBounds =  true
+        passwordLogin.layer.shadowRadius = 2
+        passwordLogin.layer.shadowOpacity = 0.5
+        passwordLogin.layer.shadowColor = UIColor.darkGray.cgColor
+        passwordLogin.layer.shadowOffset = CGSize(width: 1, height: 1)
         
         loginBtn.layer.cornerRadius = 10
         loginBtn.layer.shadowRadius = 2

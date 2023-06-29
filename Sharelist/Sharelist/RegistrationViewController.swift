@@ -83,14 +83,14 @@ class RegistrationViewController: UIViewController {
                 return
             }
             guard password == pwRepeat else {
-                strongSelf.view.makeToast("Passwort stimmt nicht überein", duration: 2.0)
+                strongSelf.view.makeToast("Passwort stimmt nicht überein", duration: 3.0)
                 print("Error at Registration")
                 return;
             }
             guard error == nil else {
                 if let err = error as NSError? {
                     print("Fehler bei der Registrierung:", err.localizedDescription)
-                    strongSelf.view.makeToast(err.localizedDescription, duration: 2.0)
+                    strongSelf.view.makeToast(err.localizedDescription, duration: 3.0)
                 }
                 return;
             }
