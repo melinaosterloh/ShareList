@@ -27,8 +27,15 @@ class AccountViewController: UIViewController {
     //var article: Article?
     //private var document: [DocumentSnapshot] = []
     
+    var selectedListUID: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+           let selectedListID = appDelegate.selectedListID {
+        }
+        
 
         addListBtn.layer.cornerRadius = addListBtn.bounds.height / 2
         addListBtn.layer.shadowOpacity = 0.5
@@ -45,6 +52,7 @@ class AccountViewController: UIViewController {
         overlayView.layer.shadowOpacity = 0.5
         overlayView.layer.shadowColor = UIColor.darkGray.cgColor
         overlayView.layer.shadowOffset = CGSize(width: 1, height: 1)
+
 
         if let user = Auth.auth().currentUser {
             let email = user.email

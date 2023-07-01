@@ -98,20 +98,34 @@ class RegistrationViewController: UIViewController {
                 print("user not found")
                 return;
             }
-            
-            // Generierte User ID des authentifizierten Benutzers
-            let userId = user.uid
-            let newUser = db.collection("user").document(userId)
-            newUser.setData(["firstname": firstname, "lastname": lastname, "email": email, "user_id": userId]) { error in
-                if let error = error {
-                    print("Error saving user data: \(error.localizedDescription)")
-                } else {
-                    print("User data saved successfully")
-                }
-            //return;
+
+            guard let user = firebaseResult?.user else {
+                // Bei einem Fehler während der Registrierung
+                // Behandeln Sie den Fehler entsprechend
+                return
             }
+
+            let userID = user.uid
+            createDefaultList(userID: userID)
             strongSelf.performSegue(withIdentifier: "goToList", sender: self)
         }
+        
+        func createDefaultList(userID : String) {
+            let newList = db.collection("shoppinglist").document()
+            newList.setData(["name":"Privat", "balance":0, "id": newList.documentID])
+            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                appDelegate.updateSelectedListID(newList.documentID) // newListID ist der Wert der neuen Listen-ID
+            }
+            print("Listen ID ist:", newList.documentID)
+            let newUser = db.collection("user").document(userID)
+            newUser.setData(["defaultListID": newList.documentID, "name": firstname])
+            /*let list = db.collection("shoppinglist").document(newList.documentID)
+            let listUser = list.collection("user").document(userID)
+            listUser.setData(["firstname": firstname, "lastname": lastname, "listID": newList.documentID])*/
+            let newArticle = newList.collection("article").document()
+            newArticle.setData(["productname":"Apfel", "brand":"Pink Lady", "quantity":5, "cathegory":"Obst", "id": newArticle.documentID])
+        }
+
     }
     
 
