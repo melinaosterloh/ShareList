@@ -11,6 +11,16 @@ import Toast
 
 class AddArticleViewController: UIViewController {
 
+    
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var Btn1: UIButton!
+    @IBOutlet weak var Btn2: UIButton!
+    @IBOutlet weak var Btn3: UIButton!
+    @IBOutlet weak var Btn4: UIButton!
+    @IBOutlet weak var Btn5: UIButton!
+    @IBOutlet weak var Btn6: UIButton!
+    
+    
     @IBOutlet weak var productname: UITextField!
     @IBOutlet weak var brand: UITextField!
     @IBOutlet weak var quantity: UITextField!
@@ -20,6 +30,15 @@ class AddArticleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        Btn1.layer.cornerRadius = 10
+        Btn2.layer.cornerRadius = 10
+        Btn3.layer.cornerRadius = 10
+        Btn4.layer.cornerRadius = 10
+        Btn5.layer.cornerRadius = 10
+        Btn6.layer.cornerRadius = 10
+        
+        scrollView.contentSize = CGSize(width: 530, height: scrollView.bounds.size.height)
+        
         productname.layer.borderColor = UIColor.darkGray.cgColor
         productname.layer.borderWidth = 1
         productname.layer.cornerRadius = 10
@@ -66,6 +85,7 @@ class AddArticleViewController: UIViewController {
         }
         else {
             let db = Firestore.firestore()
+
             if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
                let selectedListID = appDelegate.selectedListID {
                 let newArticle = db.collection("shoppinglist").document(selectedListID).collection("article").document()
@@ -73,6 +93,7 @@ class AddArticleViewController: UIViewController {
                 
                 self.performSegue(withIdentifier: "goBackToSharelist", sender: self)
             }
+
         }
     }
     

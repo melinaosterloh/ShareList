@@ -77,24 +77,28 @@ class RegistrationViewController: UIViewController {
         
         let db = Firestore.firestore()
         
-        
         // neuen User erstellen/ Registrieren
         Auth.auth().createUser(withEmail: email, password: password) { [weak self] firebaseResult, error in
             guard let strongSelf = self else {
                 return
             }
             guard password == pwRepeat else {
-                strongSelf.view.makeToast("Passwort stimmt nicht überein", duration: 2.0)
+                strongSelf.view.makeToast("Passwort stimmt nicht überein", duration: 3.0)
                 print("Error at Registration")
                 return;
             }
             guard error == nil else {
                 if let err = error as NSError? {
                     print("Fehler bei der Registrierung:", err.localizedDescription)
-                    strongSelf.view.makeToast(err.localizedDescription, duration: 2.0)
+                    strongSelf.view.makeToast(err.localizedDescription, duration: 3.0)
                 }
-            return;
+                return;
             }
+            guard let user = firebaseResult?.user else {
+                print("user not found")
+                return;
+            }
+
             guard let user = firebaseResult?.user else {
                 // Bei einem Fehler während der Registrierung
                 // Behandeln Sie den Fehler entsprechend
@@ -121,6 +125,7 @@ class RegistrationViewController: UIViewController {
             let newArticle = newList.collection("article").document()
             newArticle.setData(["productname":"Apfel", "brand":"Pink Lady", "quantity":5, "cathegory":"Obst", "id": newArticle.documentID])
         }
+
     }
     
 
