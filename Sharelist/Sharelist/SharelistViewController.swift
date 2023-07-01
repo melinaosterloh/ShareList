@@ -48,6 +48,7 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
         //self.performSegue(withIdentifier: "goToAddArticle", sender: self)
     }
     
+    // Button zum Öffnen des Profil Overlays
     @IBAction func menuButton(_ sender: UIButton) {
         let accountViewController = storyboard?.instantiateViewController(withIdentifier: "AccountViewController") as! AccountViewController
         accountViewController.modalPresentationStyle = .overCurrentContext
@@ -55,15 +56,17 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
         present(accountViewController, animated: true, completion: nil)
     }
     
-    
+    // Anzahl der zu erzeugenden Zellen
     @objc func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return articleArray.count
     }
     
+    // Table View Cell Höhe
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60  // Set the desired height for each cell
+        return 60
     }
     
+    // Bei Button Klick wird entsprechende Zelle des Indexes gelöscht und damit auch der Artikel in der Datenbank
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let article = articleArray[indexPath.row]
@@ -73,6 +76,7 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
  
+    // Zelle wird zugeordnet, Index hinzugefügt, infoButton der entsprechenden Zelle wird ausgelöst
     @objc func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleTableViewCell", for: indexPath) as! ArticleTableViewCell
@@ -91,7 +95,7 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
         return cell
     }
     
-    
+    // Label des Pop ups werden den Artikeldateien zugeordnet (aus extra Klasse)
     func populatePopup(with article: Article) {
         productLabel.text = article.productname
         brandLabel.text = article.brand
@@ -99,11 +103,12 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
         categoryLabel.text = article.cathegory
     }
     
+    // Möglicherweise nicht benötigt
     @IBAction func deleteButton(_ sender: UIButton) {
     }
     
     
-    
+    // Pop up schließt
     @IBAction func checkButton(_ sender: UIButton) {
         animateOut(articleView: blurView)
         animateOut(articleView: articlePopUpView)
@@ -115,6 +120,7 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
         //initalize Database
         let db = Firestore.firestore()
         
+        // Auf Datenbank zugreifen
         let userRef = db.collection("user").document("3MCeDNUzyRtZ5TYnkmqM")
         let shoppinglistRef = userRef.collection("shoppinglist").document()
         
@@ -209,7 +215,7 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
     
 }
 
-
+// Initialisierung der info und delete Buttons
 extension SharelistViewController: ArticleTableViewCellDelegate {
     func infoButtonTapped(at indexPath: IndexPath) {
         let selectedArticle = articleArray[indexPath.row]
@@ -232,6 +238,7 @@ extension SharelistViewController: ArticleTableViewCellDelegate {
         //})
     }
     
+    // Funktion zum löschen des Datenbankeintrages
     private func deleteArticleFromDatabase(_ article: Article) {
             let db = Firestore.firestore()
             db.collection("shoppinglist").document(article.id).delete() { error in

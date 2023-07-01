@@ -18,6 +18,12 @@ class NewListViewController: UIViewController {
     @IBOutlet weak var createListBtn: UIButton!
     @IBOutlet weak var emailTF: UITextField!
     @IBOutlet weak var inviteBtn: UIButton!
+    @IBOutlet weak var listNameLabel: UILabel!
+    @IBOutlet weak var member1: UILabel!
+    @IBOutlet weak var member2: UILabel!
+    @IBOutlet weak var member3: UILabel!
+    @IBOutlet weak var member4: UILabel!
+    @IBOutlet weak var member5: UILabel!
     
     
     override func viewDidLoad() {
@@ -35,7 +41,54 @@ class NewListViewController: UIViewController {
         dismiss(animated: true)
     }
     
+    // Eingegebener Listenname wird zum Label, Textfeld und Button verschwinden
+    @IBAction func createListButton(_ sender: UIButton) {
+        if let listname = listName.text, !listname.isEmpty {
+            listNameLabel.text = listname
+            listName.isHidden = true
+            createListBtn.isHidden = true
+        }
+        else {
+            self.view.makeToast("Bitte gib einen Listennamen ein!", duration: 2.0)
+        }
+
+    }
     
+    // E-Mail Adresse aus E-Mail Textfeld wird in die 5 zur verfügung stehenden Label gespeichert
+    @IBAction func inviteButton(_ sender: UIButton) {
+        let email = emailTF.text
+        // Abfrage, ob Listenname angegeben wurde, um Liste zu erstellen
+        if let listNameLabelText = listNameLabel.text, !listNameLabelText.isEmpty {
+            // Abfrage, ob E-Mail Felf für die Mitglieder ausgefüllt wurde
+            if let emailTF = emailTF.text, !emailTF.isEmpty {
+                // Überprüfung nach freien Labels für die Mitglieder (max. 5)
+                if let mem1Text = member1.text, mem1Text.isEmpty {
+                    member1.text = email
+                }
+                else if let mem2Text = member2.text, mem2Text.isEmpty {
+                    member2.text = email
+                }
+                else if let mem3Text = member3.text, mem3Text.isEmpty {
+                    member3.text = email
+                }
+                else if let mem4Text = member4.text, mem4Text.isEmpty {
+                    member4.text = email
+                }
+                else if let mem5Text = member5.text, mem5Text.isEmpty {
+                    member5.text = email
+                }
+                else {
+                    self.view.makeToast("Es können nicht mehr Mitglieder hinzugefügt werden!", duration: 2.0)
+                }
+            }
+            else {
+                self.view.makeToast("Bitte gib eine Mitglieder E-Mail Adresse ein!", duration: 2.0)
+            }
+        }
+        else {
+            self.view.makeToast("Bitte fülle zuerste den Listennamen aus!", duration: 2.0)
+        }
+    }
     
     func loadDesign() {
         

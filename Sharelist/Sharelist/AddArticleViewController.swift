@@ -12,11 +12,14 @@ import Toast
 class AddArticleViewController: UIViewController {
 
     
-    @IBOutlet weak var carrotBtn: UIButton!
-    @IBOutlet weak var panBtn: UIButton!
-    @IBOutlet weak var popcornBtn: UIButton!
-    @IBOutlet weak var coffeeBtn: UIButton!
-    @IBOutlet weak var wineBtn: UIButton!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var Btn1: UIButton!
+    @IBOutlet weak var Btn2: UIButton!
+    @IBOutlet weak var Btn3: UIButton!
+    @IBOutlet weak var Btn4: UIButton!
+    @IBOutlet weak var Btn5: UIButton!
+    @IBOutlet weak var Btn6: UIButton!
+    
     
     @IBOutlet weak var productname: UITextField!
     @IBOutlet weak var brand: UITextField!
@@ -27,11 +30,14 @@ class AddArticleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        carrotBtn.layer.cornerRadius = 10
-        panBtn.layer.cornerRadius = 10
-        popcornBtn.layer.cornerRadius = 10
-        coffeeBtn.layer.cornerRadius = 10
-        wineBtn.layer.cornerRadius = 10
+        Btn1.layer.cornerRadius = 10
+        Btn2.layer.cornerRadius = 10
+        Btn3.layer.cornerRadius = 10
+        Btn4.layer.cornerRadius = 10
+        Btn5.layer.cornerRadius = 10
+        Btn6.layer.cornerRadius = 10
+        
+        scrollView.contentSize = CGSize(width: 530, height: scrollView.bounds.size.height)
         
         productname.layer.borderColor = UIColor.darkGray.cgColor
         productname.layer.borderWidth = 1
