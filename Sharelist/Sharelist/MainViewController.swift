@@ -72,6 +72,8 @@ class MainViewController: UIViewController {
         guard let email = emailLogin.text else { return }
         guard let password = passwordLogin.text else { return }
         
+        let db = Firestore.firestore()
+        
         Auth.auth().signIn(withEmail: email, password: password) { [weak self] firebaseResult, error in
             guard let strongSelf = self else {
                 return
@@ -83,8 +85,32 @@ class MainViewController: UIViewController {
                 }
                 return;
             }
-            //Go to home screen
-            strongSelf.performSegue(withIdentifier: "goToListView", sender: self)
+            guard let user = firebaseResult?.user else {
+                // Bei einem Fehler während der Registrierung
+                // Behandeln Sie den Fehler entsprechend
+                return
+            }
+            let userID = user.uid
+            getUserList(userID: userID)
+        }
+        
+        func getUserList(userID : String) {
+            db.collection("user").document(userID).getDocument { (document, error) in
+                if let document = document {
+                    let data = document.data()
+                    if let listID = data?["defaultListID"] as? String {
+                        print("Die default List ist: \(listID)")
+                        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                            appDelegate.updateSelectedListID(listID) // newListID ist der Wert der neuen Listen-ID
+                            self.performSegue(withIdentifier: "goToListView", sender: self)
+                        } else {
+                            print("Dokument nicht gefunden")
+                        }
+                    } else {
+                        print("Fehler beim Abrufen des des Listenwerts: \(error?.localizedDescription ?? "Unbekannter Fehler")")
+                    }
+                }
+            }
         }
         
     }

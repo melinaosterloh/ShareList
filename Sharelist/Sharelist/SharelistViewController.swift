@@ -27,6 +27,8 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var checkBtn: UIButton!
     
+    var selectedListUID: String?
+    
     var articleArray = [Article]()
     var article: Article?
     private var document: [DocumentSnapshot] = []
@@ -114,25 +116,32 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
         
         //initalize Database
         let db = Firestore.firestore()
-        db.collection("shoppinglist").getDocuments() { (snapshot, error) in
-            if let error = error {
-                print("error")
-            } else {
-                if let snapshot = snapshot {
-                    for document in snapshot.documents {
-                        let data = document.data()
-                        let id = data["id"] as? String ?? ""
-                        let productname = data["productname"] as? String ?? ""
-                        let brand = data["brand"] as? String ?? ""
-                        let quantity = data["quantity"] as? String ?? ""
-                        let cathegory = data["cathegory"] as? String ?? ""
-                        let newArticle = Article(id: id, productname: productname, brand: brand, quantity: quantity, cathegory: cathegory)
-                        self.articleArray.append(newArticle)
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+           let selectedListID = appDelegate.selectedListID {
+                print("In der Sharelist ist diese ID angekommen:", selectedListID)
+                let shoppingListsRef = db.collection("shoppinglist").document(selectedListID).collection("article")
+                shoppingListsRef.getDocuments { (snapshot, error) in
+                    if let error = error {
+                        print(error.localizedDescription)
+                    } else {
+                        if let snapshot = snapshot {
+                            for document in snapshot.documents {
+                                let data = document.data()
+                                let id = data["id"] as? String ?? ""
+                                let productname = data["productname"] as? String ?? ""
+                                let brand = data["brand"] as? String ?? ""
+                                let quantity = data["quantity"] as? String ?? ""
+                                let cathegory = data["cathegory"] as? String ?? ""
+                                let newArticle = Article(id: id, productname: productname, brand: brand, quantity: quantity, cathegory: cathegory)
+                                self.articleArray.append(newArticle)
+                            }
+                            self.articleListTableView.reloadData()
+                        }
                     }
-                    self.articleListTableView.reloadData()
                 }
+            } else {
+                print("User ist null")
             }
-        }
     }
 
     func animateIn(articleView: UIView) {

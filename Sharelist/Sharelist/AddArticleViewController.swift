@@ -66,11 +66,13 @@ class AddArticleViewController: UIViewController {
         }
         else {
             let db = Firestore.firestore()
-            
-            let newArticle = db.collection("shoppinglist").document()
-            newArticle.setData(["productname":name, "brand":brand, "quantity":quantity, "cathegory":cathegory, "id": newArticle.documentID])
-            
-            self.performSegue(withIdentifier: "goBackToSharelist", sender: self)
+            if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+               let selectedListID = appDelegate.selectedListID {
+                let newArticle = db.collection("shoppinglist").document(selectedListID).collection("article").document()
+                newArticle.setData(["productname":name, "brand":brand, "quantity":quantity, "cathegory":cathegory, "id": newArticle.documentID])
+                
+                self.performSegue(withIdentifier: "goBackToSharelist", sender: self)
+            }
         }
     }
     

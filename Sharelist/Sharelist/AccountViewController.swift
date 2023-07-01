@@ -16,12 +16,15 @@ class AccountViewController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var logoutBtn: UIButton!
     
+    var selectedListUID: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+           let selectedListID = appDelegate.selectedListID {
+        }
         
-        
-
         if let user = Auth.auth().currentUser {
             let email = user.email
             emailLabel.text = email
