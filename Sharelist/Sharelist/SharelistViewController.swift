@@ -99,10 +99,10 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
     
     // Label des Pop ups werden den Artikeldateien zugeordnet (aus extra Klasse)
     func populatePopup(with article: Article) {
-        productLabel.text = article.productname
-        brandLabel.text = article.brand
-        quantityLabel.text = article.quantity
-        categoryLabel.text = article.cathegory
+        productLabel.text = "Produkt: " + article.productname
+        brandLabel.text = "Marke: " + article.brand
+        quantityLabel.text = "Menge: " + article.quantity
+        categoryLabel.text = "Kategory: " + article.cathegory
     }
     
     // Möglicherweise nicht benötigt

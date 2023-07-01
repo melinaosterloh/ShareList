@@ -12,8 +12,6 @@ import Toast
 
 class MainViewController: UIViewController {
     
-    //Hallo
-    
     @IBOutlet var blurView: UIVisualEffectView!
     @IBOutlet var loginPopUpView: UIView!
     
@@ -23,6 +21,8 @@ class MainViewController: UIViewController {
     @IBOutlet weak var popUpLoginBtn: UIButton!
     @IBOutlet weak var loginBtn: UIButton!
     @IBOutlet weak var registrationBtn: UIButton!
+    @IBOutlet weak var closeBtn: UIButton!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +57,12 @@ class MainViewController: UIViewController {
         registrationBtn.layer.shadowColor = UIColor.darkGray.cgColor
         registrationBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
         
+        closeBtn.layer.cornerRadius = closeBtn.bounds.height / 2
+        closeBtn.layer.shadowRadius = 2
+        closeBtn.layer.shadowOpacity = 0.5
+        closeBtn.layer.shadowColor = UIColor.darkGray.cgColor
+        closeBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
+        
         popUpLoginBtn.layer.cornerRadius = 10
         popUpLoginBtn.layer.shadowRadius = 2
         popUpLoginBtn.layer.shadowOpacity = 0.5
@@ -77,6 +83,12 @@ class MainViewController: UIViewController {
         animateIn(loginView: blurView)
         animateIn(loginView: loginPopUpView)
     }
+    
+    @IBAction func closePopUpButton(_ sender: UIButton) {
+        animateOut(loginView: loginPopUpView)
+        animateOut(loginView: blurView)
+    }
+    
     
     @IBAction func popUpLoginButton(_ sender: UIButton) {
         guard let email = emailLogin.text else { return }

@@ -71,6 +71,7 @@
                     <navigationItem key="navigationItem" title="Schön, dass du Sharelist verwendest!" id="jSE-gY-e3q"/>
                     <connections>
                         <outlet property="blurView" destination="Ttn-bQ-jKT" id="CnA-K1-OkX"/>
+                        <outlet property="closeBtn" destination="6Kl-xh-QX9" id="fo2-QJ-fUI"/>
                         <outlet property="emailLogin" destination="Qzt-jM-9HZ" id="R1R-gQ-UDd"/>
                         <outlet property="loginBtn" destination="IFu-Eo-T8P" id="kz8-gS-gEz"/>
                         <outlet property="loginPopUpView" destination="i9q-nn-2rn" id="qf0-2V-f8W"/>
@@ -134,14 +135,29 @@
                                 <constraint firstAttribute="width" constant="280" id="u9z-M0-ZD1"/>
                             </constraints>
                         </stackView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Kl-xh-QX9">
+                            <rect key="frame" x="8" y="8" width="30" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="30" id="BzV-48-78Z"/>
+                                <constraint firstAttribute="height" constant="30" id="qMy-w6-I6q"/>
+                            </constraints>
+                            <color key="tintColor" red="0.9694760442" green="0.96947616339999998" blue="0.96947616339999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" image="xmark" catalog="system"/>
+                            <connections>
+                                <action selector="closePopUpButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VsL-ee-Obx"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <viewLayoutGuide key="safeArea" id="57t-Yi-ynL"/>
                     <color key="backgroundColor" red="0.62857574220000001" green="0.70564872030000003" blue="0.84029895070000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="57t-Yi-ynL" firstAttribute="bottom" secondItem="35C-AQ-4RS" secondAttribute="bottom" constant="20" id="DRH-yV-I0h"/>
                         <constraint firstItem="XMT-UZ-vZk" firstAttribute="centerX" secondItem="57t-Yi-ynL" secondAttribute="centerX" id="gKw-FK-eWg"/>
+                        <constraint firstItem="6Kl-xh-QX9" firstAttribute="leading" secondItem="i9q-nn-2rn" secondAttribute="leading" constant="8" id="gLM-rB-KbS"/>
                         <constraint firstItem="XMT-UZ-vZk" firstAttribute="top" secondItem="i9q-nn-2rn" secondAttribute="top" constant="50" id="lEM-Q2-vI4"/>
                         <constraint firstItem="35C-AQ-4RS" firstAttribute="centerX" secondItem="57t-Yi-ynL" secondAttribute="centerX" id="tV4-n3-Pcx"/>
+                        <constraint firstItem="6Kl-xh-QX9" firstAttribute="top" secondItem="i9q-nn-2rn" secondAttribute="top" constant="8" id="ul4-vC-feA"/>
                     </constraints>
                 </view>
             </objects>
