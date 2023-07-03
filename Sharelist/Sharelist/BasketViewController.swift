@@ -71,5 +71,33 @@ class BasketViewController: UIViewController {
         present(accountViewController, animated: true, completion: nil)
     }
     
+    @IBAction func checkButton(_ sender: UIButton) {
+        guard let description = basketDescription.text else {
+            return
+        }
+        guard let price = basketPrice.text else {
+            return
+        }
+        guard let date = basketDate.text else {
+            return
+        }
+        if description.isEmpty {
+            self.view.makeToast("Bitte gib eine Beschreibung ein!", duration: 2.0)
+        }
+        else if price.isEmpty {
+            self.view.makeToast("Bitte gib einen Preis ein!", duration: 2.0)
+        }
+        else {
+            let db = Firestore.firestore()
+            if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+               let selectedListID = appDelegate.selectedListID {
+                let newExpense = db.collection("shoppinglist").document(selectedListID).collection("expenses").document()
+                    newExpense.setData(["description":description, "price":price, "date":date])
+                self.performSegue(withIdentifier: "goToExpensesList", sender: self)
+            }
 
+        }
+        
+    }
+    
 }

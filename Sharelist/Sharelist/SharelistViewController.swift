@@ -27,7 +27,7 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var checkBtn: UIButton!
     
-    var selectedListUID: String?
+    var selectedListID: String?
     
     var articleArray = [Article]()
     var article: Article?
@@ -243,13 +243,16 @@ extension SharelistViewController: ArticleTableViewCellDelegate {
     // Funktion zum löschen des Datenbankeintrages
     private func deleteArticleFromDatabase(_ article: Article) {
             let db = Firestore.firestore()
-            db.collection("shoppinglist").document(article.id).delete() { error in
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+           let selectedListID = appDelegate.selectedListID {
+            db.collection("shoppinglist").document(selectedListID).collection("article").document(article.id).delete() { error in
                 if let error = error {
                     print("Error deleting article: \(error)")
                 } else {
                     print("Article deleted successfully!")
                 }
             }
+        }
     }
 }
 
