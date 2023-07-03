@@ -92,19 +92,12 @@ class RegistrationViewController: UIViewController {
                     print("Fehler bei der Registrierung:", err.localizedDescription)
                     strongSelf.view.makeToast(err.localizedDescription, duration: 3.0)
                 }
-                return;
+                return
             }
             guard let user = firebaseResult?.user else {
                 print("user not found")
-                return;
-            }
-
-            guard let user = firebaseResult?.user else {
-                // Bei einem Fehler während der Registrierung
-                // Behandeln Sie den Fehler entsprechend
                 return
             }
-
             let userID = user.uid
             createDefaultList(userID: userID)
             strongSelf.performSegue(withIdentifier: "goToList", sender: self)
@@ -112,18 +105,13 @@ class RegistrationViewController: UIViewController {
         
         func createDefaultList(userID : String) {
             let newList = db.collection("shoppinglist").document()
-            newList.setData(["name":"Privat", "balance":0, "id": newList.documentID])
+            newList.setData(["name":"Privat", "balance":0, "owner": [userID]])
             if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
                 appDelegate.updateSelectedListID(newList.documentID) // newListID ist der Wert der neuen Listen-ID
             }
             print("Listen ID ist:", newList.documentID)
             let newUser = db.collection("user").document(userID)
-            newUser.setData(["defaultListID": newList.documentID, "name": firstname])
-            /*let list = db.collection("shoppinglist").document(newList.documentID)
-            let listUser = list.collection("user").document(userID)
-            listUser.setData(["firstname": firstname, "lastname": lastname, "listID": newList.documentID])*/
-            let newArticle = newList.collection("article").document()
-            newArticle.setData(["productname":"Apfel", "brand":"Pink Lady", "quantity":5, "cathegory":"Obst", "id": newArticle.documentID])
+            newUser.setData(["defaultListID": newList.documentID, "name": firstname, "email": email])
         }
 
     }
