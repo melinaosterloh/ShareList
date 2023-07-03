@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		DB3C694F2A4CBA4D0037C4D8 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3C694E2A4CBA4D0037C4D8 /* PaymentViewController.swift */; };
+		DB4361412A5313FE00EDE5DB /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4361402A5313FE00EDE5DB /* List.swift */; };
+		DB4361432A53148F00EDE5DB /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4361422A53148F00EDE5DB /* ListTableViewCell.swift */; };
 		DB45D0442A40F50800379574 /* BasketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45D0432A40F50800379574 /* BasketViewController.swift */; };
 		DB45D06F2A421E1000379574 /* ArticleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45D06E2A421E1000379574 /* ArticleTableViewCell.swift */; };
 		DB4A8FC32A3E731400545CEB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A8FC22A3E731400545CEB /* AppDelegate.swift */; };
@@ -33,6 +35,8 @@
 
 /* Begin PBXFileReference section */
 		DB3C694E2A4CBA4D0037C4D8 /* PaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
+		DB4361402A5313FE00EDE5DB /* List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
+		DB4361422A53148F00EDE5DB /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
 		DB45D0432A40F50800379574 /* BasketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketViewController.swift; sourceTree = "<group>"; };
 		DB45D06E2A421E1000379574 /* ArticleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleTableViewCell.swift; sourceTree = "<group>"; };
 		DB4A8FBF2A3E731400545CEB /* Sharelist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sharelist.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -100,6 +104,7 @@
 				DBA85CE32A3FCAFE000E31D1 /* AddArticleViewController.swift */,
 				DBEF45872A3F40E1008CAC23 /* SharelistViewController.swift */,
 				DB45D06E2A421E1000379574 /* ArticleTableViewCell.swift */,
+				DB4361422A53148F00EDE5DB /* ListTableViewCell.swift */,
 				DB4A8FE62A3E7A2900545CEB /* RegistrationViewController.swift */,
 				DB4A8FD62A3E749600545CEB /* MainViewController.swift */,
 				DBBA838A2A4339FD008BA714 /* AccountViewController.swift */,
@@ -115,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				DBEF45892A3F4EBC008CAC23 /* Article.swift */,
+				DB4361402A5313FE00EDE5DB /* List.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -202,6 +208,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB45D06F2A421E1000379574 /* ArticleTableViewCell.swift in Sources */,
+				DB4361432A53148F00EDE5DB /* ListTableViewCell.swift in Sources */,
 				DB45D0442A40F50800379574 /* BasketViewController.swift in Sources */,
 				DBEF458A2A3F4EBC008CAC23 /* Article.swift in Sources */,
 				DB4A8FC72A3E731400545CEB /* ViewController.swift in Sources */,
@@ -209,6 +216,7 @@
 				DB4A8FC52A3E731400545CEB /* SceneDelegate.swift in Sources */,
 				DB4A8FD72A3E749600545CEB /* MainViewController.swift in Sources */,
 				DBC71B602A4CCF54004E9455 /* NewListViewController.swift in Sources */,
+				DB4361412A5313FE00EDE5DB /* List.swift in Sources */,
 				DB3C694F2A4CBA4D0037C4D8 /* PaymentViewController.swift in Sources */,
 				DBA85CE42A3FCAFE000E31D1 /* AddArticleViewController.swift in Sources */,
 				DBEF45882A3F40E1008CAC23 /* SharelistViewController.swift in Sources */,

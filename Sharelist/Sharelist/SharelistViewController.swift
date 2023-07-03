@@ -27,6 +27,8 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var checkBtn: UIButton!
     
+    @IBOutlet weak var navigationBar: UINavigationItem!
+    
     var selectedListUID: String?
     
     var articleArray = [Article]()
@@ -36,6 +38,8 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Name des View Controllers -> Name der Liste
+        navigationBar.title = "Einkaufsliste"
         
         self.articleListTableView.delegate = self
         self.articleListTableView.dataSource = self
