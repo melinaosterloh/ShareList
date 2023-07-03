@@ -7,9 +7,12 @@
 
 import UIKit
 import Firebase
+import FirebaseStorage
+//import FirebaseAuth
+//import FirebaseCore
 import Toast
 
-class RegistrationViewController: UIViewController {
+class RegistrationViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var firstnameRegistration: UITextField!
     @IBOutlet weak var lastnameRegistration: UITextField!
@@ -17,9 +20,24 @@ class RegistrationViewController: UIViewController {
     @IBOutlet weak var passwordRegistration: UITextField!
     @IBOutlet weak var pwRepeat: UITextField!
     @IBOutlet weak var registrationBtn: UIButton!
+    @IBOutlet weak var selectImageBtn: UIButton!
+    @IBOutlet weak var defaultImageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //var selectedImage: UIImage?
+        
+        defaultImageView.layer.cornerRadius = 25
+            
+        selectImageBtn.layer.cornerRadius = 25
+        selectImageBtn.layer.shadowRadius = 2
+        selectImageBtn.layer.shadowOpacity = 0.5
+        selectImageBtn.layer.shadowColor = UIColor.darkGray.cgColor
+        selectImageBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
+        
+        selectImageBtn.addTarget(self, action: #selector(selectImage), for: .touchUpInside)
+            
         
         // Vorname Feld
         firstnameRegistration.layer.borderColor = UIColor.darkGray.cgColor
@@ -56,24 +74,43 @@ class RegistrationViewController: UIViewController {
         registrationBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
         
     }
+
+    
+    @IBAction  func selectImage() {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = .photoLibrary
+            present(imagePicker, animated: true, completion: nil)
+        }
+        
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                defaultImageView.image = pickedImage
+            }
+            
+            dismiss(animated: true, completion: nil)
+        }
+        
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+            dismiss(animated: true, completion: nil)
+        }
     
 
     @IBAction func registrationBtn(_ sender: UIButton) {
-        
-        guard let firstname = firstnameRegistration.text else {
-            return
-        }
-        guard let lastname = lastnameRegistration.text else {
-            return
-        }
-        guard let email = emailRegistration.text else {
-            return
-        }
-        guard let password = passwordRegistration.text else {
+        guard let firstname = firstnameRegistration.text,
+              let lastname = lastnameRegistration.text,
+              let email = emailRegistration.text,
+              let password = passwordRegistration.text,
+              let pwRepeat = pwRepeat.text,
+              let selectedImage = defaultImageView.image else {
             return
         }
         
-        guard let pwRepeat = pwRepeat.text else { return }
+        guard password == pwRepeat else {
+            view.makeToast("Passwort stimmt nicht überein", duration: 2.0)
+            print("Error at Registration")
+            return
+        }
         
         let db = Firestore.firestore()
         
@@ -82,34 +119,71 @@ class RegistrationViewController: UIViewController {
             guard let strongSelf = self else {
                 return
             }
-            guard password == pwRepeat else {
-                strongSelf.view.makeToast("Passwort stimmt nicht überein", duration: 2.0)
-                print("Error at Registration")
-                return;
-            }
+            
             guard error == nil else {
                 if let err = error as NSError? {
                     print("Fehler bei der Registrierung:", err.localizedDescription)
                     strongSelf.view.makeToast(err.localizedDescription, duration: 2.0)
                 }
-                return;
+                return
             }
+            
             guard let user = firebaseResult?.user else {
                 print("user not found")
-                return;
+                return
             }
             
             // Generierte User ID des authentifizierten Benutzers
             let userId = user.uid
             let newUser = db.collection("user").document(userId)
-            newUser.setData(["firstname": firstname, "lastname": lastname, "email": email, "user_id": userId]) { error in
-                if let error = error {
-                    print("Error saving user data: \(error.localizedDescription)")
-                } else {
-                    print("User data saved successfully")
+            
+            // Speicherpfad für das Bild im Storage
+            let imageFileName = UUID().uuidString
+            let storagePath = "profile_images/\(imageFileName).jpg"
+            
+            if let imageData = selectedImage.jpegData(compressionQuality: 0.8) {
+                let storageRef = Storage.storage().reference().child(storagePath)
+                let metadata = StorageMetadata()
+                metadata.contentType = "image/jpeg"
+                
+                // Bild in den Firebase Storage hochladen
+                storageRef.putData(imageData, metadata: metadata) { (metadata, error) in
+                    if let error = error {
+                        print("Fehler beim Hochladen des Bildes: \(error.localizedDescription)")
+                        return
+                    }
+                    
+                    // URL des hochgeladenen Bildes aus dem Storage abrufen
+                    storageRef.downloadURL { (url, error) in
+                        if let error = error {
+                            print("Fehler beim Abrufen der Download-URL: \(error.localizedDescription)")
+                            return
+                        }
+                        
+                        if let downloadURL = url?.absoluteString {
+                            // Bild-URL zu den Registrierungsdaten hinzufügen und in Firestore speichern
+                            let userData: [String: Any] = [
+                                "firstname": firstname,
+                                "lastname": lastname,
+                                "email": email,
+                                "user_id": userId,
+                                "profileImageURL": downloadURL
+                                // Weitere Registrierungsdaten können hier hinzugefügt werden
+                            ]
+                            
+                            // Firestore-Dokument erstellen und Registrierungsdaten speichern
+                            newUser.setData(userData) { error in
+                                if let error = error {
+                                    print("Fehler beim Speichern der Registrierungsdaten: \(error.localizedDescription)")
+                                } else {
+                                    print("Registrierungsdaten wurden erfolgreich gespeichert")
+                                }
+                            }
+                        }
+                    }
                 }
-            //return;
             }
+            
             strongSelf.performSegue(withIdentifier: "goToList", sender: self)
         }
     }

@@ -219,34 +219,62 @@
                                     <segue destination="IYt-Ht-p4r" kind="show" identifier="goToList" id="ohe-ps-eG7"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DXd-Zv-q99">
-                                <rect key="frame" x="67" y="134" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.crop.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="DXd-Zv-q99" userLabel="Default Image">
+                                <rect key="frame" x="112.66666666666669" y="134" width="150" height="148.66666666666669"/>
+                                <color key="tintColor" red="0.45098039215686275" green="0.50980392156862742" blue="0.56470588235294117" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="1w5-I6-QmZ"/>
+                                    <constraint firstAttribute="width" constant="150" id="OkJ-v7-VbX"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="130" id="q1Z-Ln-KFI"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="130" id="qSg-wG-zrW"/>
+                                </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gbz-hc-qaz" userLabel="selectImage Btn">
+                                <rect key="frame" x="207" y="202" width="50" height="50"/>
+                                <color key="backgroundColor" red="1" green="0.98823529409999999" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="DFz-2b-XuX"/>
+                                    <constraint firstAttribute="width" constant="50" id="qln-6b-V9X"/>
+                                </constraints>
+                                <color key="tintColor" red="0.45098039220000002" green="0.50980392159999999" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="pencil" catalog="system">
+                                    <color key="titleShadowColor" systemColor="labelColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="selectImage" destination="cp1-jc-mOf" eventType="touchUpInside" id="3Jm-PQ-gZc"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="WfF-y4-XPI"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="DXd-Zv-q99" firstAttribute="top" secondItem="ZU5-N1-vOo" secondAttribute="top" constant="133" id="6Gv-Ld-AbC"/>
                             <constraint firstItem="ab6-wB-pCU" firstAttribute="top" secondItem="aii-vr-pwu" secondAttribute="bottom" constant="31.666666666666629" id="7ve-V8-i6q"/>
                             <constraint firstItem="aii-vr-pwu" firstAttribute="centerX" secondItem="ZU5-N1-vOo" secondAttribute="centerX" constant="3.5" id="HSQ-oo-6oo"/>
+                            <constraint firstItem="DXd-Zv-q99" firstAttribute="centerX" secondItem="ab6-wB-pCU" secondAttribute="centerX" id="OBn-Ex-MYR"/>
                             <constraint firstItem="aii-vr-pwu" firstAttribute="centerY" secondItem="ZU5-N1-vOo" secondAttribute="centerY" constant="38.5" id="OrB-iU-xLW"/>
+                            <constraint firstItem="Gbz-hc-qaz" firstAttribute="leading" secondItem="aii-vr-pwu" secondAttribute="leading" constant="191" id="XF9-e7-vGh"/>
+                            <constraint firstItem="Gbz-hc-qaz" firstAttribute="top" secondItem="WfF-y4-XPI" secondAttribute="bottom" constant="-600" id="e2b-2r-Qxa"/>
                             <constraint firstItem="ab6-wB-pCU" firstAttribute="leading" secondItem="WfF-y4-XPI" secondAttribute="leading" constant="122" id="jjZ-Ln-2bl"/>
                             <constraint firstItem="ab6-wB-pCU" firstAttribute="centerX" secondItem="ZU5-N1-vOo" secondAttribute="centerX" id="kiu-3c-xlF"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Registrieren" id="1dY-tz-dcf"/>
                     <connections>
+                        <outlet property="defaultImageView" destination="DXd-Zv-q99" id="CAB-Pe-I4n"/>
                         <outlet property="emailRegistration" destination="akK-7S-oTl" id="vXu-1v-apN"/>
                         <outlet property="firstnameRegistration" destination="iVf-NY-hYM" id="afx-Ll-TyS"/>
                         <outlet property="lastnameRegistration" destination="7KL-om-IJi" id="ORr-fB-hfb"/>
                         <outlet property="passwordRegistration" destination="0Yk-Mi-m4X" id="Kkf-tJ-3Fc"/>
                         <outlet property="pwRepeat" destination="QnV-67-Vgd" id="mlX-eM-hTJ"/>
                         <outlet property="registrationBtn" destination="ab6-wB-pCU" id="aLI-3o-lV4"/>
+                        <outlet property="selectImageBtn" destination="Gbz-hc-qaz" id="jpS-5Q-Tq2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r8G-kS-goM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1833" y="448"/>
+            <point key="canvasLocation" x="1832.8" y="447.78325123152712"/>
         </scene>
         <!--Account View Controller-->
         <scene sceneID="78M-7N-H44">
@@ -950,9 +978,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Zyd-Jf-nvT"/>
-        <segue reference="sWb-yN-1xd"/>
-        <segue reference="KUU-UJ-Vmc"/>
+        <segue reference="ohe-ps-eG7"/>
+        <segue reference="GZ9-nP-exc"/>
         <segue reference="IZr-Ry-0iS"/>
     </inferredMetricsTieBreakers>
     <resources>
@@ -960,10 +987,15 @@
         <image name="checkmark" catalog="system" width="128" height="114"/>
         <image name="info" catalog="system" width="93" height="128"/>
         <image name="line.3.horizontal.decrease" catalog="system" width="128" height="73"/>
+        <image name="pencil" catalog="system" width="128" height="113"/>
+        <image name="person.crop.circle" catalog="system" width="128" height="123"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="rectangle.portrait.and.arrow.right" catalog="system" width="128" height="109"/>
         <image name="trash" catalog="system" width="117" height="128"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
+        <systemColor name="labelColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

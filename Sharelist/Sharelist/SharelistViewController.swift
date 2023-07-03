@@ -8,7 +8,7 @@
 import UIKit
 import Firebase
 
-class SharelistViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class SharelistViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIViewControllerTransitioningDelegate {
 
     @IBOutlet weak var articleListTableView: UITableView!
     
@@ -50,9 +50,17 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
     
     @IBAction func menuButton(_ sender: UIButton) {
         let accountViewController = storyboard?.instantiateViewController(withIdentifier: "AccountViewController") as! AccountViewController
-        accountViewController.modalPresentationStyle = .overCurrentContext
-        accountViewController.modalTransitionStyle = .crossDissolve
-        present(accountViewController, animated: true, completion: nil)
+        accountViewController.modalPresentationStyle = .custom
+        accountViewController.transitioningDelegate = self
+        
+        let width = self.view.frame.width / 2 // Breite des Side Menus
+        accountViewController.view.frame = CGRect(x: -width, y: 0, width: width, height: self.view.frame.height)
+        
+        self.present(accountViewController, animated: true) {
+            UIView.animate(withDuration: 0.3) {
+                accountViewController.view.frame = CGRect(x: 0, y: 0, width: width, height: self.view.frame.height)
+            }
+        }
     }
     
     
