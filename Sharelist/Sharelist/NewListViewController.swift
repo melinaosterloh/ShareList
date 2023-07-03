@@ -25,6 +25,9 @@ class NewListViewController: UIViewController {
     @IBOutlet weak var member4: UILabel!
     @IBOutlet weak var member5: UILabel!
     
+    var currentUser : String?
+    var listname: String?
+    var memberArray = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,52 +40,80 @@ class NewListViewController: UIViewController {
         dismiss(animated: true)
     }
     
-    @IBAction func checkButton(_ sender: UIButton) {
-        dismiss(animated: true)
-    }
     
     // Eingegebener Listenname wird zum Label, Textfeld und Button verschwinden
     @IBAction func createListButton(_ sender: UIButton) {
-        if let listname = listName.text, !listname.isEmpty {
+        if let name = listName.text, !name.isEmpty {
+            listname = name
             listNameLabel.text = listname
             listName.isHidden = true
             createListBtn.isHidden = true
+            currentUser = Auth.auth().currentUser?.uid
+            memberArray.append(currentUser!)
         }
         else {
             self.view.makeToast("Bitte gib einen Listennamen ein!", duration: 2.0)
+        } 
+    }
+    
+    @IBAction func checkButton(_ sender: UIButton) {
+        if let name = listname {
+            let db = Firestore.firestore()
+            let newList = db.collection("shoppinglist").document()
+            newList.setData(["name": name, "balance":0, "owner": memberArray])
+            // new List is selected
+            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                appDelegate.updateSelectedListID(newList.documentID) // newListID ist der Wert der neuen Listen-ID
+            }
+            print("Listen ID ist:", newList.documentID)
+            print(memberArray)
+            dismiss(animated: true)
         }
-
     }
     
     // E-Mail Adresse aus E-Mail Textfeld wird in die 5 zur verfügung stehenden Label gespeichert
     @IBAction func inviteButton(_ sender: UIButton) {
         let email = emailTF.text
+        let maxMember = 5
         // Abfrage, ob Listenname angegeben wurde, um Liste zu erstellen
         if let listNameLabelText = listNameLabel.text, !listNameLabelText.isEmpty {
             // Abfrage, ob E-Mail Felf für die Mitglieder ausgefüllt wurde
             if let emailTF = emailTF.text, !emailTF.isEmpty {
-                // Überprüfung nach freien Labels für die Mitglieder (max. 5)
-                if let mem1Text = member1.text, mem1Text.isEmpty {
-                    member1.text = email
-                }
-                else if let mem2Text = member2.text, mem2Text.isEmpty {
-                    member2.text = email
-                }
-                else if let mem3Text = member3.text, mem3Text.isEmpty {
-                    member3.text = email
-                }
-                else if let mem4Text = member4.text, mem4Text.isEmpty {
-                    member4.text = email
-                }
-                else if let mem5Text = member5.text, mem5Text.isEmpty {
-                    member5.text = email
-                }
-                else {
-                    self.view.makeToast("Es können nicht mehr Mitglieder hinzugefügt werden!", duration: 2.0)
+                // Abfrage, ob die E-Mail Adresse in der App Registriert ist
+                getUIDFromEmail(email: emailTF) { uid in
+                    if let uid = uid {
+                        // Überprüfung nach freien Labels für die Mitglieder (max. 5)
+                        if let mem1Text = self.member1.text, mem1Text.isEmpty {
+                            self.member1.text = email
+                            self.memberArray.append(uid)
+                        }
+                        else if let mem2Text = self.member2.text, mem2Text.isEmpty {
+                            self.member2.text = email
+                            self.memberArray.append(uid)
+                        }
+                        else if let mem3Text = self.member3.text, mem3Text.isEmpty {
+                            self.member3.text = email
+                            self.memberArray.append(uid)
+                        }
+                        else if let mem4Text = self.member4.text, mem4Text.isEmpty {
+                            self.member4.text = email
+                            self.memberArray.append(uid)
+                        }
+                        else if let mem5Text = self.member5.text, mem5Text.isEmpty {
+                            self.member5.text = email
+                            self.memberArray.append(uid)
+                        }
+                        else {
+                            self.view.makeToast("Es können nicht mehr Mitglieder hinzugefügt werden!", duration: 2.0)
+                        }
+  
+                    } else {
+                        self.view.makeToast("User nicht gefunden!", duration: 2.0)
+                    }
                 }
             }
             else {
-                self.view.makeToast("Bitte gib eine Mitglieder E-Mail Adresse ein!", duration: 2.0)
+                print("Es wurde keine UID für die E-Mail-Adresse gefunden")
             }
         }
         else {
@@ -90,6 +121,32 @@ class NewListViewController: UIViewController {
         }
     }
     
+    func getUIDFromEmail(email: String, completion: @escaping (String?) -> Void) {
+        Auth.auth().fetchSignInMethods(forEmail: email) { signInMethods, error in
+            if let error = error {
+                print("Fehler beim Abrufen der UID:", error.localizedDescription)
+                completion(nil)
+                return
+            }
+            
+            let db = Firestore.firestore()
+            db.collection("user").whereField("email", isEqualTo: email).getDocuments { snapshot, error in
+                if let error = error {
+                    print("Fehler beim Abrufen der UID:", error.localizedDescription)
+                    completion(nil)
+                    return
+                }
+                            
+                if let snapshot = snapshot, let document = snapshot.documents.first {
+                    let uid = document.documentID
+                    completion(uid)
+                } else {
+                    completion(nil)
+                }
+            }
+        }
+    }
+
     func loadDesign() {
         
         // Textfeld Listenname
@@ -139,8 +196,6 @@ class NewListViewController: UIViewController {
         checkBtn.layer.shadowOpacity = 0.5
         checkBtn.layer.shadowColor = UIColor.darkGray.cgColor
         checkBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
-        
-
     }
     
     
