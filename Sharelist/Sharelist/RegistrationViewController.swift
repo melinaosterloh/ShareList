@@ -7,12 +7,9 @@
 
 import UIKit
 import Firebase
-import FirebaseStorage
-//import FirebaseAuth
-//import FirebaseCore
 import Toast
 
-class RegistrationViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class RegistrationViewController: UIViewController {
 
     @IBOutlet weak var firstnameRegistration: UITextField!
     @IBOutlet weak var lastnameRegistration: UITextField!
@@ -20,24 +17,9 @@ class RegistrationViewController: UIViewController, UIImagePickerControllerDeleg
     @IBOutlet weak var passwordRegistration: UITextField!
     @IBOutlet weak var pwRepeat: UITextField!
     @IBOutlet weak var registrationBtn: UIButton!
-    @IBOutlet weak var selectImageBtn: UIButton!
-    @IBOutlet weak var defaultImageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //var selectedImage: UIImage?
-        
-        defaultImageView.layer.cornerRadius = 25
-            
-        selectImageBtn.layer.cornerRadius = 25
-        selectImageBtn.layer.shadowRadius = 2
-        selectImageBtn.layer.shadowOpacity = 0.5
-        selectImageBtn.layer.shadowColor = UIColor.darkGray.cgColor
-        selectImageBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
-        
-        selectImageBtn.addTarget(self, action: #selector(selectImage), for: .touchUpInside)
-            
         
         // Vorname Feld
         firstnameRegistration.layer.borderColor = UIColor.darkGray.cgColor
@@ -74,43 +56,24 @@ class RegistrationViewController: UIViewController, UIImagePickerControllerDeleg
         registrationBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
         
     }
-
-    
-    @IBAction  func selectImage() {
-            let imagePicker = UIImagePickerController()
-            imagePicker.delegate = self
-            imagePicker.sourceType = .photoLibrary
-            present(imagePicker, animated: true, completion: nil)
-        }
-        
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-                defaultImageView.image = pickedImage
-            }
-            
-            dismiss(animated: true, completion: nil)
-        }
-        
-        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-            dismiss(animated: true, completion: nil)
-        }
     
 
     @IBAction func registrationBtn(_ sender: UIButton) {
-        guard let firstname = firstnameRegistration.text,
-              let lastname = lastnameRegistration.text,
-              let email = emailRegistration.text,
-              let password = passwordRegistration.text,
-              let pwRepeat = pwRepeat.text,
-              let selectedImage = defaultImageView.image else {
+        
+        guard let firstname = firstnameRegistration.text else {
+            return
+        }
+        guard let lastname = lastnameRegistration.text else {
+            return
+        }
+        guard let email = emailRegistration.text else {
+            return
+        }
+        guard let password = passwordRegistration.text else {
             return
         }
         
-        guard password == pwRepeat else {
-            view.makeToast("Passwort stimmt nicht überein", duration: 2.0)
-            print("Error at Registration")
-            return
-        }
+        guard let pwRepeat = pwRepeat.text else { return }
         
         let db = Firestore.firestore()
         
@@ -119,73 +82,50 @@ class RegistrationViewController: UIViewController, UIImagePickerControllerDeleg
             guard let strongSelf = self else {
                 return
             }
-            
+            guard password == pwRepeat else {
+                strongSelf.view.makeToast("Passwort stimmt nicht überein", duration: 3.0)
+                print("Error at Registration")
+                return;
+            }
             guard error == nil else {
                 if let err = error as NSError? {
                     print("Fehler bei der Registrierung:", err.localizedDescription)
-                    strongSelf.view.makeToast(err.localizedDescription, duration: 2.0)
+                    strongSelf.view.makeToast(err.localizedDescription, duration: 3.0)
                 }
-                return
+                return;
             }
-            
             guard let user = firebaseResult?.user else {
                 print("user not found")
+                return;
+            }
+
+            guard let user = firebaseResult?.user else {
+                // Bei einem Fehler während der Registrierung
+                // Behandeln Sie den Fehler entsprechend
                 return
             }
-            
-            // Generierte User ID des authentifizierten Benutzers
-            let userId = user.uid
-            let newUser = db.collection("user").document(userId)
-            
-            // Speicherpfad für das Bild im Storage
-            let imageFileName = UUID().uuidString
-            let storagePath = "profile_images/\(imageFileName).jpg"
-            
-            if let imageData = selectedImage.jpegData(compressionQuality: 0.8) {
-                let storageRef = Storage.storage().reference().child(storagePath)
-                let metadata = StorageMetadata()
-                metadata.contentType = "image/jpeg"
-                
-                // Bild in den Firebase Storage hochladen
-                storageRef.putData(imageData, metadata: metadata) { (metadata, error) in
-                    if let error = error {
-                        print("Fehler beim Hochladen des Bildes: \(error.localizedDescription)")
-                        return
-                    }
-                    
-                    // URL des hochgeladenen Bildes aus dem Storage abrufen
-                    storageRef.downloadURL { (url, error) in
-                        if let error = error {
-                            print("Fehler beim Abrufen der Download-URL: \(error.localizedDescription)")
-                            return
-                        }
-                        
-                        if let downloadURL = url?.absoluteString {
-                            // Bild-URL zu den Registrierungsdaten hinzufügen und in Firestore speichern
-                            let userData: [String: Any] = [
-                                "firstname": firstname,
-                                "lastname": lastname,
-                                "email": email,
-                                "user_id": userId,
-                                "profileImageURL": downloadURL
-                                // Weitere Registrierungsdaten können hier hinzugefügt werden
-                            ]
-                            
-                            // Firestore-Dokument erstellen und Registrierungsdaten speichern
-                            newUser.setData(userData) { error in
-                                if let error = error {
-                                    print("Fehler beim Speichern der Registrierungsdaten: \(error.localizedDescription)")
-                                } else {
-                                    print("Registrierungsdaten wurden erfolgreich gespeichert")
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            
+
+            let userID = user.uid
+            createDefaultList(userID: userID)
             strongSelf.performSegue(withIdentifier: "goToList", sender: self)
         }
+        
+        func createDefaultList(userID : String) {
+            let newList = db.collection("shoppinglist").document()
+            newList.setData(["name":"Privat", "balance":0, "id": newList.documentID])
+            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                appDelegate.updateSelectedListID(newList.documentID) // newListID ist der Wert der neuen Listen-ID
+            }
+            print("Listen ID ist:", newList.documentID)
+            let newUser = db.collection("user").document(userID)
+            newUser.setData(["defaultListID": newList.documentID, "name": firstname])
+            /*let list = db.collection("shoppinglist").document(newList.documentID)
+            let listUser = list.collection("user").document(userID)
+            listUser.setData(["firstname": firstname, "lastname": lastname, "listID": newList.documentID])*/
+            let newArticle = newList.collection("article").document()
+            newArticle.setData(["productname":"Apfel", "brand":"Pink Lady", "quantity":5, "cathegory":"Obst", "id": newArticle.documentID])
+        }
+
     }
     
 

@@ -27,6 +27,8 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var checkBtn: UIButton!
     
+    var selectedListUID: String?
+    
     var articleArray = [Article]()
     var article: Article?
     private var document: [DocumentSnapshot] = []
@@ -48,6 +50,7 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
         //self.performSegue(withIdentifier: "goToAddArticle", sender: self)
     }
     
+    // Button zum Öffnen des Profil Overlays
     @IBAction func menuButton(_ sender: UIButton) {
         let accountViewController = storyboard?.instantiateViewController(withIdentifier: "AccountViewController") as! AccountViewController
         accountViewController.modalPresentationStyle = .custom
@@ -63,15 +66,17 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
-    
+    // Anzahl der zu erzeugenden Zellen
     @objc func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return articleArray.count
     }
     
+    // Table View Cell Höhe
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60  // Set the desired height for each cell
+        return 60
     }
     
+    // Bei Button Klick wird entsprechende Zelle des Indexes gelöscht und damit auch der Artikel in der Datenbank
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let article = articleArray[indexPath.row]
@@ -81,6 +86,7 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
  
+    // Zelle wird zugeordnet, Index hinzugefügt, infoButton der entsprechenden Zelle wird ausgelöst
     @objc func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleTableViewCell", for: indexPath) as! ArticleTableViewCell
@@ -99,19 +105,20 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
         return cell
     }
     
-    
+    // Label des Pop ups werden den Artikeldateien zugeordnet (aus extra Klasse)
     func populatePopup(with article: Article) {
-        productLabel.text = article.productname
-        brandLabel.text = article.brand
-        quantityLabel.text = article.quantity
-        categoryLabel.text = article.cathegory
+        productLabel.text = "Produkt: " + article.productname
+        brandLabel.text = "Marke: " + article.brand
+        quantityLabel.text = "Menge: " + article.quantity
+        categoryLabel.text = "Kategory: " + article.cathegory
     }
     
+    // Möglicherweise nicht benötigt
     @IBAction func deleteButton(_ sender: UIButton) {
     }
     
     
-    
+    // Pop up schließt
     @IBAction func checkButton(_ sender: UIButton) {
         animateOut(articleView: blurView)
         animateOut(articleView: articlePopUpView)
@@ -122,33 +129,34 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
         
         //initalize Database
         let db = Firestore.firestore()
-        
-        let userRef = db.collection("user").document("3MCeDNUzyRtZ5TYnkmqM")
-        let shoppinglistRef = userRef.collection("shoppinglist").document()
-        
-        //let listRef = shoppinglistRef.collection("WG Liste").document()
-        
-        
-        
-        shoppinglistRef.collection("WG Liste").getDocuments() { (snapshot, error) in
-            if let error = error {
-                print("error")
-            } else {
-                if let snapshot = snapshot {
-                    for document in snapshot.documents {
-                        let data = document.data()
-                        let id = data["id"] as? String ?? ""
-                        let productname = data["productname"] as? String ?? ""
-                        let brand = data["brand"] as? String ?? ""
-                        let quantity = data["quantity"] as? String ?? ""
-                        let cathegory = data["cathegory"] as? String ?? ""
-                        let newArticle = Article(id: id, productname: productname, brand: brand, quantity: quantity, cathegory: cathegory)
-                        self.articleArray.append(newArticle)
+
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+           let selectedListID = appDelegate.selectedListID {
+                print("In der Sharelist ist diese ID angekommen:", selectedListID)
+                let shoppingListsRef = db.collection("shoppinglist").document(selectedListID).collection("article")
+                shoppingListsRef.getDocuments { (snapshot, error) in
+                    if let error = error {
+                        print(error.localizedDescription)
+                    } else {
+                        if let snapshot = snapshot {
+                            for document in snapshot.documents {
+                                let data = document.data()
+                                let id = data["id"] as? String ?? ""
+                                let productname = data["productname"] as? String ?? ""
+                                let brand = data["brand"] as? String ?? ""
+                                let quantity = data["quantity"] as? String ?? ""
+                                let cathegory = data["cathegory"] as? String ?? ""
+                                let newArticle = Article(id: id, productname: productname, brand: brand, quantity: quantity, cathegory: cathegory)
+                                self.articleArray.append(newArticle)
+                            }
+                            self.articleListTableView.reloadData()
+                        }
+
                     }
-                    self.articleListTableView.reloadData()
                 }
+            } else {
+                print("User ist null")
             }
-        }
     }
 
     func animateIn(articleView: UIView) {
@@ -217,7 +225,7 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
     
 }
 
-
+// Initialisierung der info und delete Buttons
 extension SharelistViewController: ArticleTableViewCellDelegate {
     func infoButtonTapped(at indexPath: IndexPath) {
         let selectedArticle = articleArray[indexPath.row]
@@ -240,6 +248,7 @@ extension SharelistViewController: ArticleTableViewCellDelegate {
         //})
     }
     
+    // Funktion zum löschen des Datenbankeintrages
     private func deleteArticleFromDatabase(_ article: Article) {
             let db = Firestore.firestore()
             db.collection("shoppinglist").document(article.id).delete() { error in

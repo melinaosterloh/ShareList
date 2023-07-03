@@ -12,8 +12,6 @@ import Toast
 
 class MainViewController: UIViewController {
     
-    //Hallo
-    
     @IBOutlet var blurView: UIVisualEffectView!
     @IBOutlet var loginPopUpView: UIView!
     
@@ -23,17 +21,29 @@ class MainViewController: UIViewController {
     @IBOutlet weak var popUpLoginBtn: UIButton!
     @IBOutlet weak var loginBtn: UIButton!
     @IBOutlet weak var registrationBtn: UIButton!
+    @IBOutlet weak var closeBtn: UIButton!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         emailLogin.layer.borderColor = UIColor.darkGray.cgColor
         emailLogin.layer.borderWidth = 1
-        emailLogin.layer.cornerRadius = 5
+        emailLogin.layer.cornerRadius = 10
+        emailLogin.layer.masksToBounds = true
+        emailLogin.layer.shadowRadius = 2
+        emailLogin.layer.shadowOpacity = 0.5
+        emailLogin.layer.shadowColor = UIColor.darkGray.cgColor
+        emailLogin.layer.shadowOffset = CGSize(width: 1, height: 1)
         
         passwordLogin.layer.borderColor = UIColor.darkGray.cgColor
         passwordLogin.layer.borderWidth = 1
-        passwordLogin.layer.cornerRadius = 5
+        passwordLogin.layer.cornerRadius = 10
+        passwordLogin.layer.masksToBounds =  true
+        passwordLogin.layer.shadowRadius = 2
+        passwordLogin.layer.shadowOpacity = 0.5
+        passwordLogin.layer.shadowColor = UIColor.darkGray.cgColor
+        passwordLogin.layer.shadowOffset = CGSize(width: 1, height: 1)
         
         loginBtn.layer.cornerRadius = 10
         loginBtn.layer.shadowRadius = 2
@@ -46,6 +56,12 @@ class MainViewController: UIViewController {
         registrationBtn.layer.shadowOpacity = 0.5
         registrationBtn.layer.shadowColor = UIColor.darkGray.cgColor
         registrationBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
+        
+        closeBtn.layer.cornerRadius = closeBtn.bounds.height / 2
+        closeBtn.layer.shadowRadius = 2
+        closeBtn.layer.shadowOpacity = 0.5
+        closeBtn.layer.shadowColor = UIColor.darkGray.cgColor
+        closeBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
         
         popUpLoginBtn.layer.cornerRadius = 10
         popUpLoginBtn.layer.shadowRadius = 2
@@ -68,9 +84,17 @@ class MainViewController: UIViewController {
         animateIn(loginView: loginPopUpView)
     }
     
+    @IBAction func closePopUpButton(_ sender: UIButton) {
+        animateOut(loginView: loginPopUpView)
+        animateOut(loginView: blurView)
+    }
+    
+    
     @IBAction func popUpLoginButton(_ sender: UIButton) {
         guard let email = emailLogin.text else { return }
         guard let password = passwordLogin.text else { return }
+        
+        let db = Firestore.firestore()
         
         Auth.auth().signIn(withEmail: email, password: password) { [weak self] firebaseResult, error in
             guard let strongSelf = self else {
@@ -83,8 +107,32 @@ class MainViewController: UIViewController {
                 }
                 return;
             }
-            //Go to home screen
-            strongSelf.performSegue(withIdentifier: "goToListView", sender: self)
+            guard let user = firebaseResult?.user else {
+                // Bei einem Fehler während der Registrierung
+                // Behandeln Sie den Fehler entsprechend
+                return
+            }
+            let userID = user.uid
+            getUserList(userID: userID)
+        }
+        
+        func getUserList(userID : String) {
+            db.collection("user").document(userID).getDocument { (document, error) in
+                if let document = document {
+                    let data = document.data()
+                    if let listID = data?["defaultListID"] as? String {
+                        print("Die default List ist: \(listID)")
+                        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                            appDelegate.updateSelectedListID(listID) // newListID ist der Wert der neuen Listen-ID
+                            self.performSegue(withIdentifier: "goToListView", sender: self)
+                        } else {
+                            print("Dokument nicht gefunden")
+                        }
+                    } else {
+                        print("Fehler beim Abrufen des des Listenwerts: \(error?.localizedDescription ?? "Unbekannter Fehler")")
+                    }
+                }
+            }
         }
         
     }
@@ -121,7 +169,7 @@ class MainViewController: UIViewController {
         })
     }
     
-    @IBAction func logout(_ unwindSegue: UIStoryboardSegue) {
+ /*   @IBAction func logout(_ unwindSegue: UIStoryboardSegue) {
         if let destinationVC = unwindSegue.source as? AccountViewController {
             let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
             if let desiredViewController = mainStoryboard.instantiateViewController(withIdentifier: "MainViewController") as? MainViewController {
@@ -129,7 +177,7 @@ class MainViewController: UIViewController {
                 navigationController?.pushViewController(desiredViewController, animated: true)
             }
         }
-    }
+    }   */
     
 
 }

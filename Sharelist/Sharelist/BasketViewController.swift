@@ -34,15 +34,15 @@ class BasketViewController: UIViewController {
 
         basketDescription.layer.borderColor = UIColor.darkGray.cgColor
         basketDescription.layer.borderWidth = 1
-        basketDescription.layer.cornerRadius = 5
+        basketDescription.layer.cornerRadius = 10
         
         basketPrice.layer.borderColor = UIColor.darkGray.cgColor
         basketPrice.layer.borderWidth = 1
-        basketPrice.layer.cornerRadius = 5
+        basketPrice.layer.cornerRadius = 10
         
         basketDate.layer.borderColor = UIColor.darkGray.cgColor
         basketDate.layer.borderWidth = 1
-        basketDate.layer.cornerRadius = 5
+        basketDate.layer.cornerRadius = 10
         
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
