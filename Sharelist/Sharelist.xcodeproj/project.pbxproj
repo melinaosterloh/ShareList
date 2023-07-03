@@ -31,6 +31,7 @@
 		DBC71B602A4CCF54004E9455 /* NewListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC71B5F2A4CCF54004E9455 /* NewListViewController.swift */; };
 		DBEF45882A3F40E1008CAC23 /* SharelistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEF45872A3F40E1008CAC23 /* SharelistViewController.swift */; };
 		DBEF458A2A3F4EBC008CAC23 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEF45892A3F4EBC008CAC23 /* Article.swift */; };
+		DFD484AE2A53554200636A58 /* TableViewReloadDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD484AD2A53554200636A58 /* TableViewReloadDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		DBC71B5F2A4CCF54004E9455 /* NewListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewListViewController.swift; sourceTree = "<group>"; };
 		DBEF45872A3F40E1008CAC23 /* SharelistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharelistViewController.swift; sourceTree = "<group>"; };
 		DBEF45892A3F4EBC008CAC23 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
+		DFD484AD2A53554200636A58 /* TableViewReloadDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewReloadDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +110,7 @@
 				DB4A8FE62A3E7A2900545CEB /* RegistrationViewController.swift */,
 				DB4A8FD62A3E749600545CEB /* MainViewController.swift */,
 				DBBA838A2A4339FD008BA714 /* AccountViewController.swift */,
+				DFD484AD2A53554200636A58 /* TableViewReloadDelegate.swift */,
 				DB4A8FCB2A3E731600545CEB /* Assets.xcassets */,
 				DB4A8FCD2A3E731600545CEB /* LaunchScreen.storyboard */,
 				DB4A8FD02A3E731600545CEB /* Info.plist */,
@@ -207,6 +210,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFD484AE2A53554200636A58 /* TableViewReloadDelegate.swift in Sources */,
 				DB45D06F2A421E1000379574 /* ArticleTableViewCell.swift in Sources */,
 				DB4361432A53148F00EDE5DB /* ListTableViewCell.swift in Sources */,
 				DB45D0442A40F50800379574 /* BasketViewController.swift in Sources */,

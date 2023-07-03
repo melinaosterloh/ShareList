@@ -10,7 +10,8 @@ import Firebase
 import Toast
 
 
-class AccountViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+
+class AccountViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, TableViewReloadDelegate {
 
 
     @IBOutlet weak var listTableView: UITableView!
@@ -27,14 +28,11 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     private var document: [DocumentSnapshot] = []
     
     var selectedListUID: String?
+    var userID = Auth.auth().currentUser!.uid
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-           let selectedListID = appDelegate.selectedListID {
-        }
-        
         loadData()
 
         addListBtn.layer.cornerRadius = addListBtn.bounds.height / 2
@@ -53,7 +51,7 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         overlayView.layer.shadowColor = UIColor.darkGray.cgColor
         overlayView.layer.shadowOffset = CGSize(width: 1, height: 1)
 
-        let db = Firestore.firestore()
+        
         self.listTableView.delegate = self
         self.listTableView.dataSource = self
         
@@ -63,10 +61,7 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         } else {
             emailLabel.text = "Benutzer ist nicht eingeloggt"
         }
-
-
     }
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return listArray.count
@@ -85,12 +80,22 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         return listCell
     }
     
+    // Ausgewählte Liste als aktuelle Liste
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedEntry = listArray[indexPath.row]
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            appDelegate.updateSelectedListID(selectedEntry.id) // newListID ist der Wert der neuen Listen-ID
+        }
+    }
+    
     func loadData() {
+        
+        let db = Firestore.firestore()
 
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-           let selectedListID = appDelegate.selectedListID {
-                print("In der Sharelist ist diese ID angekommen:", selectedListID)
-                let shoppingListsRef = db.collection("shoppinglist").document(selectedListID).collection("name")
+           let selectedListUID = appDelegate.selectedListID {
+                print("In der Sharelist ist diese ID angekommen:", selectedListUID)
+            let shoppingListsRef = db.collection("shoppinglist").whereField("owner", arrayContains: userID)
                 shoppingListsRef.getDocuments { (snapshot, error) in
                     if let error = error {
                         print(error.localizedDescription)
@@ -98,10 +103,10 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
                         if let snapshot = snapshot {
                             for document in snapshot.documents {
                                 let data = document.data()
-                                let id = data["id"] as? String ?? ""
                                 let name = data["name"] as? String ?? ""
-                                let newList = List(id: id, name: name)
+                                let newList = List(id: document.documentID , name: name)
                                 self.listArray.append(newList)
+                                print(self.listArray)
                             }
                             self.listTableView.reloadData()
                         }
@@ -138,10 +143,13 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         let newListViewController = storyboard?.instantiateViewController(withIdentifier: "NewListViewController") as! NewListViewController
         newListViewController.modalPresentationStyle = .overCurrentContext
         newListViewController.modalTransitionStyle = .crossDissolve
+        newListViewController.reloadDelegate = self
         present(newListViewController, animated: true, completion: nil)
     }
     
-    
-
-
+    // Delegate-Methode zum Aktualisieren der TableView
+    func reloadTableView() {
+        print("Reload Funktion wird aufgerufen")
+        self.listTableView.reloadData()
+    }
 }

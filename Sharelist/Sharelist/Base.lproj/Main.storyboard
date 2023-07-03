@@ -496,7 +496,7 @@
                                                     <constraint firstAttribute="height" constant="631" id="Y0q-bc-hbv"/>
                                                 </constraints>
                                                 <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ArticleTableViewCell" rowHeight="65" translatesAutoresizingMaskIntoConstraints="NO" id="tVx-xG-bb5" customClass="ArticleTableViewCell" customModule="Sharelist">
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ArticleTableViewCell" rowHeight="65" translatesAutoresizingMaskIntoConstraints="NO" id="tVx-xG-bb5" customClass="ArticleTableViewCell" customModule="Sharelist">
                                                         <rect key="frame" x="0.0" y="50" width="343" height="65"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tVx-xG-bb5" id="Roh-YP-JzE">
@@ -643,6 +643,7 @@
                         <outlet property="categoryLabel" destination="nZ4-5T-9IZ" id="AeX-fH-R61"/>
                         <outlet property="checkBtn" destination="rHP-IP-q2a" id="9Id-8s-97V"/>
                         <outlet property="menuBtn" destination="hFq-tn-1vt" id="wMd-Pj-Gu3"/>
+                        <outlet property="navigationBar" destination="Yf2-O4-dZ9" id="out-sT-pEq"/>
                         <outlet property="productLabel" destination="hsz-Lw-Ity" id="grq-tM-EeU"/>
                         <outlet property="quantityLabel" destination="9f5-Ej-ULX" id="GcQ-aX-cpp"/>
                     </connections>
@@ -1496,8 +1497,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="Zyd-Jf-nvT"/>
         <segue reference="sWb-yN-1xd"/>
-        <segue reference="KUU-UJ-Vmc"/>
+        <segue reference="GZ9-nP-exc"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="basket" catalog="system" width="128" height="108"/>
