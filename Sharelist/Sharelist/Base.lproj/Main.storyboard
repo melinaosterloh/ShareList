@@ -507,7 +507,7 @@
             </objects>
             <point key="canvasLocation" x="1064.8" y="1819.9507389162563"/>
         </scene>
-        <!--WG Liste-->
+        <!--Sharelist View Controller-->
         <scene sceneID="BS4-QR-2wk">
             <objects>
                 <viewController storyboardIdentifier="SharelistViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="IYt-Ht-p4r" customClass="SharelistViewController" customModule="Sharelist" customModuleProvider="target" sceneMemberID="viewController">
@@ -662,7 +662,7 @@
                             <constraint firstItem="hFq-tn-1vt" firstAttribute="leading" secondItem="xDk-jj-8E6" secondAttribute="leadingMargin" id="iVx-2u-614"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="WG Liste" id="Yf2-O4-dZ9"/>
+                    <navigationItem key="navigationItem" id="Yf2-O4-dZ9"/>
                     <connections>
                         <outlet property="addBtn" destination="wgU-u7-RCs" id="VTx-x9-cxh"/>
                         <outlet property="articleListTableView" destination="wEb-U0-3zt" id="Oky-1o-YaN"/>
@@ -1540,9 +1540,10 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="Zyd-Jf-nvT"/>
         <segue reference="3OQ-My-5fe"/>
-        <segue reference="5Il-rP-K6M"/>
-        <segue reference="OO0-ke-RPC"/>
+        <segue reference="sWb-yN-1xd"/>
+        <segue reference="GZ9-nP-exc"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="basket" catalog="system" width="128" height="108"/>

@@ -32,6 +32,7 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     var selectedListUID: String?
     var userID = Auth.auth().currentUser!.uid
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -64,22 +65,15 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
 
         listCell.textLabel?.text = "\(list.name)"
         
+        listCell.delegate = self
+        listCell.indexPath = indexPath
         listCell.tag = indexPath.row
         // listCell.delegate = self
         // listCell.indexPath = indexPath
         
         return listCell
     }
-    
-    /*func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            let list = listArray[indexPath.row]
-            deleteListFromDatabase(list)
-            listArray.remove(at: indexPath.row)
-            listTableView.deleteRows(at: [indexPath], with: .fade)
-        }
-    }*/
-    
+        
     // Ausgewählte Liste als aktuelle Liste
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedEntry = listArray[indexPath.row]
@@ -189,19 +183,15 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
 extension AccountViewController: ListTableViewCellDelegate {
 
     func deleteButtonTapped(at indexPath: IndexPath) {
-        print("")
         let list = listArray[indexPath.row]
         deleteListFromDatabase(list)
         
         listArray.remove(at: indexPath.row)
         listTableView.deleteRows(at: [indexPath], with: .fade)
         listTableView.reloadData()
-        //articleListTableView.reloadRows(at: [indexPath], with: .fade)
-        //UIView.animate(withDuration: 0.2, animations: {
-        //    self.articleListTableView.cellForRow(at: indexPath)?.alpha = 0
-        //}, completion: {_ in
-        //self. ... // Aktualisiere die Tabelle, um den Index und die angezeigten Daten zu aktualisieren
-        //})
+        
+        
+
     }
     
     // Funktion zum löschen des Datenbankeintrages
