@@ -2,9 +2,8 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pvN-si-uKo">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -56,7 +55,7 @@
                             </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="1" green="0.98823529409999999" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="IFu-Eo-T8P" firstAttribute="top" secondItem="n0W-tC-yZ6" secondAttribute="bottom" constant="16" id="00f-TT-a6R"/>
                             <constraint firstItem="n0W-tC-yZ6" firstAttribute="leading" secondItem="7Nh-Vq-RPy" secondAttribute="leading" id="7HC-LQ-PuO"/>
@@ -234,23 +233,47 @@
                                     <action selector="registrationBtn:" destination="cp1-jc-mOf" eventType="touchUpInside" id="wMr-Su-weZ"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DXd-Zv-q99">
-                                <rect key="frame" x="67" y="134" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.crop.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="DXd-Zv-q99" userLabel="Default Image">
+                                <rect key="frame" x="116" y="94.999999999999986" width="150" height="148.66666666666669"/>
+                                <color key="tintColor" red="0.45098039220000002" green="0.50980392159999999" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="9TX-rc-13X"/>
+                                    <constraint firstAttribute="width" constant="150" id="Kp4-fE-HPH"/>
+                                </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AdA-QV-Ay9" userLabel="SelectImage Btn">
+                                <rect key="frame" x="221" y="198" width="50" height="50"/>
+                                <color key="backgroundColor" red="1" green="0.98823529409999999" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="Mbw-iH-9Ur"/>
+                                    <constraint firstAttribute="height" constant="50" id="twl-AB-57u"/>
+                                </constraints>
+                                <color key="tintColor" red="0.45098039220000002" green="0.50980392159999999" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="pencil" catalog="system" title=""/>
+                                <connections>
+                                    <action selector="selectImage:" destination="cp1-jc-mOf" eventType="touchUpInside" id="ZS1-zG-uYb"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="WfF-y4-XPI"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="1" green="0.98823529409999999" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="ab6-wB-pCU" firstAttribute="top" secondItem="aii-vr-pwu" secondAttribute="bottom" constant="31.666666666666629" id="7ve-V8-i6q"/>
+                            <constraint firstItem="AdA-QV-Ay9" firstAttribute="leading" secondItem="WfF-y4-XPI" secondAttribute="leading" constant="221" id="Evl-SP-lv3"/>
                             <constraint firstItem="aii-vr-pwu" firstAttribute="centerX" secondItem="ZU5-N1-vOo" secondAttribute="centerX" constant="3.5" id="HSQ-oo-6oo"/>
+                            <constraint firstItem="DXd-Zv-q99" firstAttribute="top" secondItem="WfF-y4-XPI" secondAttribute="top" constant="38" id="NcU-rx-oK4"/>
                             <constraint firstItem="aii-vr-pwu" firstAttribute="centerY" secondItem="ZU5-N1-vOo" secondAttribute="centerY" constant="38.5" id="OrB-iU-xLW"/>
                             <constraint firstItem="ab6-wB-pCU" firstAttribute="leading" secondItem="WfF-y4-XPI" secondAttribute="leading" constant="122" id="jjZ-Ln-2bl"/>
                             <constraint firstItem="ab6-wB-pCU" firstAttribute="centerX" secondItem="ZU5-N1-vOo" secondAttribute="centerX" id="kiu-3c-xlF"/>
+                            <constraint firstItem="DXd-Zv-q99" firstAttribute="centerX" secondItem="aii-vr-pwu" secondAttribute="centerX" id="rOr-dA-7w9"/>
+                            <constraint firstItem="AdA-QV-Ay9" firstAttribute="top" secondItem="WfF-y4-XPI" secondAttribute="top" constant="142" id="vcc-UI-hPc"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Registrieren" id="1dY-tz-dcf"/>
                     <connections>
+                        <outlet property="SelectImageBtn" destination="AdA-QV-Ay9" id="CN9-H5-Avp"/>
+                        <outlet property="UserImageView" destination="DXd-Zv-q99" id="zvK-2M-hfb"/>
                         <outlet property="emailRegistration" destination="akK-7S-oTl" id="vXu-1v-apN"/>
                         <outlet property="firstnameRegistration" destination="iVf-NY-hYM" id="afx-Ll-TyS"/>
                         <outlet property="lastnameRegistration" destination="7KL-om-IJi" id="ORr-fB-hfb"/>
@@ -550,7 +573,7 @@
                                                 </prototypes>
                                             </tableView>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" red="1" green="0.98823529409999999" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="wEb-U0-3zt" secondAttribute="trailing" constant="16" id="CCR-wB-91S"/>
                                             <constraint firstItem="wEb-U0-3zt" firstAttribute="leading" secondItem="eMO-CQ-8Jc" secondAttribute="leading" constant="16" id="INs-DX-AsB"/>
@@ -617,7 +640,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Twe-tU-Ukb"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="1" green="0.98823529409999999" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="wgU-u7-RCs" firstAttribute="top" secondItem="zFY-Mn-CvW" secondAttribute="bottom" constant="22" id="0WU-zr-r2f"/>
                             <constraint firstItem="zFY-Mn-CvW" firstAttribute="leading" secondItem="xDk-jj-8E6" secondAttribute="leading" id="3RE-GF-Xkh"/>
@@ -831,7 +854,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="iL6-v4-b2p"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="1" green="0.98823529409999999" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="N0P-Pm-gbA" firstAttribute="leading" secondItem="iL6-v4-b2p" secondAttribute="leading" constant="16" id="6KS-pn-T86"/>
                             <constraint firstItem="VNG-9H-0bT" firstAttribute="centerX" secondItem="fBu-xa-zb3" secondAttribute="centerX" id="Fc1-z6-JmT"/>
@@ -935,7 +958,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="icS-Mb-PCD"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="1" green="0.98823529409999999" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="id6-k3-7Ve" firstAttribute="bottom" secondItem="icS-Mb-PCD" secondAttribute="bottom" id="00R-TU-hvi"/>
                             <constraint firstItem="tYl-qT-WF7" firstAttribute="bottom" secondItem="icS-Mb-PCD" secondAttribute="bottom" id="6FJ-di-bmB"/>
@@ -1137,7 +1160,7 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uwv-q5-O8U">
                                         <rect key="frame" x="0.0" y="0.0" width="596" height="118"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" red="1" green="0.98823529409999999" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="596" id="3lF-63-kvQ"/>
                                             <constraint firstAttribute="height" constant="118" id="JLT-7C-bRf"/>
@@ -1168,7 +1191,7 @@
                             </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="SN1-Dp-0an"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="1" green="0.98823529409999999" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="SN1-Dp-0an" firstAttribute="trailing" secondItem="qOh-0d-pMy" secondAttribute="trailing" constant="16" id="22i-VD-jzd"/>
                             <constraint firstItem="qOh-0d-pMy" firstAttribute="bottom" secondItem="SN1-Dp-0an" secondAttribute="bottom" id="3a8-FA-Gqk"/>
@@ -1497,7 +1520,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Zyd-Jf-nvT"/>
         <segue reference="sWb-yN-1xd"/>
         <segue reference="GZ9-nP-exc"/>
     </inferredMetricsTieBreakers>
@@ -17912,14 +17934,13 @@ AZY
         <image name="house" catalog="system" width="128" height="104"/>
         <image name="info" catalog="system" width="93" height="128"/>
         <image name="line.3.horizontal" catalog="system" width="128" height="65"/>
+        <image name="pencil" catalog="system" width="128" height="113"/>
+        <image name="person.crop.circle" catalog="system" width="128" height="123"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="popcorn" catalog="system" width="102" height="128"/>
         <image name="rectangle.portrait.and.arrow.right" catalog="system" width="128" height="109"/>
         <image name="trash" catalog="system" width="117" height="128"/>
         <image name="wineglass" catalog="system" width="95" height="128"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>
