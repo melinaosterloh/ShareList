@@ -25,6 +25,7 @@
 		DB4A8FE22A3E76CE00545CEB /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = DB4A8FE12A3E76CE00545CEB /* FirebaseFirestore */; };
 		DB4A8FE52A3E77B900545CEB /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = DB4A8FE42A3E77B900545CEB /* Toast */; };
 		DB4A8FE72A3E7A2900545CEB /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A8FE62A3E7A2900545CEB /* RegistrationViewController.swift */; };
+		DB5B9A492A54AF220023C2F0 /* Expenses.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B9A482A54AF220023C2F0 /* Expenses.swift */; };
 		DBA85CE42A3FCAFE000E31D1 /* AddArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA85CE32A3FCAFE000E31D1 /* AddArticleViewController.swift */; };
 		DBA8B6A52A4E023E00A941C6 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA8B6A42A4E023E00A941C6 /* NavigationViewController.swift */; };
 		DBBA838B2A4339FD008BA714 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBA838A2A4339FD008BA714 /* AccountViewController.swift */; };
@@ -51,6 +52,7 @@
 		DB4A8FD62A3E749600545CEB /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		DB4A8FDA2A3E763500545CEB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DB4A8FE62A3E7A2900545CEB /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
+		DB5B9A482A54AF220023C2F0 /* Expenses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expenses.swift; sourceTree = "<group>"; };
 		DBA85CE32A3FCAFE000E31D1 /* AddArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddArticleViewController.swift; sourceTree = "<group>"; };
 		DBA8B6A42A4E023E00A941C6 /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		DBBA838A2A4339FD008BA714 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 			children = (
 				DBEF45892A3F4EBC008CAC23 /* Article.swift */,
 				DB4361402A5313FE00EDE5DB /* List.swift */,
+				DB5B9A482A54AF220023C2F0 /* Expenses.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -224,6 +227,7 @@
 				DB45D0442A40F50800379574 /* BasketViewController.swift in Sources */,
 				DBEF458A2A3F4EBC008CAC23 /* Article.swift in Sources */,
 				DB4A8FC72A3E731400545CEB /* ViewController.swift in Sources */,
+				DB5B9A492A54AF220023C2F0 /* Expenses.swift in Sources */,
 				DB4A8FC32A3E731400545CEB /* AppDelegate.swift in Sources */,
 				DB4A8FC52A3E731400545CEB /* SceneDelegate.swift in Sources */,
 				DB4A8FD72A3E749600545CEB /* MainViewController.swift in Sources */,
