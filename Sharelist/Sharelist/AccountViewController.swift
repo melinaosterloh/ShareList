@@ -9,7 +9,9 @@ import UIKit
 import Firebase
 import Toast
 
-
+protocol ReloadArticleDelegate: AnyObject {
+    func reloadArticleTableView()
+}
 
 class AccountViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, TableViewReloadDelegate {
 
@@ -25,6 +27,7 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     var listArray = [List]()
     var list: List?
     private var document: [DocumentSnapshot] = []
+    weak var reloadArticleDelegate: ReloadArticleDelegate?
     
     var selectedListUID: String?
     var userID = Auth.auth().currentUser!.uid
@@ -74,9 +77,16 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             appDelegate.updateSelectedListID(selectedEntry.id) // newListID ist der Wert der neuen Listen-ID
         }
+        // reload der aktuell ausgewählten Shoppinglist
+        if let delegate = self.reloadArticleDelegate {
+            delegate.reloadArticleTableView()
+        }
     }
     
     func loadData() {
+        
+        // Vor dem Laden neuer Daten das listArray leeren
+        listArray.removeAll()
         
         let db = Firestore.firestore()
 
@@ -124,7 +134,12 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @IBAction func closeButton(_ sender: UIButton) {
-        dismiss(animated: true)
+        dismiss(animated: true) {
+        //    if let delegate = self.reloadArticleDelegate {
+        //        delegate.reloadArticleTableView()
+        //    }
+            
+        }
     }
     
     @IBAction func addListButton(_ sender: UIButton) {

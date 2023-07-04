@@ -1520,8 +1520,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="Zyd-Jf-nvT"/>
         <segue reference="sWb-yN-1xd"/>
-        <segue reference="KUU-UJ-Vmc"/>
+        <segue reference="GZ9-nP-exc"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="basket" catalog="system" width="128" height="108"/>

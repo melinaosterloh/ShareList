@@ -38,27 +38,7 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Listennamen entsprechend der aktuellen Liste anzeigen
-        let db = Firestore.firestore()
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-           let selectedListUID = appDelegate.selectedListID {
-            let currentListRef = db.collection("shoppinglist").document(selectedListUID)
-            print(selectedListUID)
-            currentListRef.getDocument { (document, error) in
-                if let document = document, document.exists {
-                    // Das Dokument wurde gefunden und existiert
-                    if let fieldValue = document.get("name") {
-                        // Den Wert des Feldes abrufen
-                        self.navigationBar.title = fieldValue as? String
-                    } else {
-                        print("Das Feld existiert nicht oder hat keinen Wert.")
-                    }
-                } else {
-                    // Das Dokument wurde nicht gefunden oder es gab einen Fehler
-                    print("Das Dokument existiert nicht oder es gab einen Fehler: \(error?.localizedDescription ?? "")")
-                }
-            }
-        }
+
         
         self.articleListTableView.delegate = self
         self.articleListTableView.dataSource = self
@@ -78,6 +58,7 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
         let accountViewController = storyboard?.instantiateViewController(withIdentifier: "AccountViewController") as! AccountViewController
         accountViewController.modalPresentationStyle = .overCurrentContext
         accountViewController.modalTransitionStyle = .crossDissolve
+        accountViewController.reloadArticleDelegate = self // Setze den Delegate auf die Instanz der AccountViewController-Klasse
         present(accountViewController, animated: true, completion: nil)
     }
     
@@ -145,11 +126,32 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func loadData() {
         
+        // Listennamen entsprechend der aktuellen Liste anzeigen
+        let db = Firestore.firestore()
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+           let selectedListUID = appDelegate.selectedListID {
+            let currentListRef = db.collection("shoppinglist").document(selectedListUID)
+            print(selectedListUID)
+            currentListRef.getDocument { (document, error) in
+                if let document = document, document.exists {
+                    // Das Dokument wurde gefunden und existiert
+                    if let fieldValue = document.get("name") {
+                        // Den Wert des Feldes abrufen
+                        self.navigationBar.title = fieldValue as? String
+                    } else {
+                        print("Das Feld existiert nicht oder hat keinen Wert.")
+                    }
+                } else {
+                    // Das Dokument wurde nicht gefunden oder es gab einen Fehler
+                    print("Das Dokument existiert nicht oder es gab einen Fehler: \(error?.localizedDescription ?? "")")
+                }
+            }
+        }
+        
         // Vor dem Laden neuer Daten das listArray leeren
         articleArray.removeAll()
         
         //initalize Database
-        let db = Firestore.firestore()
 
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
            let selectedListID = appDelegate.selectedListID {
@@ -284,3 +286,8 @@ extension SharelistViewController: ArticleTableViewCellDelegate {
     }
 }
 
+extension SharelistViewController: ReloadArticleDelegate {
+    func reloadArticleTableView() {
+        loadData()
+    }
+}

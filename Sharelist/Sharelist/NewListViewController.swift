@@ -74,7 +74,9 @@ class NewListViewController: UIViewController {
             dismiss(animated: true) {
                 if let delegate = self.reloadDelegate {
                     delegate.reloadListTableView()
-                }            }
+                }
+                
+            }
         }
     }
     
