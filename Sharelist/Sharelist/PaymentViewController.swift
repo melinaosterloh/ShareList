@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class PaymentViewController: UIViewController {
 
@@ -14,6 +15,7 @@ class PaymentViewController: UIViewController {
     @IBOutlet weak var homeBtn: UIButton!
     
     @IBOutlet weak var balance: UILabel!
+    var userID = Auth.auth().currentUser!.uid
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,12 +32,33 @@ class PaymentViewController: UIViewController {
         present(accountViewController, animated: true, completion: nil)
     }
     
+    func getUserBalance() {
+        let db = Firestore.firestore()
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+           let selectedListID = appDelegate.selectedListID {
+            let userBalance = db.collection("shoppinglist").document(selectedListID).collection("userBalances").document(userID)
+            userBalance.getDocument { (document, error) in
+                if let document = document, document.exists {
+                    if let userBalance = document.data()?["balance"] as? Double {
+                        let roundedNumber = round(userBalance * 100) / 100
+                        self.balance.text = String(roundedNumber)
+                    } else {
+                        self.balance.text = "0,00"
+                        
+                    }
+                }
+                else { print("keine Liste") }
+            }
+        }
+    }
+    
     func loadDesign() {
         
         balance.layer.borderColor = UIColor.darkGray.cgColor
         balance.layer.borderWidth = 1
         balance.layer.cornerRadius = 10
-        balance.text = "Hallo"
+        getUserBalance()
+        
         
         payDeptBtn.layer.cornerRadius = 25
         

@@ -98,7 +98,6 @@ class BasketViewController: UIViewController {
                     if let document = document, document.exists {
                         // Array der Listen Besitzer/Mitglieder
                         if let listMember = document.data()?["owner"] as? [String] {
-                            
                             self.splitExpenses(expense: price, member: listMember, listID: selectedListID)
                             print("Array aus Firebase: \(listMember)")
                         } else {
@@ -115,23 +114,27 @@ class BasketViewController: UIViewController {
             
     }
     
-    
+    // Funktion zum Aufteilen der Ausgaben
     func splitExpenses (expense: Double, member: Array<String>, listID: String) {
         let db = Firestore.firestore()
         let memberCount = Double(member.count)
         let share = expense/memberCount
         
+        let userBalances = db.collection("shoppinglist").document(listID).collection("userBalances")
+        
         for i in member {
             print(i)
-            let userBalance = db.collection("shoppinglist").document(listID).collection("userBalances").document(i)
+            
+            let userBalance = userBalances.document(i)
+            
             userBalance.getDocument { (document, error) in
                 if let document = document, document.exists {
-                    if var currentBalance = document.data()?["balance"] as? Double {
+                    if let currentBalance = document.data()?["balance"] as? Double {
                         // Aktualisiere den Preiswert in Firestore
                         if i == self.userID {
                             userBalance.setData(["balance": currentBalance+(expense-share)], merge: true) { error in
                                 if let error = error {
-                                    print("Fehler beim Aktualisieren des Zellenpreises: \(error.localizedDescription)")
+                                    print("Fehler beim Aktualisieren der Balance: \(error.localizedDescription)")
                                 }
                             }
                         } else {
@@ -139,6 +142,22 @@ class BasketViewController: UIViewController {
                                 if let error = error {
                                     print("Fehler beim Aktualisieren des Zellenpreises: \(error.localizedDescription)")
                                 }
+                            }
+                        }
+                    }
+                } else {
+                    if i == self.userID {
+                        let documentData: [String: Double] = ["balance": (expense - share)]
+                        userBalances.document(i).setData(documentData) { error in
+                            if let error = error {
+                                print("Fehler beim Hinzufügen des Dokuments: \(error.localizedDescription)")
+                            }
+                        }
+                    } else {
+                        let documentData: [String: Double] = ["balance": -share]
+                        userBalances.document(i).setData(documentData) { error in
+                            if let error = error {
+                                print("Fehler beim Hinzufügen des Dokuments: \(error.localizedDescription)")
                             }
                         }
                     }

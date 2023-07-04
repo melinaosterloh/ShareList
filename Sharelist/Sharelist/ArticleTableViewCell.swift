@@ -32,7 +32,6 @@ class ArticleTableViewCell: UITableViewCell {
         deleteButton.layer.shadowOpacity = 0.5
         deleteButton.layer.shadowColor = UIColor.darkGray.cgColor
         deleteButton.layer.shadowOffset = CGSize(width: 1, height: 1)
-        
 /*
         // Ändere das Design des infoButton
         //infoButton.backgroundColor = UIColor.blue
