@@ -617,13 +617,13 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hFq-tn-1vt">
                                 <rect key="frame" x="16" y="752" width="51" height="50"/>
-                                <color key="backgroundColor" red="0.62857574220000001" green="0.70564872030000003" blue="0.84029895070000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.3060487509" green="0.32154738900000002" blue="0.33382815119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="LUb-iC-q6f"/>
                                     <constraint firstAttribute="height" constant="50" id="Ngh-88-ScF"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="QL3-Oq-oVb"/>
                                 </constraints>
-                                <color key="tintColor" red="0.3060487509" green="0.32154738900000002" blue="0.33382815119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="1" green="0.98823529409999999" blue="0.97896668190000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="line.3.horizontal" catalog="system"/>
                                 <connections>
@@ -632,17 +632,17 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aTU-GV-5FO">
-                                <rect key="frame" x="167" y="752" width="50" height="50"/>
-                                <color key="backgroundColor" red="0.89422911410000006" green="0.94133508210000005" blue="0.81379908320000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="163" y="752" width="50" height="50"/>
+                                <color key="backgroundColor" red="0.62857574220000001" green="0.70564872030000003" blue="0.84029895070000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="o1i-Lo-CJi"/>
                                     <constraint firstAttribute="width" constant="50" id="wRj-ju-une"/>
                                 </constraints>
                                 <color key="tintColor" red="0.3060487509" green="0.32154738900000002" blue="0.33382815119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="basket" catalog="system"/>
+                                <buttonConfiguration key="configuration" style="plain" image="eurosign" catalog="system"/>
                                 <connections>
-                                    <segue destination="KQX-al-rna" kind="show" identifier="goToBasket" id="OXO-HA-YS4"/>
+                                    <segue destination="i2l-Qb-f7C" kind="show" id="3OQ-My-5fe"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -651,7 +651,7 @@
                         <constraints>
                             <constraint firstItem="wgU-u7-RCs" firstAttribute="top" secondItem="zFY-Mn-CvW" secondAttribute="bottom" constant="22" id="0WU-zr-r2f"/>
                             <constraint firstItem="zFY-Mn-CvW" firstAttribute="leading" secondItem="xDk-jj-8E6" secondAttribute="leading" id="3RE-GF-Xkh"/>
-                            <constraint firstItem="aTU-GV-5FO" firstAttribute="leading" secondItem="hFq-tn-1vt" secondAttribute="trailing" constant="100" id="7O8-3t-nMq"/>
+                            <constraint firstItem="aTU-GV-5FO" firstAttribute="leading" secondItem="hFq-tn-1vt" secondAttribute="trailing" constant="96" id="7O8-3t-nMq"/>
                             <constraint firstItem="wgU-u7-RCs" firstAttribute="trailing" secondItem="xDk-jj-8E6" secondAttribute="trailingMargin" id="LWx-6w-ZAs"/>
                             <constraint firstAttribute="trailing" secondItem="zFY-Mn-CvW" secondAttribute="trailing" id="Lz6-sR-WIz"/>
                             <constraint firstItem="zFY-Mn-CvW" firstAttribute="centerY" secondItem="xDk-jj-8E6" secondAttribute="centerY" id="OdT-nE-6d4"/>
@@ -667,11 +667,11 @@
                         <outlet property="addBtn" destination="wgU-u7-RCs" id="VTx-x9-cxh"/>
                         <outlet property="articleListTableView" destination="wEb-U0-3zt" id="Oky-1o-YaN"/>
                         <outlet property="articlePopUpView" destination="VGB-aI-NrY" id="OnQ-8U-KVH"/>
-                        <outlet property="basketBtn" destination="aTU-GV-5FO" id="w6Z-zf-TrM"/>
                         <outlet property="blurView" destination="W2g-9A-695" id="0NZ-nk-63e"/>
                         <outlet property="brandLabel" destination="SE6-2t-Jed" id="tFL-Zi-cpY"/>
                         <outlet property="categoryLabel" destination="nZ4-5T-9IZ" id="AeX-fH-R61"/>
                         <outlet property="checkBtn" destination="rHP-IP-q2a" id="9Id-8s-97V"/>
+                        <outlet property="euroBtn" destination="aTU-GV-5FO" id="rTl-da-CRd"/>
                         <outlet property="menuBtn" destination="hFq-tn-1vt" id="wMd-Pj-Gu3"/>
                         <outlet property="navigationBar" destination="Yf2-O4-dZ9" id="out-sT-pEq"/>
                         <outlet property="productLabel" destination="hsz-Lw-Ity" id="grq-tM-EeU"/>
@@ -836,8 +836,7 @@
                                 <color key="backgroundColor" red="0.89422911410000006" green="0.94133508210000005" blue="0.81379908320000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="7ZJ-7w-cGJ"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="ier-eH-XtZ"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="yqK-QZ-dRF"/>
+                                    <constraint firstAttribute="width" constant="50" id="ier-eH-XtZ"/>
                                 </constraints>
                                 <color key="tintColor" red="0.3060487509" green="0.32154738900000002" blue="0.33382815119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Button"/>
@@ -849,12 +848,12 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N0P-Pm-gbA">
                                 <rect key="frame" x="16" y="752" width="50" height="50"/>
-                                <color key="backgroundColor" red="0.62857574220000001" green="0.70564872030000003" blue="0.84029895070000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.3060487509" green="0.32154738900000002" blue="0.33382815119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="50n-I5-PJC"/>
                                     <constraint firstAttribute="height" constant="50" id="Thu-Da-xtx"/>
                                 </constraints>
-                                <color key="tintColor" red="0.3060487509" green="0.32154738900000002" blue="0.33382815119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="1" green="0.98823529409999999" blue="0.97896668190000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="line.3.horizontal" catalog="system"/>
                                 <connections>
@@ -900,11 +899,11 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tYl-qT-WF7">
                                 <rect key="frame" x="16" y="752" width="51" height="50"/>
-                                <color key="backgroundColor" red="0.62857574220000001" green="0.70564872030000003" blue="0.84029895070000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.3060487509" green="0.32154738900000002" blue="0.33382815119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="HTe-mn-3Dr"/>
                                 </constraints>
-                                <color key="tintColor" red="0.3060487509" green="0.32154738900000002" blue="0.33382815119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="1" green="0.98823529409999999" blue="0.97896668190000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="line.3.horizontal" catalog="system"/>
                                 <connections>
@@ -914,15 +913,15 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="id6-k3-7Ve">
-                                <rect key="frame" x="311.33333333333331" y="752" width="50" height="50"/>
-                                <color key="backgroundColor" red="0.3060487509" green="0.32154738900000002" blue="0.33382815119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="163" y="752" width="50" height="50"/>
+                                <color key="backgroundColor" red="0.89422911410000006" green="0.94133508210000005" blue="0.81379908320000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="Dyf-Qf-Wy2"/>
                                     <constraint firstAttribute="height" constant="50" id="Nja-oa-hB5"/>
                                 </constraints>
-                                <color key="tintColor" red="1" green="0.98823529409999999" blue="0.97896668190000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.3060487509" green="0.32154738900000002" blue="0.33382815119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="house" catalog="system"/>
+                                <buttonConfiguration key="configuration" style="plain" image="basket" catalog="system"/>
                                 <connections>
                                     <action selector="addArticleButton:" destination="IYt-Ht-p4r" eventType="touchUpInside" id="F6g-F2-jbk"/>
                                     <segue destination="IYt-Ht-p4r" kind="show" id="5Il-rP-K6M"/>
@@ -967,6 +966,22 @@
                                     <action selector="registrationBtn:" destination="cp1-jc-mOf" eventType="touchUpInside" id="j0C-oJ-dhT"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q3i-eX-F1S">
+                                <rect key="frame" x="309" y="752" width="50" height="50"/>
+                                <color key="backgroundColor" red="0.62857574220000001" green="0.70564872030000003" blue="0.84029895070000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="Z1J-ru-tHa"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="l7H-5y-7br"/>
+                                    <constraint firstAttribute="height" constant="50" id="yTG-go-Bc9"/>
+                                </constraints>
+                                <color key="tintColor" red="0.3060487509" green="0.32154738900000002" blue="0.33382815119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system"/>
+                                <connections>
+                                    <action selector="addArticleButton:" destination="IYt-Ht-p4r" eventType="touchUpInside" id="ANn-cj-SXd"/>
+                                    <segue destination="KQX-al-rna" kind="show" id="V2E-sA-lDH"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="icS-Mb-PCD"/>
                         <color key="backgroundColor" red="1" green="0.98823529409999999" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -976,8 +991,11 @@
                             <constraint firstItem="Jov-ux-Tfh" firstAttribute="top" secondItem="icS-Mb-PCD" secondAttribute="top" constant="92" id="6uf-Ew-VuK"/>
                             <constraint firstItem="Rp7-9i-Zna" firstAttribute="leading" secondItem="icS-Mb-PCD" secondAttribute="leading" constant="91" id="7mr-za-Vct"/>
                             <constraint firstItem="Jov-ux-Tfh" firstAttribute="centerX" secondItem="icS-Mb-PCD" secondAttribute="centerX" id="CAf-Hv-WYl"/>
+                            <constraint firstItem="Q3i-eX-F1S" firstAttribute="bottom" secondItem="icS-Mb-PCD" secondAttribute="bottom" id="G4V-ae-MZq"/>
                             <constraint firstItem="pr8-0y-Zvc" firstAttribute="top" secondItem="esa-5L-dMS" secondAttribute="bottom" constant="110" id="IiN-dd-Q1Z"/>
+                            <constraint firstItem="icS-Mb-PCD" firstAttribute="trailing" secondItem="Q3i-eX-F1S" secondAttribute="trailing" constant="16" id="Iq2-gg-MrM"/>
                             <constraint firstItem="Rp7-9i-Zna" firstAttribute="centerX" secondItem="esa-5L-dMS" secondAttribute="centerX" id="LOu-wA-x6e"/>
+                            <constraint firstItem="Q3i-eX-F1S" firstAttribute="bottom" secondItem="icS-Mb-PCD" secondAttribute="bottom" id="Se1-hL-zE4"/>
                             <constraint firstItem="T9p-8L-nab" firstAttribute="leading" secondItem="icS-Mb-PCD" secondAttribute="leading" constant="16" id="TDS-5O-YDS"/>
                             <constraint firstItem="Jov-ux-Tfh" firstAttribute="leading" secondItem="icS-Mb-PCD" secondAttribute="leading" constant="149" id="XRp-el-UyS"/>
                             <constraint firstItem="pr8-0y-Zvc" firstAttribute="leading" secondItem="T9p-8L-nab" secondAttribute="leading" id="cUj-SS-IUq"/>
@@ -988,11 +1006,13 @@
                             <constraint firstItem="icS-Mb-PCD" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="id6-k3-7Ve" secondAttribute="trailing" id="vae-hD-J78"/>
                             <constraint firstItem="Rp7-9i-Zna" firstAttribute="top" secondItem="pr8-0y-Zvc" secondAttribute="bottom" constant="43" id="xvC-XB-Kyb"/>
                             <constraint firstItem="esa-5L-dMS" firstAttribute="centerX" secondItem="icS-Mb-PCD" secondAttribute="centerX" id="y3H-xE-TMy"/>
-                            <constraint firstItem="id6-k3-7Ve" firstAttribute="leading" secondItem="tYl-qT-WF7" secondAttribute="trailing" constant="244.33333333333331" id="yFU-4i-IrD"/>
+                            <constraint firstItem="id6-k3-7Ve" firstAttribute="bottom" secondItem="icS-Mb-PCD" secondAttribute="bottom" id="yBr-yE-psx"/>
+                            <constraint firstItem="id6-k3-7Ve" firstAttribute="leading" secondItem="tYl-qT-WF7" secondAttribute="trailing" constant="96" id="yFU-4i-IrD"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Ausgaben" id="ui6-6M-gLJ"/>
                     <connections>
+                        <outlet property="addBtn" destination="Q3i-eX-F1S" id="eKg-Uc-CkZ"/>
                         <outlet property="homeBtn" destination="id6-k3-7Ve" id="uoV-z9-u3z"/>
                         <outlet property="menuBtn" destination="tYl-qT-WF7" id="Ucw-yH-cpx"/>
                         <outlet property="payDeptBtn" destination="esa-5L-dMS" id="DTH-cU-owe"/>
@@ -1520,9 +1540,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Zyd-Jf-nvT"/>
-        <segue reference="sWb-yN-1xd"/>
-        <segue reference="GZ9-nP-exc"/>
+        <segue reference="3OQ-My-5fe"/>
+        <segue reference="5Il-rP-K6M"/>
+        <segue reference="OO0-ke-RPC"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="basket" catalog="system" width="128" height="108"/>
@@ -1530,8 +1550,8 @@
         <image name="checkmark" catalog="system" width="128" height="114"/>
         <image name="cup.and.saucer" catalog="system" width="128" height="91"/>
         <image name="eraser" catalog="system" width="128" height="119"/>
+        <image name="eurosign" catalog="system" width="128" height="121"/>
         <image name="frying.pan" catalog="system" width="128" height="81"/>
-        <image name="house" catalog="system" width="128" height="104"/>
         <image name="info" catalog="system" width="93" height="128"/>
         <image name="line.3.horizontal" catalog="system" width="128" height="65"/>
         <image name="pencil" catalog="system" width="128" height="113"/>

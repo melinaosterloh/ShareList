@@ -13,7 +13,7 @@ protocol ReloadArticleDelegate: AnyObject {
     func reloadArticleTableView()
 }
 
-class AccountViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, TableViewReloadDelegate {
+class AccountViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
 
     @IBOutlet weak var listTableView: UITableView!
@@ -70,6 +70,15 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         return listCell
     }
+    
+    /*func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let list = listArray[indexPath.row]
+            deleteListFromDatabase(list)
+            listArray.remove(at: indexPath.row)
+            listTableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }*/
     
     // Ausgewählte Liste als aktuelle Liste
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -151,10 +160,10 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     // Delegate-Methode zum Aktualisieren der TableView
-    func reloadTableView() {
-        print("Reload Funktion wird aufgerufen")
-        self.listTableView.reloadData()
-    }
+    //func reloadTableView() {
+    //    print("Reload Funktion wird aufgerufen")
+     //   self.listTableView.reloadData()
+   // }
     
     func loadDesign() {
         addListBtn.layer.cornerRadius = addListBtn.bounds.height / 2
@@ -180,6 +189,7 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
 extension AccountViewController: ListTableViewCellDelegate {
 
     func deleteButtonTapped(at indexPath: IndexPath) {
+        print("")
         let list = listArray[indexPath.row]
         deleteListFromDatabase(list)
         
@@ -210,6 +220,7 @@ extension AccountViewController: ListTableViewCellDelegate {
     }
 }
 
+// Extension für Delegation zur AccountViewController Klasse --> Reload TableView
 extension AccountViewController: ReloadListDelegate {
     func reloadListTableView() {
         loadData()

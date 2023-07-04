@@ -13,7 +13,8 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var articleListTableView: UITableView!
     
     @IBOutlet weak var addBtn: UIButton!
-    @IBOutlet weak var basketBtn: UIButton!
+    @IBOutlet weak var euroBtn: UIButton!
+    
     @IBOutlet weak var menuBtn: UIButton!
     
     
@@ -217,11 +218,11 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
         addBtn.layer.shadowColor = UIColor.darkGray.cgColor
         addBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
         
-        basketBtn.layer.cornerRadius = basketBtn.bounds.height / 2
-        basketBtn.layer.shadowRadius = 2
-        basketBtn.layer.shadowOpacity = 0.5
-        basketBtn.layer.shadowColor = UIColor.darkGray.cgColor
-        basketBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
+        euroBtn.layer.cornerRadius = euroBtn.bounds.height / 2
+        euroBtn.layer.shadowRadius = 2
+        euroBtn.layer.shadowOpacity = 0.5
+        euroBtn.layer.shadowColor = UIColor.darkGray.cgColor
+        euroBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
         
         menuBtn.layer.cornerRadius = menuBtn.bounds.height / 2
         menuBtn.layer.shadowRadius = 2
