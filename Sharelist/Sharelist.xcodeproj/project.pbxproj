@@ -94,6 +94,7 @@
 		DB4A8FC12A3E731400545CEB /* Sharelist */ = {
 			isa = PBXGroup;
 			children = (
+				DFD484B12A54CA7300636A58 /* TableViewCells */,
 				DBEF458B2A3F4EF8008CAC23 /* Model */,
 				DB4A8FC22A3E731400545CEB /* AppDelegate.swift */,
 				DB4A8FC42A3E731400545CEB /* SceneDelegate.swift */,
@@ -105,8 +106,6 @@
 				DB45D0432A40F50800379574 /* BasketViewController.swift */,
 				DBA85CE32A3FCAFE000E31D1 /* AddArticleViewController.swift */,
 				DBEF45872A3F40E1008CAC23 /* SharelistViewController.swift */,
-				DB45D06E2A421E1000379574 /* ArticleTableViewCell.swift */,
-				DB4361422A53148F00EDE5DB /* ListTableViewCell.swift */,
 				DB4A8FE62A3E7A2900545CEB /* RegistrationViewController.swift */,
 				DB4A8FD62A3E749600545CEB /* MainViewController.swift */,
 				DBBA838A2A4339FD008BA714 /* AccountViewController.swift */,
@@ -126,6 +125,15 @@
 				DB4361402A5313FE00EDE5DB /* List.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		DFD484B12A54CA7300636A58 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				DB45D06E2A421E1000379574 /* ArticleTableViewCell.swift */,
+				DB4361422A53148F00EDE5DB /* ListTableViewCell.swift */,
+			);
+			path = TableViewCells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
