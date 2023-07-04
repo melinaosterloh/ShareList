@@ -34,7 +34,6 @@ class NewListViewController: UIViewController {
         super.viewDidLoad()
         
         loadDesign()
-
     }
 
     @IBAction func closeBtn(_ sender: UIButton) {
@@ -199,6 +198,13 @@ class NewListViewController: UIViewController {
         checkBtn.layer.shadowOpacity = 0.5
         checkBtn.layer.shadowColor = UIColor.darkGray.cgColor
         checkBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
+        
+        listNameLabel.textColor = .white
+        member1.textColor = .white
+        member2.textColor = .white
+        member3.textColor = .white
+        member4.textColor = .white
+        member5.textColor = .white
     }
     
     

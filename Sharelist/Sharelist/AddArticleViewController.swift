@@ -12,7 +12,7 @@ import Toast
 class AddArticleViewController: UIViewController {
 
     
-    @IBOutlet weak var scrollView: UIScrollView!
+
     @IBOutlet weak var Btn1: UIButton!
     @IBOutlet weak var Btn2: UIButton!
     @IBOutlet weak var Btn3: UIButton!
@@ -30,37 +30,7 @@ class AddArticleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        Btn1.layer.cornerRadius = 10
-        Btn2.layer.cornerRadius = 10
-        Btn3.layer.cornerRadius = 10
-        Btn4.layer.cornerRadius = 10
-        Btn5.layer.cornerRadius = 10
-        Btn6.layer.cornerRadius = 10
-        
-        scrollView.contentSize = CGSize(width: 530, height: scrollView.bounds.size.height)
-        
-        productname.layer.borderColor = UIColor.darkGray.cgColor
-        productname.layer.borderWidth = 1
-        productname.layer.cornerRadius = 10
-        
-        brand.layer.borderColor = UIColor.darkGray.cgColor
-        brand.layer.borderWidth = 1
-        brand.layer.cornerRadius = 10
-        
-        quantity.layer.borderColor = UIColor.darkGray.cgColor
-        quantity.layer.borderWidth = 1
-        quantity.layer.cornerRadius = 10
-        
-        category.layer.borderColor = UIColor.darkGray.cgColor
-        category.layer.borderWidth = 1
-        category.layer.cornerRadius = 10
-        
-        saveBtn.layer.cornerRadius = saveBtn.bounds.height / 2
-        saveBtn.layer.shadowRadius = 2
-        saveBtn.layer.shadowOpacity = 0.5
-        saveBtn.layer.shadowColor = UIColor.darkGray.cgColor
-        saveBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
-        
+        loadDesign()
     }
     
 
@@ -95,6 +65,47 @@ class AddArticleViewController: UIViewController {
             }
 
         }
+    }
+    
+    @IBAction func Button1(_ sender: UIButton) {
+        productname.text = "Möhren"
+        brand.text = "Edeka"
+        quantity.text = "5"
+        category.text = "Gemüse"
+    }
+    
+    
+    
+    
+    func loadDesign() {
+        Btn1.layer.cornerRadius = 10
+        Btn2.layer.cornerRadius = 10
+        Btn3.layer.cornerRadius = 10
+        Btn4.layer.cornerRadius = 10
+        Btn5.layer.cornerRadius = 10
+        Btn6.layer.cornerRadius = 10
+        
+        productname.layer.borderColor = UIColor.darkGray.cgColor
+        productname.layer.borderWidth = 1
+        productname.layer.cornerRadius = 10
+        
+        brand.layer.borderColor = UIColor.darkGray.cgColor
+        brand.layer.borderWidth = 1
+        brand.layer.cornerRadius = 10
+        
+        quantity.layer.borderColor = UIColor.darkGray.cgColor
+        quantity.layer.borderWidth = 1
+        quantity.layer.cornerRadius = 10
+        
+        category.layer.borderColor = UIColor.darkGray.cgColor
+        category.layer.borderWidth = 1
+        category.layer.cornerRadius = 10
+        
+        saveBtn.layer.cornerRadius = saveBtn.bounds.height / 2
+        saveBtn.layer.shadowRadius = 2
+        saveBtn.layer.shadowOpacity = 0.5
+        saveBtn.layer.shadowColor = UIColor.darkGray.cgColor
+        saveBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
     }
     
 

@@ -27,56 +27,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        emailLogin.layer.borderColor = UIColor.darkGray.cgColor
-        emailLogin.layer.borderWidth = 1
-        emailLogin.layer.cornerRadius = 10
-        emailLogin.layer.masksToBounds = true
-        emailLogin.layer.shadowRadius = 2
-        emailLogin.layer.shadowOpacity = 0.5
-        emailLogin.layer.shadowColor = UIColor.darkGray.cgColor
-        emailLogin.layer.shadowOffset = CGSize(width: 1, height: 1)
-        
-        passwordLogin.layer.borderColor = UIColor.darkGray.cgColor
-        passwordLogin.layer.borderWidth = 1
-        passwordLogin.layer.cornerRadius = 10
-        passwordLogin.layer.masksToBounds =  true
-        passwordLogin.layer.shadowRadius = 2
-        passwordLogin.layer.shadowOpacity = 0.5
-        passwordLogin.layer.shadowColor = UIColor.darkGray.cgColor
-        passwordLogin.layer.shadowOffset = CGSize(width: 1, height: 1)
-        
-        loginBtn.layer.cornerRadius = 10
-        loginBtn.layer.shadowRadius = 2
-        loginBtn.layer.shadowOpacity = 0.5
-        loginBtn.layer.shadowColor = UIColor.darkGray.cgColor
-        loginBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
-        
-        registrationBtn.layer.cornerRadius = 10
-        registrationBtn.layer.shadowRadius = 2
-        registrationBtn.layer.shadowOpacity = 0.5
-        registrationBtn.layer.shadowColor = UIColor.darkGray.cgColor
-        registrationBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
-        
-        closeBtn.layer.cornerRadius = closeBtn.bounds.height / 2
-        closeBtn.layer.shadowRadius = 2
-        closeBtn.layer.shadowOpacity = 0.5
-        closeBtn.layer.shadowColor = UIColor.darkGray.cgColor
-        closeBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
-        
-        popUpLoginBtn.layer.cornerRadius = 10
-        popUpLoginBtn.layer.shadowRadius = 2
-        popUpLoginBtn.layer.shadowOpacity = 0.5
-        popUpLoginBtn.layer.shadowColor = UIColor.darkGray.cgColor
-        popUpLoginBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
-        
-        // blurView Größe ist gleich der Größe von der gesamten View
-        blurView.bounds = self.view.bounds
-        
-        // width = 90%, height = 40%
-        loginPopUpView.bounds = CGRect(x: 0, y: 0, width: self.view.bounds.width * 0.8, height: self.view.bounds.height * 0.3)
-        loginPopUpView.layer.cornerRadius = 20
-        
-       
+        loadDesign()
     }
     
     @IBAction func loginButton(_ sender: UIButton) {
@@ -169,15 +120,55 @@ class MainViewController: UIViewController {
         })
     }
     
- /*   @IBAction func logout(_ unwindSegue: UIStoryboardSegue) {
-        if let destinationVC = unwindSegue.source as? AccountViewController {
-            let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            if let desiredViewController = mainStoryboard.instantiateViewController(withIdentifier: "MainViewController") as? MainViewController {
-                // Wechsel zu dem gewünschten View Controller
-                navigationController?.pushViewController(desiredViewController, animated: true)
-            }
-        }
-    }   */
-    
+    func loadDesign() {
+        emailLogin.layer.borderColor = UIColor.darkGray.cgColor
+        emailLogin.layer.borderWidth = 1
+        emailLogin.layer.cornerRadius = 10
+        emailLogin.layer.masksToBounds = true
+        emailLogin.layer.shadowRadius = 2
+        emailLogin.layer.shadowOpacity = 0.5
+        emailLogin.layer.shadowColor = UIColor.darkGray.cgColor
+        emailLogin.layer.shadowOffset = CGSize(width: 1, height: 1)
+        
+        passwordLogin.layer.borderColor = UIColor.darkGray.cgColor
+        passwordLogin.layer.borderWidth = 1
+        passwordLogin.layer.cornerRadius = 10
+        passwordLogin.layer.masksToBounds =  true
+        passwordLogin.layer.shadowRadius = 2
+        passwordLogin.layer.shadowOpacity = 0.5
+        passwordLogin.layer.shadowColor = UIColor.darkGray.cgColor
+        passwordLogin.layer.shadowOffset = CGSize(width: 1, height: 1)
+        
+        loginBtn.layer.cornerRadius = 10
+        loginBtn.layer.shadowRadius = 2
+        loginBtn.layer.shadowOpacity = 0.5
+        loginBtn.layer.shadowColor = UIColor.darkGray.cgColor
+        loginBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
+        
+        registrationBtn.layer.cornerRadius = 10
+        registrationBtn.layer.shadowRadius = 2
+        registrationBtn.layer.shadowOpacity = 0.5
+        registrationBtn.layer.shadowColor = UIColor.darkGray.cgColor
+        registrationBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
+        
+        closeBtn.layer.cornerRadius = closeBtn.bounds.height / 2
+        closeBtn.layer.shadowRadius = 2
+        closeBtn.layer.shadowOpacity = 0.5
+        closeBtn.layer.shadowColor = UIColor.darkGray.cgColor
+        closeBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
+        
+        popUpLoginBtn.layer.cornerRadius = 10
+        popUpLoginBtn.layer.shadowRadius = 2
+        popUpLoginBtn.layer.shadowOpacity = 0.5
+        popUpLoginBtn.layer.shadowColor = UIColor.darkGray.cgColor
+        popUpLoginBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
+        
+        // blurView Größe ist gleich der Größe von der gesamten View
+        blurView.bounds = self.view.bounds
+        
+        // width = 90%, height = 40%
+        loginPopUpView.bounds = CGRect(x: 0, y: 0, width: self.view.bounds.width * 0.8, height: self.view.bounds.height * 0.3)
+        loginPopUpView.layer.cornerRadius = 20
+    }
 
 }

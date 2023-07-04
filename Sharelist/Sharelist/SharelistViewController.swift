@@ -81,6 +81,9 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
         present(accountViewController, animated: true, completion: nil)
     }
     
+    
+    
+    
     // Anzahl der zu erzeugenden Zellen
     @objc func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return articleArray.count
@@ -92,14 +95,14 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     // Bei Button Klick wird entsprechende Zelle des Indexes gelöscht und damit auch der Artikel in der Datenbank
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    /*func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let article = articleArray[indexPath.row]
             deleteArticleFromDatabase(article)
             articleArray.remove(at: indexPath.row)
             articleListTableView.deleteRows(at: [indexPath], with: .fade)
         }
-    }
+    }*/
  
     // Zelle wird zugeordnet, Index hinzugefügt, infoButton der entsprechenden Zelle wird ausgelöst
     @objc func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -120,16 +123,16 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
         return cell
     }
     
+    
+    
+    
+    
     // Label des Pop ups werden den Artikeldateien zugeordnet (aus extra Klasse)
     func populatePopup(with article: Article) {
         productLabel.text = "Produkt: " + article.productname
         brandLabel.text = "Marke: " + article.brand
         quantityLabel.text = "Menge: " + article.quantity
         categoryLabel.text = "Kategory: " + article.cathegory
-    }
-    
-    // Möglicherweise nicht benötigt
-    @IBAction func deleteButton(_ sender: UIButton) {
     }
     
     
@@ -141,7 +144,6 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
     
     
     func loadData() {
-        
         //initalize Database
         let db = Firestore.firestore()
 
@@ -166,7 +168,6 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
                             }
                             self.articleListTableView.reloadData()
                         }
-
                     }
                 }
             } else {

@@ -23,47 +23,7 @@ class RegistrationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Bild auswählen Button
-        SelectImageBtn.layer.cornerRadius = SelectImageBtn.bounds.height / 2
-        SelectImageBtn.layer.shadowRadius = 2
-        SelectImageBtn.layer.shadowOpacity = 0.5
-        SelectImageBtn.layer.shadowColor = UIColor.darkGray.cgColor
-        SelectImageBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
-        
-        // Vorname Feld
-        firstnameRegistration.layer.borderColor = UIColor.darkGray.cgColor
-        firstnameRegistration.layer.borderWidth = 1
-        firstnameRegistration.layer.cornerRadius = 10
-        
-        // Nachname Feld
-        lastnameRegistration.layer.borderColor = UIColor.darkGray.cgColor
-        lastnameRegistration.layer.borderWidth = 1
-        lastnameRegistration.layer.cornerRadius = 10
-        
-        
-        // E-Mail Feld
-        emailRegistration.layer.borderColor = UIColor.darkGray.cgColor
-        emailRegistration.layer.borderWidth = 1
-        emailRegistration.layer.cornerRadius = 10
-        
-        // Passwort Feld
-        passwordRegistration.layer.borderColor = UIColor.darkGray.cgColor
-        passwordRegistration.layer.borderWidth = 1
-        passwordRegistration.layer.cornerRadius = 10
-        passwordRegistration.isSecureTextEntry = true
-        
-        // Passwort wiederholen Feld
-        pwRepeat.layer.borderColor = UIColor.darkGray.cgColor
-        pwRepeat.layer.borderWidth = 1
-        pwRepeat.layer.cornerRadius = 10
-
-        // Registrierung Button
-        registrationBtn.layer.cornerRadius = 10
-        registrationBtn.layer.shadowRadius = 2
-        registrationBtn.layer.shadowOpacity = 0.5
-        registrationBtn.layer.shadowColor = UIColor.darkGray.cgColor
-        registrationBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
-        
+        loadDesign()
     }
     
     @IBAction func selectImage(_ sender: UIButton) {
@@ -155,6 +115,50 @@ class RegistrationViewController: UIViewController {
         }
 
     }
+           
+
+   func loadDesign() {
+       // Bild auswählen Button
+       SelectImageBtn.layer.cornerRadius = SelectImageBtn.bounds.height / 2
+       SelectImageBtn.layer.shadowRadius = 2
+       SelectImageBtn.layer.shadowOpacity = 0.5
+       SelectImageBtn.layer.shadowColor = UIColor.darkGray.cgColor
+       SelectImageBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
+       
+       // Vorname Feld
+       firstnameRegistration.layer.borderColor = UIColor.darkGray.cgColor
+       firstnameRegistration.layer.borderWidth = 1
+       firstnameRegistration.layer.cornerRadius = 10
+       
+       // Nachname Feld
+       lastnameRegistration.layer.borderColor = UIColor.darkGray.cgColor
+       lastnameRegistration.layer.borderWidth = 1
+       lastnameRegistration.layer.cornerRadius = 10
+       
+       
+       // E-Mail Feld
+       emailRegistration.layer.borderColor = UIColor.darkGray.cgColor
+       emailRegistration.layer.borderWidth = 1
+       emailRegistration.layer.cornerRadius = 10
+       
+       // Passwort Feld
+       passwordRegistration.layer.borderColor = UIColor.darkGray.cgColor
+       passwordRegistration.layer.borderWidth = 1
+       passwordRegistration.layer.cornerRadius = 10
+       passwordRegistration.isSecureTextEntry = true
+       
+       // Passwort wiederholen Feld
+       pwRepeat.layer.borderColor = UIColor.darkGray.cgColor
+       pwRepeat.layer.borderWidth = 1
+       pwRepeat.layer.cornerRadius = 10
+
+       // Registrierung Button
+       registrationBtn.layer.cornerRadius = 10
+       registrationBtn.layer.shadowRadius = 2
+       registrationBtn.layer.shadowOpacity = 0.5
+       registrationBtn.layer.shadowColor = UIColor.darkGray.cgColor
+       registrationBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
+   }
     
 
 }
