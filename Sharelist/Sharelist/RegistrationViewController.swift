@@ -107,7 +107,7 @@ class RegistrationViewController: UIViewController {
             let newList = db.collection("shoppinglist").document()
             newList.setData(["name":"Privat", "balance":0, "owner": [userID]])
             if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                appDelegate.updateSelectedListID(newList.documentID) // newListID ist der Wert der neuen Listen-ID
+                appDelegate.updateSelectedListID(newList.documentID)
             }
             print("Listen ID ist:", newList.documentID)
             let newUser = db.collection("user").document(userID)

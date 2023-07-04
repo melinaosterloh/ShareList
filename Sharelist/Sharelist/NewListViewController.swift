@@ -131,7 +131,6 @@ class NewListViewController: UIViewController {
                 completion(nil)
                 return
             }
-            
             let db = Firestore.firestore()
             db.collection("user").whereField("email", isEqualTo: email).getDocuments { snapshot, error in
                 if let error = error {
