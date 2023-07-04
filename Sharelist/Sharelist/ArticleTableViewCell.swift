@@ -33,7 +33,7 @@ class ArticleTableViewCell: UITableViewCell {
         deleteButton.layer.shadowColor = UIColor.darkGray.cgColor
         deleteButton.layer.shadowOffset = CGSize(width: 1, height: 1)
         
-
+/*
         // Ändere das Design des infoButton
         //infoButton.backgroundColor = UIColor.blue
         //infoButton.setTitleColor(UIColor.white, for: .normal)
@@ -44,6 +44,7 @@ class ArticleTableViewCell: UITableViewCell {
         infoButton.layer.shadowOpacity = 0.5
         infoButton.layer.shadowColor = UIColor.darkGray.cgColor
         infoButton.layer.shadowOffset = CGSize(width: 1, height: 1)
+ */
     }
 
     @IBAction func infoButtonTapped(_ sender: UIButton) {

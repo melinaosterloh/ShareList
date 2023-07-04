@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pvN-si-uKo">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -923,17 +923,12 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="247" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0,00 €" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Jov-ux-Tfh">
-                                <rect key="frame" x="149" y="92" width="77" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Einkäufe" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pr8-0y-Zvc">
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Einkäufe" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pr8-0y-Zvc">
                                 <rect key="frame" x="16" y="334" width="84" height="19"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weiß nicht wie wir die Einkäufe umsetzen wollen. Auch mit Table View?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rp7-9i-Zna">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Weiß nicht wie wir die Einkäufe umsetzen wollen. Auch mit Table View?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rp7-9i-Zna">
                                 <rect key="frame" x="91" y="396" width="193" height="178"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="178" id="hx4-TF-q1c"/>
@@ -942,7 +937,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="esa-5L-dMS">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="esa-5L-dMS">
                                 <rect key="frame" x="77.666666666666686" y="174" width="220" height="50"/>
                                 <color key="backgroundColor" red="0.62857574220000001" green="0.70564872030000003" blue="0.84029895070000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -956,23 +951,31 @@
                                     <action selector="registrationBtn:" destination="cp1-jc-mOf" eventType="touchUpInside" id="j0C-oJ-dhT"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6WC-cQ-evn">
+                                <rect key="frame" x="166" y="99" width="50" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="Ral-A4-NRd"/>
+                                    <constraint firstAttribute="width" constant="50" id="fLi-0t-vrm"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="icS-Mb-PCD"/>
                         <color key="backgroundColor" red="1" green="0.98823529409999999" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="id6-k3-7Ve" firstAttribute="bottom" secondItem="icS-Mb-PCD" secondAttribute="bottom" id="00R-TU-hvi"/>
                             <constraint firstItem="tYl-qT-WF7" firstAttribute="bottom" secondItem="icS-Mb-PCD" secondAttribute="bottom" id="6FJ-di-bmB"/>
-                            <constraint firstItem="Jov-ux-Tfh" firstAttribute="top" secondItem="icS-Mb-PCD" secondAttribute="top" constant="92" id="6uf-Ew-VuK"/>
                             <constraint firstItem="Rp7-9i-Zna" firstAttribute="leading" secondItem="icS-Mb-PCD" secondAttribute="leading" constant="91" id="7mr-za-Vct"/>
-                            <constraint firstItem="Jov-ux-Tfh" firstAttribute="centerX" secondItem="icS-Mb-PCD" secondAttribute="centerX" id="CAf-Hv-WYl"/>
+                            <constraint firstItem="6WC-cQ-evn" firstAttribute="top" secondItem="icS-Mb-PCD" secondAttribute="top" constant="99" id="G8p-ZV-e51"/>
                             <constraint firstItem="pr8-0y-Zvc" firstAttribute="top" secondItem="esa-5L-dMS" secondAttribute="bottom" constant="110" id="IiN-dd-Q1Z"/>
                             <constraint firstItem="Rp7-9i-Zna" firstAttribute="centerX" secondItem="esa-5L-dMS" secondAttribute="centerX" id="LOu-wA-x6e"/>
                             <constraint firstItem="T9p-8L-nab" firstAttribute="leading" secondItem="icS-Mb-PCD" secondAttribute="leading" constant="16" id="TDS-5O-YDS"/>
-                            <constraint firstItem="Jov-ux-Tfh" firstAttribute="leading" secondItem="icS-Mb-PCD" secondAttribute="leading" constant="149" id="XRp-el-UyS"/>
                             <constraint firstItem="pr8-0y-Zvc" firstAttribute="leading" secondItem="T9p-8L-nab" secondAttribute="leading" id="cUj-SS-IUq"/>
                             <constraint firstItem="tYl-qT-WF7" firstAttribute="leading" secondItem="icS-Mb-PCD" secondAttribute="leading" constant="16" id="jfg-UV-x0Q"/>
                             <constraint firstItem="T9p-8L-nab" firstAttribute="top" secondItem="icS-Mb-PCD" secondAttribute="top" constant="32" id="jw1-m3-ojd"/>
-                            <constraint firstItem="esa-5L-dMS" firstAttribute="top" secondItem="Jov-ux-Tfh" secondAttribute="bottom" constant="48" id="k8W-pf-zG1"/>
+                            <constraint firstItem="6WC-cQ-evn" firstAttribute="leading" secondItem="icS-Mb-PCD" secondAttribute="leading" constant="166" id="sgo-IJ-Whe"/>
                             <constraint firstItem="pr8-0y-Zvc" firstAttribute="trailing" secondItem="T9p-8L-nab" secondAttribute="trailing" id="uGa-V2-I1N"/>
                             <constraint firstItem="icS-Mb-PCD" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="id6-k3-7Ve" secondAttribute="trailing" id="vae-hD-J78"/>
                             <constraint firstItem="Rp7-9i-Zna" firstAttribute="top" secondItem="pr8-0y-Zvc" secondAttribute="bottom" constant="43" id="xvC-XB-Kyb"/>
@@ -982,10 +985,10 @@
                     </view>
                     <navigationItem key="navigationItem" title="Ausgaben" id="ui6-6M-gLJ"/>
                     <connections>
+                        <outlet property="balance" destination="6WC-cQ-evn" id="c31-Nk-wqf"/>
                         <outlet property="homeBtn" destination="id6-k3-7Ve" id="uoV-z9-u3z"/>
                         <outlet property="menuBtn" destination="tYl-qT-WF7" id="Ucw-yH-cpx"/>
                         <outlet property="payDeptBtn" destination="esa-5L-dMS" id="DTH-cU-owe"/>
-                        <outlet property="priceTF" destination="Jov-ux-Tfh" id="Wh1-Vz-yAU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Va-Rf-JW9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1520,8 +1523,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="sWb-yN-1xd"/>
-        <segue reference="GZ9-nP-exc"/>
+        <segue reference="5Il-rP-K6M"/>
+        <segue reference="OO0-ke-RPC"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="basket" catalog="system" width="128" height="108"/>

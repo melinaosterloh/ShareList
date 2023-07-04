@@ -12,13 +12,15 @@ class PaymentViewController: UIViewController {
     @IBOutlet weak var payDeptBtn: UIButton!
     @IBOutlet weak var menuBtn: UIButton!
     @IBOutlet weak var homeBtn: UIButton!
-    @IBOutlet weak var priceTF: UITextField!
+    
+    @IBOutlet weak var balance: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         loadDesign()
     }
+    
     
 
     @IBAction func menuButton(_ sender: UIButton) {
@@ -30,9 +32,10 @@ class PaymentViewController: UIViewController {
     
     func loadDesign() {
         
-        priceTF.layer.borderColor = UIColor.darkGray.cgColor
-        priceTF.layer.borderWidth = 1
-        priceTF.layer.cornerRadius = 10
+        balance.layer.borderColor = UIColor.darkGray.cgColor
+        balance.layer.borderWidth = 1
+        balance.layer.cornerRadius = 10
+        balance.text = "Hallo"
         
         payDeptBtn.layer.cornerRadius = 25
         
