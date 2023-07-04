@@ -17,9 +17,18 @@ class RegistrationViewController: UIViewController {
     @IBOutlet weak var passwordRegistration: UITextField!
     @IBOutlet weak var pwRepeat: UITextField!
     @IBOutlet weak var registrationBtn: UIButton!
+    @IBOutlet weak var UserImageView: UIImageView!
+    @IBOutlet weak var SelectImageBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Bild auswählen Button
+        SelectImageBtn.layer.cornerRadius = SelectImageBtn.bounds.height / 2
+        SelectImageBtn.layer.shadowRadius = 2
+        SelectImageBtn.layer.shadowOpacity = 0.5
+        SelectImageBtn.layer.shadowColor = UIColor.darkGray.cgColor
+        SelectImageBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
         
         // Vorname Feld
         firstnameRegistration.layer.borderColor = UIColor.darkGray.cgColor
@@ -56,6 +65,37 @@ class RegistrationViewController: UIViewController {
         registrationBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
         
     }
+    
+    @IBAction func selectImage(_ sender: UIButton) {
+        let imagePicker = UIImagePickerController()
+               imagePicker.sourceType = .photoLibrary
+               imagePicker.delegate = self
+               present(imagePicker, animated: true, completion: nil)
+           }
+       }
+
+       extension RegistrationViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+           func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+               if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                   // Setze das ausgewählte Bild in der UIImageView
+                   UserImageView.image = selectedImage
+                   
+                   let circleSize: CGFloat = 150.0 // Die gewünschte Größe des Kreises
+
+                   // Bild als Kreis anzeigen
+                   UserImageView.layer.cornerRadius = circleSize / 2
+                   UserImageView.layer.masksToBounds = true
+                   UserImageView.frame = CGRect(x: 0, y: 0, width: circleSize, height: circleSize)
+               }
+               
+               picker.dismiss(animated: true, completion: nil)
+           }
+
+
+           func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+               picker.dismiss(animated: true, completion: nil)
+           }
+    
     
 
     @IBAction func registrationBtn(_ sender: UIButton) {
