@@ -40,6 +40,7 @@ class BasketViewController: UIViewController {
         basketPrice.layer.borderWidth = 1
         basketPrice.layer.cornerRadius = 10
         
+        
         basketDate.layer.borderColor = UIColor.darkGray.cgColor
         basketDate.layer.borderWidth = 1
         basketDate.layer.cornerRadius = 10
@@ -92,12 +93,20 @@ class BasketViewController: UIViewController {
             if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
                let selectedListID = appDelegate.selectedListID {
                 let newExpense = db.collection("shoppinglist").document(selectedListID).collection("expenses").document()
-                    newExpense.setData(["description":description, "price":price, "date":date])
+                newExpense.setData(["description":description, "price":Double(price)!, "date":date])
+                
+                //member aus der Datenbank ausgeben
+                let members = db.collection("shoppinglist").document(selectedListID)
+                splitExpenses(expense: Double(price)!)
                 self.performSegue(withIdentifier: "goToExpensesList", sender: self)
             }
 
         }
         
+    }
+    
+    func splitExpenses (expense: Double) {
+       
     }
     
 }
