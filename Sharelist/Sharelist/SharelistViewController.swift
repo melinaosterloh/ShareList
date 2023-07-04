@@ -144,6 +144,10 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
     
     
     func loadData() {
+        
+        // Vor dem Laden neuer Daten das listArray leeren
+        articleArray.removeAll()
+        
         //initalize Database
         let db = Firestore.firestore()
 

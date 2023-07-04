@@ -9,6 +9,10 @@ import UIKit
 import Firebase
 import Toast
 
+protocol ReloadListDelegate: AnyObject {
+    func reloadListTableView()
+}
+
 class NewListViewController: UIViewController {
 
 
@@ -28,7 +32,7 @@ class NewListViewController: UIViewController {
     var currentUser : String?
     var listname: String?
     var memberArray = [String]()
-    weak var reloadDelegate: TableViewReloadDelegate?
+    weak var reloadDelegate: ReloadListDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,8 +72,9 @@ class NewListViewController: UIViewController {
             print("Listen ID ist:", newList.documentID)
             print(memberArray)
             dismiss(animated: true) {
-                self.reloadDelegate?.reloadTableView()
-            }
+                if let delegate = self.reloadDelegate {
+                    delegate.reloadListTableView()
+                }            }
         }
     }
     

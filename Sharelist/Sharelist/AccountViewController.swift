@@ -194,3 +194,9 @@ extension AccountViewController: ListTableViewCellDelegate {
         }
     }
 }
+
+extension AccountViewController: ReloadListDelegate {
+    func reloadListTableView() {
+        loadData()
+    }
+}
