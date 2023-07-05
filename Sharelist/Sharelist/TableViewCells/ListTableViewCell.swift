@@ -21,13 +21,15 @@ class ListTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Ändert das Design des deleteButton
+        /*
         deleteButton.layer.cornerRadius = deleteButton.bounds.height / 2
         deleteButton.layer.shadowRadius = 2
         deleteButton.layer.shadowOpacity = 0.5
         deleteButton.layer.shadowColor = UIColor.darkGray.cgColor
         deleteButton.layer.shadowOffset = CGSize(width: 1, height: 1)
+         */
     }
+         
     
     // Delegiert das Tap Event an die ListTableView
     @IBAction func deleteButtonTapped(_ sender: UIButton) {

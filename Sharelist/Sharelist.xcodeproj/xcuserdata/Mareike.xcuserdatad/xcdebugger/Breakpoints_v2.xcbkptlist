@@ -14,42 +14,10 @@
             filePath = "Sharelist/AccountViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "197"
-            endingLineNumber = "197"
-            landmarkName = "deleteListFromDatabase(_:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "1751A537-B30B-4CB4-BE21-E3A955C8B553 - 6811c37e3c16c9f0"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Sharelist.AccountViewController.deleteListFromDatabase(Sharelist.List) -&gt; ()"
-                  moduleName = "Sharelist"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Mareike/Documents/Studium/MODULE_6.Semester/06_Mobile_Computing/ShareList/Sharelist/Sharelist/AccountViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "199"
-                  endingLineNumber = "199"
-                  offsetFromSymbolStart = "240">
-               </Location>
-               <Location
-                  uuid = "1751A537-B30B-4CB4-BE21-E3A955C8B553 - 6811c37e3c16ca3e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Sharelist.AccountViewController.deleteListFromDatabase(Sharelist.List) -&gt; ()"
-                  moduleName = "Sharelist"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Mareike/Documents/Studium/MODULE_6.Semester/06_Mobile_Computing/ShareList/Sharelist/Sharelist/AccountViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "197"
-                  endingLineNumber = "197"
-                  offsetFromSymbolStart = "240">
-               </Location>
-            </Locations>
+            startingLineNumber = "199"
+            endingLineNumber = "199"
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

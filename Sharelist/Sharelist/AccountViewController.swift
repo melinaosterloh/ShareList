@@ -78,7 +78,7 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         listCell.textLabel?.text = "\(list.name)"
         
         listCell.tag = indexPath.row
-        listCell.delegate = self
+        //listCell.delegate = self
         listCell.indexPath = indexPath
         
         return listCell
@@ -171,6 +171,8 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 }
 
+/*
+ Musste leider weichen, da über Swift das Löschen von Unterkollektionen noch nicht funktioniert und das zu vielen Bugs geführt hätte. siehe https://cloud.google.com/firestore/docs/manage-data/delete-data?hl=de
 // Initialisierung der delete Buttons
 extension AccountViewController: ListTableViewCellDelegate {
 
@@ -192,13 +194,14 @@ extension AccountViewController: ListTableViewCellDelegate {
                     print("Error deleting article: \(error)")
                 } else {
                     print("Liste gelöscht!")
-                    //appDelegate.updateSelectedListID(<#String#>)
+                    
                     
                 }
             }
         }
     }
 }
+*/
 
 // Extension für Delegation zur AccountViewController Klasse --> Reload TableView
 extension AccountViewController: ReloadListDelegate {

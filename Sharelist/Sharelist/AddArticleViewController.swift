@@ -67,6 +67,39 @@ class AddArticleViewController: UIViewController {
         category.text = "Gemüse"
     }
     
+    @IBAction func Button2(_ sender: UIButton) {
+        productname.text = "Eier (für Spiegeleier)"
+        quantity.text = "6"
+        category.text = "Eier"
+    }
+    
+    @IBAction func Button3(_ sender: UIButton) {
+        productname.text = "Popkorn"
+        quantity.text = "200g"
+        category.text = "Snacks"
+    }
+    
+    @IBAction func Button4(_ sender: UIButton) {
+        productname.text = "Kaffee"
+        brand.text = "Melitta"
+        quantity.text = "2 Packungen"
+        category.text = "Kaffee- und Teewaren"
+    }
+    
+    @IBAction func Button5(_ sender: UIButton) {
+        productname.text = "Weißwein"
+        brand.text = "Blanchet"
+        quantity.text = "3 Flaschen"
+        category.text = "Getränke"
+    }
+    
+    @IBAction func Button6(_ sender: UIButton) {
+        productname.text = "Butter"
+        brand.text = "Gut & Günstig"
+        quantity.text = "2 Packete"
+        category.text = "MoPro"
+    }
+    
     func loadDesign() {
         Btn1.layer.cornerRadius = 10
         Btn2.layer.cornerRadius = 10
