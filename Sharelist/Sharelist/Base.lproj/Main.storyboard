@@ -364,14 +364,14 @@
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y0b-zC-Hgv">
                                                     <rect key="frame" x="183" y="727" width="45" height="45"/>
-                                                    <color key="backgroundColor" red="1" green="0.98823529409999999" blue="0.97896668190000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" red="0.90196079019999997" green="0.94117647410000005" blue="0.82745099070000006" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="45" id="S8O-4p-F5J"/>
                                                         <constraint firstAttribute="height" constant="45" id="Y6C-If-QWc"/>
                                                     </constraints>
                                                     <color key="tintColor" red="0.3060487509" green="0.32154738900000002" blue="0.33382815119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="plain" image="xmark" catalog="system"/>
+                                                    <buttonConfiguration key="configuration" style="plain" image="checkmark" catalog="system"/>
                                                     <connections>
                                                         <action selector="closeButton:" destination="GXz-GC-rEM" eventType="touchUpInside" id="KFz-c7-F0n"/>
                                                     </connections>
@@ -905,8 +905,8 @@
                                     <segue destination="GXz-GC-rEM" kind="presentation" id="OO0-ke-RPC"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="id6-k3-7Ve">
-                                <rect key="frame" x="162" y="752" width="50" height="50"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="id6-k3-7Ve">
+                                <rect key="frame" x="162" y="752" width="54" height="50"/>
                                 <color key="backgroundColor" red="0.89422911410000006" green="0.94133508210000005" blue="0.81379908320000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="Dyf-Qf-Wy2"/>
