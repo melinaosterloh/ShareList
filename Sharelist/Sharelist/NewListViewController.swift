@@ -9,13 +9,12 @@ import UIKit
 import Firebase
 import Toast
 
+// Protokoll, das dafür sorgt, dass die Tableview in AccountViewController neu geladen wird, wenn der Checkbutton betätigt wird
 protocol ReloadListDelegate: AnyObject {
     func reloadListTableView()
 }
 
 class NewListViewController: UIViewController {
-
-
     @IBOutlet weak var closeBtn: UIButton!
     @IBOutlet weak var checkBtn: UIButton!
     @IBOutlet weak var listName: UITextField!
@@ -29,23 +28,22 @@ class NewListViewController: UIViewController {
     @IBOutlet weak var member4: UILabel!
     @IBOutlet weak var member5: UILabel!
     
-    var currentUser : String?
+    var currentUser = Auth.auth().currentUser?.uid
     var listname: String?
     var memberArray = [String]()
+    var db = Firestore.firestore()
+    
     weak var reloadDelegate: ReloadListDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         loadDesign()
-
     }
-
+    
     @IBAction func closeBtn(_ sender: UIButton) {
         dismiss(animated: true)
     }
-    
-    
+        
     // Eingegebener Listenname wird zum Label, Textfeld und Button verschwinden
     @IBAction func createListButton(_ sender: UIButton) {
         if let name = listName.text, !name.isEmpty {
@@ -53,7 +51,6 @@ class NewListViewController: UIViewController {
             listNameLabel.text = listname
             listName.isHidden = true
             createListBtn.isHidden = true
-            currentUser = Auth.auth().currentUser?.uid
             memberArray.append(currentUser!)
         }
         else {
@@ -61,30 +58,9 @@ class NewListViewController: UIViewController {
         } 
     }
     
-    @IBAction func checkButton(_ sender: UIButton) {
-        if let name = listname {
-            let db = Firestore.firestore()
-            let newList = db.collection("shoppinglist").document()
-            newList.setData(["name": name, "balance":0, "owner": memberArray])
-            // new List is selected
-            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                appDelegate.updateSelectedListID(newList.documentID) // newListID ist der Wert der neuen Listen-ID
-            }
-            print("Listen ID ist:", newList.documentID)
-            print(memberArray)
-            dismiss(animated: true) {
-                if let delegate = self.reloadDelegate {
-                    delegate.reloadListTableView()
-                    
-                }
-            }
-        }
-    }
-    
     // E-Mail Adresse aus E-Mail Textfeld wird in die 5 zur verfügung stehenden Label gespeichert
     @IBAction func inviteButton(_ sender: UIButton) {
         let email = emailTF.text
-        let maxMember = 5
         // Abfrage, ob Listenname angegeben wurde, um Liste zu erstellen
         if let listNameLabelText = listNameLabel.text, !listNameLabelText.isEmpty {
             // Abfrage, ob E-Mail Felf für die Mitglieder ausgefüllt wurde
@@ -92,7 +68,7 @@ class NewListViewController: UIViewController {
                 // Abfrage, ob die E-Mail Adresse in der App Registriert ist
                 getUIDFromEmail(email: emailTF) { uid in
                     if let uid = uid {
-                        // Überprüfung nach freien Labels für die Mitglieder (max. 5)
+                        // Überprüfung nach freien Labels für die Mitglieder (max. 5) und fügt diese dann dem memberArray hinzu
                         if let mem1Text = self.member1.text, mem1Text.isEmpty {
                             self.member1.text = email
                             self.memberArray.append(uid)
@@ -127,10 +103,29 @@ class NewListViewController: UIViewController {
             }
         }
         else {
-            self.view.makeToast("Bitte fülle zuerste den Listennamen aus!", duration: 2.0)
+            self.view.makeToast("Bitte fülle zuerst den Listennamen aus!", duration: 2.0)
         }
     }
     
+    // Eingegebene Daten werden in die Datenbank geschrieben
+    @IBAction func checkButton(_ sender: UIButton) {
+        if let name = listname {
+            let newList = self.db.collection("shoppinglist").document()
+            newList.setData(["name": name, "balance":0, "owner": memberArray])
+            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                appDelegate.updateSelectedListID(newList.documentID)
+                print("Die ID der neuen Liste:", newList.documentID)
+            }
+            dismiss(animated: true) {
+                if let delegate = self.reloadDelegate {
+                    delegate.reloadListTableView() //Läd die Liste im AccountViewController neu
+                    
+                }
+            }
+        }
+    }
+    
+    // sucht die UID des Nutzers anhand der E-Mail Adresse in der Authentication (für Prüfung ob User in DB vorhanden
     func getUIDFromEmail(email: String, completion: @escaping (String?) -> Void) {
         Auth.auth().fetchSignInMethods(forEmail: email) { signInMethods, error in
             if let error = error {
@@ -138,14 +133,12 @@ class NewListViewController: UIViewController {
                 completion(nil)
                 return
             }
-            let db = Firestore.firestore()
-            db.collection("user").whereField("email", isEqualTo: email).getDocuments { snapshot, error in
+            self.db.collection("user").whereField("email", isEqualTo: email).getDocuments { snapshot, error in
                 if let error = error {
                     print("Fehler beim Abrufen der UID:", error.localizedDescription)
                     completion(nil)
                     return
                 }
-                            
                 if let snapshot = snapshot, let document = snapshot.documents.first {
                     let uid = document.documentID
                     completion(uid)
@@ -157,8 +150,7 @@ class NewListViewController: UIViewController {
     }
     
     
-    func loadDesign() {
-        
+    func loadDesign() {        
         // Textfeld Listenname
         listName.layer.borderColor = UIColor.darkGray.cgColor
         listName.layer.borderWidth = 1

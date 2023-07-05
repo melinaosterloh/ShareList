@@ -9,28 +9,24 @@ import UIKit
 import Firebase
 
 class PaymentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
     @IBOutlet weak var payDeptBtn: UIButton!
     @IBOutlet weak var menuBtn: UIButton!
     @IBOutlet weak var homeBtn: UIButton!
     @IBOutlet weak var addBtn: UIButton!
     @IBOutlet weak var paymentTableView: UITableView!
-    
-    
     @IBOutlet weak var balance: UILabel!
-    var userID = Auth.auth().currentUser!.uid
-    var selectedListUID: String?
     
+    var userID = Auth.auth().currentUser!.uid
+    var db = Firestore.firestore()
+    var selectedListID: String?
     var expensesArray = [Expenses]()
     var expenses: Expenses?
     private var document: [DocumentSnapshot] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.paymentTableView.delegate = self
         self.paymentTableView.dataSource = self
-        
         loadData()
         loadDesign()
     }
@@ -52,26 +48,20 @@ class PaymentViewController: UIViewController, UITableViewDelegate, UITableViewD
 
         expensesCell.textLabel?.text = "\(expenses.date + "    " + expenses.description)"
         expensesCell.detailTextLabel?.text = "\(string + " €")"
-        
         expensesCell.layer.cornerRadius = 10
         expensesCell.layer.borderColor = UIColor.darkGray.cgColor
         expensesCell.layer.borderWidth = 0.3
-        
         return expensesCell
     }
     
-    func loadData() {
-        
+    func loadData() {        
         // Vor dem Laden neuer Daten das listArray leeren
         expensesArray.removeAll()
-        
-        let db = Firestore.firestore()
-        //initalize Database
-
+    
+        // Ausgabe der Ausgaben der aktuellen Liste
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
            let selectedListID = appDelegate.selectedListID {
-                print("In der paymentView ist diese ID angekommen:", selectedListID)
-                let shoppingListsRef = db.collection("shoppinglist").document(selectedListID).collection("expenses")
+            let shoppingListsRef = self.db.collection("shoppinglist").document(selectedListID).collection("expenses")
                 shoppingListsRef.getDocuments { (snapshot, error) in
                     if let error = error {
                         print(error.localizedDescription)
@@ -96,6 +86,7 @@ class PaymentViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
     }
 
+    //Anzeige des AccountViewController
     @IBAction func menuButton(_ sender: UIButton) {
         let accountViewController = storyboard?.instantiateViewController(withIdentifier: "AccountViewController") as! AccountViewController
         accountViewController.modalPresentationStyle = .overCurrentContext
@@ -103,16 +94,38 @@ class PaymentViewController: UIViewController, UITableViewDelegate, UITableViewD
         present(accountViewController, animated: true, completion: nil)
     }
     
-    func getUserBalance() {
-        let db = Firestore.firestore()
+    //Anzeige des AccountViewController
+    @IBAction func payDeptButton(_ sender: UIButton) {
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
            let selectedListID = appDelegate.selectedListID {
-            let userBalance = db.collection("shoppinglist").document(selectedListID).collection("userBalances").document(userID)
+            let userBalances = self.db.collection("shoppinglist").document(selectedListID).collection("userBalances")
+            userBalances.getDocuments { (snapshot, error) in
+                if let error = error {
+                    print(error.localizedDescription)
+                } else {
+                    if let snapshot = snapshot {
+                        for document in snapshot.documents {
+                            let data = document.data()
+                            let balance = 0.00
+                        }
+                        let debtClearing = Expenses(id: -, date: -, description: "Schuldenausgleich", price: -)
+                        self.expensesArray.append(debtClearing)
+                    }
+                }
+            }
+        }
+    }
+    
+    // Liste die Balance des aktuell angemeldeten Users aus der aktuell ausgewählten Liste aus
+    func getUserBalance() {
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+           let selectedListID = appDelegate.selectedListID {
+            let userBalance = self.db.collection("shoppinglist").document(selectedListID).collection("userBalances").document(userID)
             userBalance.getDocument { (document, error) in
                 if let document = document, document.exists {
                     if let userBalance = document.data()?["balance"] as? Double {
                         print("userBalance ist", userBalance)
-                        let roundedNumber = round(userBalance * 100) / 100
+                        let roundedNumber = round(userBalance * 100) / 100 //runden auf zwei Nachkommastellen
                         self.balance.text = String(roundedNumber)
                     } else {
                         self.balance.text = "0.00"
@@ -120,19 +133,15 @@ class PaymentViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
                 else { print("keine Liste") }
             }
-            
         } else {
             print("keine Liste ausgewählt")
         }
     }
     
     func loadDesign() {
-        
         balance.layer.borderColor = UIColor.darkGray.cgColor
         balance.layer.borderWidth = 1
         balance.layer.cornerRadius = 10
-        
-        
         
         payDeptBtn.layer.cornerRadius = 25
         

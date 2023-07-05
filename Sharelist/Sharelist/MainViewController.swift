@@ -26,7 +26,95 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadDesign()
         
+       
+    }
+    
+    @IBAction func loginButton(_ sender: UIButton) {
+        animateIn(loginView: blurView)
+        animateIn(loginView: loginPopUpView)
+    }
+    
+    @IBAction func closePopUpButton(_ sender: UIButton) {
+        animateOut(loginView: loginPopUpView)
+        animateOut(loginView: blurView)
+    }
+    
+    
+    @IBAction func popUpLoginButton(_ sender: UIButton) {
+        guard let email = emailLogin.text else { return }
+        guard let password = passwordLogin.text else { return }
+        let db = Firestore.firestore()
+        
+        Auth.auth().signIn(withEmail: email, password: password) { [weak self] firebaseResult, error in
+            guard let strongSelf = self else {
+                return
+            }
+            guard error == nil else {
+                if let err = error as NSError? {
+                    print("Fehler bei der Anmeldung:", err.localizedDescription)
+                    strongSelf.view.makeToast(err.localizedDescription, duration: 2.0)
+                }
+                return
+            }
+            guard let user = firebaseResult?.user else {
+                return
+            }
+            let userID = user.uid
+            getUserList(userID: userID)
+        }
+        
+        //Legt die default Liste des Users (privat) als aktuelle Liste fest
+        func getUserList(userID : String) {
+            db.collection("user").document(userID).getDocument { (document, error) in
+                if let document = document {
+                    let data = document.data()
+                    if let listID = data?["defaultListID"] as? String {
+                        print("Die default List ist: \(listID)")
+                        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                            appDelegate.updateSelectedListID(listID)
+                            self.performSegue(withIdentifier: "goToListView", sender: self)
+                        } else {
+                            print("Dokument nicht gefunden")
+                        }
+                    } else {
+                        print("Fehler beim Abrufen des des Listenwerts: \(error?.localizedDescription ?? "Unbekannter Fehler")")
+                    }
+                }
+            }
+        }
+        
+    }
+    
+    func animateIn(loginView: UIView) {
+        let backgroundView = self.view!
+        
+        // fügt subview zum Screen hinzu
+        backgroundView.addSubview(loginView)
+        
+        // setzt view Skalierung auf 120%
+        loginView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+        loginView.alpha = 0
+        loginView.center = backgroundView.center
+        
+        // Animationseffekt
+        UIView.animate(withDuration: 0.3, animations: {
+            loginView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            loginView.alpha = 1
+        })
+    }
+    
+    func animateOut(loginView: UIView) {
+        UIView.animate(withDuration: 0.3, animations: {
+            loginView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+            loginView.alpha = 0
+        }, completion: { (success:Bool) in
+            loginView.removeFromSuperview()
+        })
+    }
+    
+    func loadDesign() {
         emailLogin.layer.borderColor = UIColor.darkGray.cgColor
         emailLogin.layer.borderWidth = 1
         emailLogin.layer.cornerRadius = 10
@@ -75,109 +163,6 @@ class MainViewController: UIViewController {
         // width = 90%, height = 40%
         loginPopUpView.bounds = CGRect(x: 0, y: 0, width: self.view.bounds.width * 0.8, height: self.view.bounds.height * 0.3)
         loginPopUpView.layer.cornerRadius = 20
-        
-       
     }
-    
-    @IBAction func loginButton(_ sender: UIButton) {
-        animateIn(loginView: blurView)
-        animateIn(loginView: loginPopUpView)
-    }
-    
-    @IBAction func closePopUpButton(_ sender: UIButton) {
-        animateOut(loginView: loginPopUpView)
-        animateOut(loginView: blurView)
-    }
-    
-    
-    @IBAction func popUpLoginButton(_ sender: UIButton) {
-        guard let email = emailLogin.text else { return }
-        guard let password = passwordLogin.text else { return }
-        
-        let db = Firestore.firestore()
-        
-        Auth.auth().signIn(withEmail: email, password: password) { [weak self] firebaseResult, error in
-            guard let strongSelf = self else {
-                return
-            }
-            guard error == nil else {
-                if let err = error as NSError? {
-                    print("Fehler bei der Anmeldung:", err.localizedDescription)
-                    strongSelf.view.makeToast(err.localizedDescription, duration: 2.0)
-                }
-                return;
-            }
-            guard let user = firebaseResult?.user else {
-                // Bei einem Fehler während der Registrierung
-                // Behandeln Sie den Fehler entsprechend
-                return
-            }
-            let userID = user.uid
-            getUserList(userID: userID)
-        }
-        
-        func getUserList(userID : String) {
-            db.collection("user").document(userID).getDocument { (document, error) in
-                if let document = document {
-                    let data = document.data()
-                    if let listID = data?["defaultListID"] as? String {
-                        print("Die default List ist: \(listID)")
-                        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                            appDelegate.updateSelectedListID(listID) // newListID ist der Wert der neuen Listen-ID
-                            self.performSegue(withIdentifier: "goToListView", sender: self)
-                        } else {
-                            print("Dokument nicht gefunden")
-                        }
-                    } else {
-                        print("Fehler beim Abrufen des des Listenwerts: \(error?.localizedDescription ?? "Unbekannter Fehler")")
-                    }
-                }
-            }
-        }
-        
-    }
-    //animateOut(loginView: blurView)
-    //animateOut(loginView: loginPopUpView)
-    //self.performSegue(withIdentifier: "goToListView", sender: self)
-    
-    
-    
-    func animateIn(loginView: UIView) {
-        let backgroundView = self.view!
-        
-        // fügt subview zum Screen hinzu
-        backgroundView.addSubview(loginView)
-        
-        // setzt view Skalierung auf 120%
-        loginView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
-        loginView.alpha = 0
-        loginView.center = backgroundView.center
-        
-        // Animationseffekt
-        UIView.animate(withDuration: 0.3, animations: {
-            loginView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-            loginView.alpha = 1
-        })
-    }
-    
-    func animateOut(loginView: UIView) {
-        UIView.animate(withDuration: 0.3, animations: {
-            loginView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
-            loginView.alpha = 0
-        }, completion: { (success:Bool) in
-            loginView.removeFromSuperview()
-        })
-    }
-    
- /*   @IBAction func logout(_ unwindSegue: UIStoryboardSegue) {
-        if let destinationVC = unwindSegue.source as? AccountViewController {
-            let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            if let desiredViewController = mainStoryboard.instantiateViewController(withIdentifier: "MainViewController") as? MainViewController {
-                // Wechsel zu dem gewünschten View Controller
-                navigationController?.pushViewController(desiredViewController, animated: true)
-            }
-        }
-    }   */
-    
 
 }

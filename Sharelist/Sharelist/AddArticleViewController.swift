@@ -10,14 +10,14 @@ import Firebase
 import Toast
 
 class AddArticleViewController: UIViewController {
-
+    
+    // Button aus "häufig verwendet"
     @IBOutlet weak var Btn1: UIButton!
     @IBOutlet weak var Btn2: UIButton!
     @IBOutlet weak var Btn3: UIButton!
     @IBOutlet weak var Btn4: UIButton!
     @IBOutlet weak var Btn5: UIButton!
     @IBOutlet weak var Btn6: UIButton!
-    
     
     @IBOutlet weak var productname: UITextField!
     @IBOutlet weak var brand: UITextField!
@@ -27,11 +27,8 @@ class AddArticleViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         loadDesign()
-        
     }
-    
 
     @IBAction func addArticleButton(_ sender: UIButton) {
         guard let name = productname.text else {
@@ -46,26 +43,23 @@ class AddArticleViewController: UIViewController {
         guard let cathegory = category.text else {
             return
         }
-        
-        
-        
+        // Stellt sicher, dass zumindest eine Produktbezeichnung eingegeben wurde
         if name.isEmpty {
             self.view.makeToast("Bitte gib eine Produktbezeichnung ein!", duration: 2.0)
         }
         else {
+            // Neuer Artikel wird in Datenbank eingetragen
             let db = Firestore.firestore()
-
             if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
                let selectedListID = appDelegate.selectedListID {
                 let newArticle = db.collection("shoppinglist").document(selectedListID).collection("article").document()
                 newArticle.setData(["productname":name, "brand":brand, "quantity":quantity, "cathegory":cathegory, "id": newArticle.documentID])
-                
                 self.performSegue(withIdentifier: "goBackToSharelist", sender: self)
             }
-
         }
     }
     
+    // ToDo: weiter Buttons
     @IBAction func Button1(_ sender: UIButton) {
         productname.text = "Möhren"
         brand.text = "Edeka"
@@ -73,10 +67,7 @@ class AddArticleViewController: UIViewController {
         category.text = "Gemüse"
     }
     
-    
-    
     func loadDesign() {
-        
         Btn1.layer.cornerRadius = 10
         Btn2.layer.cornerRadius = 10
         Btn3.layer.cornerRadius = 10
@@ -106,6 +97,4 @@ class AddArticleViewController: UIViewController {
         saveBtn.layer.shadowColor = UIColor.darkGray.cgColor
         saveBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
     }
-    
-
 }

@@ -28,23 +28,16 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var navigationBar: UINavigationItem!
     
     var selectedListUID: String?
-    
     var articleArray = [Article]()
     var article: Article?
     private var document: [DocumentSnapshot] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-
-        
         self.articleListTableView.delegate = self
         self.articleListTableView.dataSource = self
-        
         loadDesign()
         loadData()
-        
-
     }
     
     @IBAction func addArticleButton(_ sender: UIButton) {
@@ -82,7 +75,6 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
  
     // Zelle wird zugeordnet, Index hinzugefügt, infoButton der entsprechenden Zelle wird ausgelöst
     @objc func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleTableViewCell", for: indexPath) as! ArticleTableViewCell
         let article = articleArray[indexPath.row]
 
@@ -111,16 +103,13 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBAction func deleteButton(_ sender: UIButton) {
     }
     
-    
     // Pop up schließt
     @IBAction func checkButton(_ sender: UIButton) {
         animateOut(articleView: blurView)
         animateOut(articleView: articlePopUpView)
     }
     
-    
     func loadData() {
-        
         // Listennamen entsprechend der aktuellen Liste anzeigen
         let db = Firestore.firestore()
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
@@ -143,10 +132,10 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
             }
         }
         
-        
         // Vor dem Laden neuer Daten das listArray leeren
         articleArray.removeAll()
 
+        // Anzeigen der Artikel der aktuellen Liste
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
            let selectedListID = appDelegate.selectedListID {
                 print("In der Sharelist ist diese ID angekommen:", selectedListID)
@@ -168,7 +157,6 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
                             }
                             self.articleListTableView.reloadData()
                         }
-
                     }
                 }
             } else {
@@ -178,7 +166,6 @@ class SharelistViewController: UIViewController, UITableViewDelegate, UITableVie
 
     func animateIn(articleView: UIView) {
         let backgroundView = self.view!
-        
         // fügt subview zum Screen hinzu
         backgroundView.addSubview(articleView)
         
@@ -257,17 +244,11 @@ extension SharelistViewController: ArticleTableViewCellDelegate {
         articleArray.remove(at: indexPath.row)
         articleListTableView.deleteRows(at: [indexPath], with: .fade)
         articleListTableView.reloadData()
-        //articleListTableView.reloadRows(at: [indexPath], with: .fade)
-        //UIView.animate(withDuration: 0.2, animations: {
-        //    self.articleListTableView.cellForRow(at: indexPath)?.alpha = 0
-        //}, completion: {_ in
-        //self. ... // Aktualisiere die Tabelle, um den Index und die angezeigten Daten zu aktualisieren
-        //})
     }
     
     // Funktion zum löschen des Datenbankeintrages
     private func deleteArticleFromDatabase(_ article: Article) {
-            let db = Firestore.firestore()
+        let db = Firestore.firestore()
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
            let selectedListID = appDelegate.selectedListID {
             db.collection("shoppinglist").document(selectedListID).collection("article").document(article.id).delete() { error in

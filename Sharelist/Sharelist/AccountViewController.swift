@@ -10,13 +10,12 @@ import Firebase
 import FirebaseStorage
 import Toast
 
+// Protokoll, das dafür sorgt, dass die Tableview in SharelistViewController neu geladen wird, wenn eine neue Liste aufgewählt wird
 protocol ReloadArticleDelegate: AnyObject {
     func reloadArticleTableView()
 }
 
 class AccountViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
-
     @IBOutlet weak var listTableView: UITableView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
@@ -25,8 +24,6 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var closeBtn: UIButton!
     @IBOutlet weak var addListBtn: UIButton!
     @IBOutlet weak var userImage: UIImageView!
-    
-    
     
     let db = Firestore.firestore()
     let storage = Storage.storage().reference()
@@ -40,23 +37,18 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         loadData()
         loadDesign()
-        
         self.listTableView.delegate = self
         self.listTableView.dataSource = self
-        
-        
         getUserData()
-        
     }
     
+    // Funktion um Daten des Users im Profil anzuzeigen
     func getUserData() {
         let email = self.user?.email
         let userId = (self.user?.uid)!
         emailLabel.text = email
-            
         let currentUser = self.db.collection("user").document(userId)
         currentUser.getDocument { (document, error) in
             if let document = document, document.exists {
@@ -65,10 +57,7 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
                 if let userImage = document.data()?["profileImageURL"] as? Data {
                     self.userImage.image = UIImage(data: userImage)
-                } else {
-                    print("blob Feld konnte nicht gefunden werden")
                 }
-                
             }
         }
     }
@@ -108,16 +97,11 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func loadData() {
-        
         // Vor dem Laden neuer Daten das listArray leeren
         listArray.removeAll()
-        
-        let db = Firestore.firestore()
-
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-           let selectedListUID = appDelegate.selectedListID {
-                print("In der Sharelist ist diese ID angekommen:", selectedListUID)
-            let shoppingListsRef = db.collection("shoppinglist").whereField("owner", arrayContains: userID)
+        //if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+           //let selectedListUID = appDelegate.selectedListID {
+            let shoppingListsRef = self.db.collection("shoppinglist").whereField("owner", arrayContains: userID)
                 shoppingListsRef.getDocuments { (snapshot, error) in
                     if let error = error {
                         print(error.localizedDescription)
@@ -135,9 +119,9 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
 
                     }
                 }
-            } else {
+            //} else {
                 print("User ist null")
-            }
+            //}
     }
 
     
@@ -146,7 +130,6 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         navigationViewController.modalPresentationStyle = .overCurrentContext
         navigationViewController.modalTransitionStyle = .crossDissolve
         present(navigationViewController, animated: true, completion: nil)
-        
         let auth = Auth.auth()
         
         do {
@@ -167,12 +150,6 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         newListViewController.modalTransitionStyle = .crossDissolve
         newListViewController.reloadDelegate = self
         present(newListViewController, animated: true, completion: nil)
-    }
-    
-    // Delegate-Methode zum Aktualisieren der TableView
-    func reloadTableView() {
-        print("Reload Funktion wird aufgerufen")
-        self.listTableView.reloadData()
     }
     
     func loadDesign() {
@@ -206,21 +183,19 @@ extension AccountViewController: ListTableViewCellDelegate {
         listArray.remove(at: indexPath.row)
         listTableView.deleteRows(at: [indexPath], with: .fade)
         listTableView.reloadData()
-        
-        
-
     }
     
     // Funktion zum löschen des Datenbankeintrages
     private func deleteListFromDatabase(_ list: List) {
-            let db = Firestore.firestore()
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
            let selectedListID = appDelegate.selectedListID {
-            db.collection("shoppinglist").document(selectedListID).delete() { error in
+            self.db.collection("shoppinglist").document(selectedListID).delete() { error in
                 if let error = error {
                     print("Error deleting article: \(error)")
                 } else {
-                    print("Article deleted successfully!")
+                    print("Liste gelöscht!")
+                    //appDelegate.updateSelectedListID(<#String#>)
+                    
                 }
             }
         }

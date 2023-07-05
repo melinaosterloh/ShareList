@@ -9,19 +9,114 @@ import UIKit
 import Firebase
 
 class BasketViewController: UIViewController {
-    
     @IBOutlet weak var basketDescription: UITextField!
     @IBOutlet weak var basketPrice: UITextField!
     @IBOutlet weak var basketDate: UITextField!
-    
+
     @IBOutlet weak var checkBtn: UIButton!
     @IBOutlet weak var menuBtn: UIButton!
     
     var userID = Auth.auth().currentUser!.uid
+    var db = Firestore.firestore()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        loadDesign()
+    }
+    
+    @IBAction func menuButton(_ sender: UIButton) {
+        let accountViewController = storyboard?.instantiateViewController(withIdentifier: "AccountViewController") as! AccountViewController
+        accountViewController.modalPresentationStyle = .overCurrentContext
+        accountViewController.modalTransitionStyle = .crossDissolve
+        present(accountViewController, animated: true, completion: nil)
+    }
+    
+    
+    @IBAction func checkButton(_ sender: UIButton) {
+        guard let description = basketDescription.text else {
+            self.view.makeToast("Bitte gib eine Beschreibung ein!", duration: 2.0)
+            return
+        }
+        guard let price = Double(basketPrice.text!) else {
+                self.view.makeToast("Bitte gib einen Preis ein!", duration: 2.0)
+            return
+        }
+        guard let date = basketDate.text else {
+            return
+        }
+            if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+               let selectedListID = appDelegate.selectedListID {
+                let currentList = self.db.collection("shoppinglist").document(selectedListID)
+                let newExpense = currentList.collection("expenses").document()
+                newExpense.setData(["description":description, "price":price, "date":date])
+                currentList.getDocument { (document, error) in
+                    if let document = document, document.exists {
+                        // Array der Listen Besitzer/Mitglieder
+                        if let listMember = document.data()?["owner"] as? [String] {
+                            self.splitExpenses(expense: price, member: listMember, listID: selectedListID)
+                            print("Array aus Firebase: \(listMember)")
+                            self.performSegue(withIdentifier: "goToExpensesList", sender: self)
+                        } else {
+                            print("Feld existiert nicht oder hat keinen Wert")
+                        }
+                    } else {
+                        // Das Dokument wurde nicht gefunden oder es gab einen Fehler
+                        print("Das Dokument existiert nicht oder es gab einen Fehler: \(error?.localizedDescription ?? "")")
+                    }
+                    
+                }
+            }
+    }
+    
+    // Funktion zum Aufteilen der Ausgaben
+    func splitExpenses (expense: Double, member: Array<String>, listID: String) {
+        let memberCount = Double(member.count)
+        let share = expense/memberCount
+        let userBalances = self.db.collection("shoppinglist").document(listID).collection("userBalances")
+        // Schleife, die alle Mitglieder der Liste durchläuft und die jeweilige Balance anlegt/aktualisiert
+        for i in member {
+            let userBalance = userBalances.document(i)
+            userBalance.getDocument { (document, error) in
+                if let document = document, document.exists {
+                    if let currentBalance = document.data()?["balance"] as? Double {
+                        // Aktualisiert die Balance in der Datenbank
+                        if i == self.userID {
+                            userBalance.setData(["balance": currentBalance+(expense-share)], merge: true) { error in
+                                if let error = error {
+                                    print("Fehler beim Aktualisieren der Balance: \(error.localizedDescription)")
+                                }
+                            }
+                        } else {
+                            userBalance.setData(["balance": currentBalance-share], merge: true) { error in
+                                if let error = error {
+                                    print("Fehler beim Aktualisieren des Zellenpreises: \(error.localizedDescription)")
+                                }
+                            }
+                        }
+                    }
+                // Falls der User noch keine Balance hat
+                } else {
+                    if i == self.userID {
+                        let documentData: [String: Double] = ["balance": (expense - share)]
+                        userBalances.document(i).setData(documentData) { error in
+                            if let error = error {
+                                print("Fehler beim Hinzufügen des Dokuments: \(error.localizedDescription)")
+                            }
+                        }
+                    } else {
+                        let documentData: [String: Double] = ["balance": -share]
+                        userBalances.document(i).setData(documentData) { error in
+                            if let error = error {
+                                print("Fehler beim Hinzufügen des Dokuments: \(error.localizedDescription)")
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func loadDesign () {
         menuBtn.layer.cornerRadius = menuBtn.bounds.height / 2
         menuBtn.layer.shadowRadius = 2
         menuBtn.layer.shadowOpacity = 0.5
@@ -65,110 +160,5 @@ class BasketViewController: UIViewController {
         let dateFormat = DateFormatter()
         dateFormat.dateFormat = "dd.MMMM.yyyy"
         return dateFormat.string(from: date)
-    }
-    
-    @IBAction func menuButton(_ sender: UIButton) {
-        let accountViewController = storyboard?.instantiateViewController(withIdentifier: "AccountViewController") as! AccountViewController
-        accountViewController.modalPresentationStyle = .overCurrentContext
-        accountViewController.modalTransitionStyle = .crossDissolve
-        present(accountViewController, animated: true, completion: nil)
-    }
-    
-    @IBAction func checkButton(_ sender: UIButton) {
-        guard let description = basketDescription.text else {
-            self.view.makeToast("Bitte gib eine Beschreibung ein!", duration: 2.0)
-            return
-        }
-        guard let price = Double(basketPrice.text!) else {
-                self.view.makeToast("Bitte gib einen Preis ein!", duration: 2.0)
-            return
-        }
-        guard let date = basketDate.text else {
-            return
-        }
-        
-            let db = Firestore.firestore()
-            if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-               let selectedListID = appDelegate.selectedListID {
-                let currentList = db.collection("shoppinglist").document(selectedListID)
-                let newExpense = currentList.collection("expenses").document()
-                //let priceDec = Decimal(string: price)!
-                newExpense.setData(["description":description, "price":price, "date":date])
-                currentList.getDocument { (document, error) in
-                    if let document = document, document.exists {
-                        // Array der Listen Besitzer/Mitglieder
-                        if let listMember = document.data()?["owner"] as? [String] {
-                            self.splitExpenses(expense: price, member: listMember, listID: selectedListID)
-                            print("Array aus Firebase: \(listMember)")
-                            self.performSegue(withIdentifier: "goToExpensesList", sender: self)
-                        } else {
-                            print("Feld existiert nicht oder hat keinen Wert")
-                        }
-                    
-                    } else {
-                        // Das Dokument wurde nicht gefunden oder es gab einen Fehler
-                        print("Das Dokument existiert nicht oder es gab einen Fehler: \(error?.localizedDescription ?? "")")
-                    }
-                    
-                }
-                
-            }
-            
-    }
-    
-    // Funktion zum Aufteilen der Ausgaben
-    func splitExpenses (expense: Double, member: Array<String>, listID: String) {
-        let db = Firestore.firestore()
-        let memberCount = Double(member.count)
-        let share = expense/memberCount
-        
-        let userBalances = db.collection("shoppinglist").document(listID).collection("userBalances")
-        
-        for i in member {
-            print(i)
-            
-            let userBalance = userBalances.document(i)
-            
-            userBalance.getDocument { (document, error) in
-                if let document = document, document.exists {
-                    if let currentBalance = document.data()?["balance"] as? Double {
-                        // Aktualisiere den Preiswert in Firestore
-                        if i == self.userID {
-                            print("UserBalance aktualisiert)")
-                            userBalance.setData(["balance": currentBalance+(expense-share)], merge: true) { error in
-                                if let error = error {
-                                    print("Fehler beim Aktualisieren der Balance: \(error.localizedDescription)")
-                                }
-                            }
-                        } else {
-                            print("UserBalance aktualisiert)")
-                            userBalance.setData(["balance": currentBalance-share], merge: true) { error in
-                                if let error = error {
-                                    print("Fehler beim Aktualisieren des Zellenpreises: \(error.localizedDescription)")
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    if i == self.userID {
-                        print("UserBalance aktualisiert)")
-                        let documentData: [String: Double] = ["balance": (expense - share)]
-                        userBalances.document(i).setData(documentData) { error in
-                            if let error = error {
-                                print("Fehler beim Hinzufügen des Dokuments: \(error.localizedDescription)")
-                            }
-                        }
-                    } else {
-                        print("UserBalance aktualisiert)")
-                        let documentData: [String: Double] = ["balance": -share]
-                        userBalances.document(i).setData(documentData) { error in
-                            if let error = error {
-                                print("Fehler beim Hinzufügen des Dokuments: \(error.localizedDescription)")
-                            }
-                        }
-                    }
-                }
-            }
-        }
     }
 }
