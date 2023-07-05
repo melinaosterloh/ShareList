@@ -93,7 +93,9 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         // reload der aktuell ausgewählten Shoppinglist
         if let delegate = self.reloadArticleDelegate {
             delegate.reloadArticleTableView()
+            dismiss(animated: true)
         }
+       
     }
     
     func loadData() {

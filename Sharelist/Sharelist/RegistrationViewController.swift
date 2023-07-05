@@ -41,7 +41,10 @@ class RegistrationViewController: UIViewController {
         
     @IBAction func registrationBtn(_ sender: UIButton) {
         // Kontrollfunktion, dass ausgewähltes Bild nicht nil ist
-        guard selectedImage != nil else { return }
+        guard selectedImage != nil else {
+            self.view.makeToast("Bitte wählen Sie ein Profilbild aus", duration: 3.0)
+            return
+        }
         // Firebase Storage
         let storage = Storage.storage()
         // Referenz zu unserem Firebse Storage
