@@ -19,6 +19,7 @@ class PaymentViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBOutlet weak var balance: UILabel!
     var userID = Auth.auth().currentUser!.uid
+    var selectedListUID: String?
     
     var expensesArray = [Expenses]()
     var expenses: Expenses?
@@ -69,7 +70,7 @@ class PaymentViewController: UIViewController, UITableViewDelegate, UITableViewD
 
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
            let selectedListID = appDelegate.selectedListID {
-                print("In der Sharelist ist diese ID angekommen:", selectedListID)
+                print("In der paymentView ist diese ID angekommen:", selectedListID)
                 let shoppingListsRef = db.collection("shoppinglist").document(selectedListID).collection("expenses")
                 shoppingListsRef.getDocuments { (snapshot, error) in
                     if let error = error {
@@ -86,11 +87,12 @@ class PaymentViewController: UIViewController, UITableViewDelegate, UITableViewD
                                 self.expensesArray.append(newExpenses)
                             }
                             self.paymentTableView.reloadData()
+                            self.getUserBalance()
                         }
                     }
                 }
             } else {
-                print("User ist null")
+                print("keine Liste ausgwählt")
             }
     }
 
@@ -109,15 +111,18 @@ class PaymentViewController: UIViewController, UITableViewDelegate, UITableViewD
             userBalance.getDocument { (document, error) in
                 if let document = document, document.exists {
                     if let userBalance = document.data()?["balance"] as? Double {
+                        print("userBalance ist", userBalance)
                         let roundedNumber = round(userBalance * 100) / 100
                         self.balance.text = String(roundedNumber)
                     } else {
-                        self.balance.text = "0,00"
-                        
+                        self.balance.text = "0.00"
                     }
                 }
                 else { print("keine Liste") }
             }
+            
+        } else {
+            print("keine Liste ausgewählt")
         }
     }
     
@@ -126,7 +131,7 @@ class PaymentViewController: UIViewController, UITableViewDelegate, UITableViewD
         balance.layer.borderColor = UIColor.darkGray.cgColor
         balance.layer.borderWidth = 1
         balance.layer.cornerRadius = 10
-        getUserBalance()
+        
         
         
         payDeptBtn.layer.cornerRadius = 25

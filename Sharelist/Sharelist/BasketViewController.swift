@@ -100,14 +100,16 @@ class BasketViewController: UIViewController {
                         if let listMember = document.data()?["owner"] as? [String] {
                             self.splitExpenses(expense: price, member: listMember, listID: selectedListID)
                             print("Array aus Firebase: \(listMember)")
+                            self.performSegue(withIdentifier: "goToExpensesList", sender: self)
                         } else {
                             print("Feld existiert nicht oder hat keinen Wert")
                         }
+                    
                     } else {
                         // Das Dokument wurde nicht gefunden oder es gab einen Fehler
                         print("Das Dokument existiert nicht oder es gab einen Fehler: \(error?.localizedDescription ?? "")")
                     }
-                    self.performSegue(withIdentifier: "goToExpensesList", sender: self)
+                    
                 }
                 
             }
@@ -132,12 +134,14 @@ class BasketViewController: UIViewController {
                     if let currentBalance = document.data()?["balance"] as? Double {
                         // Aktualisiere den Preiswert in Firestore
                         if i == self.userID {
+                            print("UserBalance aktualisiert)")
                             userBalance.setData(["balance": currentBalance+(expense-share)], merge: true) { error in
                                 if let error = error {
                                     print("Fehler beim Aktualisieren der Balance: \(error.localizedDescription)")
                                 }
                             }
                         } else {
+                            print("UserBalance aktualisiert)")
                             userBalance.setData(["balance": currentBalance-share], merge: true) { error in
                                 if let error = error {
                                     print("Fehler beim Aktualisieren des Zellenpreises: \(error.localizedDescription)")
@@ -147,6 +151,7 @@ class BasketViewController: UIViewController {
                     }
                 } else {
                     if i == self.userID {
+                        print("UserBalance aktualisiert)")
                         let documentData: [String: Double] = ["balance": (expense - share)]
                         userBalances.document(i).setData(documentData) { error in
                             if let error = error {
@@ -154,6 +159,7 @@ class BasketViewController: UIViewController {
                             }
                         }
                     } else {
+                        print("UserBalance aktualisiert)")
                         let documentData: [String: Double] = ["balance": -share]
                         userBalances.document(i).setData(documentData) { error in
                             if let error = error {
