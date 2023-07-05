@@ -34,38 +34,6 @@
             endingLineNumber = "146"
             landmarkName = "addListButton(_:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "35105BDD-6B71-4BA6-8C04-79674B0EA45E - 88ece26a18cee381"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Sharelist.AccountViewController.addListButton(__C.UIButton) -&gt; ()"
-                  moduleName = "Sharelist"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Mareike/Documents/Studium/MODULE_6.Semester/06_Mobile_Computing/ShareList/Sharelist/Sharelist/AccountViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "146"
-                  endingLineNumber = "146"
-                  offsetFromSymbolStart = "60">
-               </Location>
-               <Location
-                  uuid = "35105BDD-6B71-4BA6-8C04-79674B0EA45E - 88ece26a18cee381"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Sharelist.AccountViewController.addListButton(__C.UIButton) -&gt; ()"
-                  moduleName = "Sharelist"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Mareike/Documents/Studium/MODULE_6.Semester/06_Mobile_Computing/ShareList/Sharelist/Sharelist/AccountViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "146"
-                  endingLineNumber = "146"
-                  offsetFromSymbolStart = "168">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
