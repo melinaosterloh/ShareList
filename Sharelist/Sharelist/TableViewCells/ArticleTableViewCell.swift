@@ -24,26 +24,25 @@ class ArticleTableViewCell: UITableViewCell {
         super.layoutSubviews()
         
         // Ändere das Design des deleteButton
-        //deleteButton.setTitleColor(UIColor.white, for: .normal)
         deleteButton.layer.cornerRadius = deleteButton.bounds.height / 2
-        //deleteButton.layer.borderColor = UIColor.darkGray.cgColor
-        //deleteButton.layer.borderWidth = 0.3
         deleteButton.layer.shadowRadius = 2
         deleteButton.layer.shadowOpacity = 0.5
         deleteButton.layer.shadowColor = UIColor.darkGray.cgColor
         deleteButton.layer.shadowOffset = CGSize(width: 1, height: 1)
-/*
+        
+
         // Ändere das Design des infoButton
-        //infoButton.backgroundColor = UIColor.blue
-        //infoButton.setTitleColor(UIColor.white, for: .normal)
-        infoButton.layer.cornerRadius = infoButton.bounds.height / 2
-        //infoButton.layer.borderColor = UIColor.darkGray.cgColor
-        //infoButton.layer.borderWidth = 0.3
-        infoButton.layer.shadowRadius = 2
-        infoButton.layer.shadowOpacity = 0.5
-        infoButton.layer.shadowColor = UIColor.darkGray.cgColor
-        infoButton.layer.shadowOffset = CGSize(width: 1, height: 1)
- */
+        if let button = infoButton {
+            // Der Button ist nicht nil, führe den Code aus
+            button.layer.cornerRadius = button.bounds.height / 2
+            button.layer.shadowRadius = 2
+            button.layer.shadowOpacity = 0.5
+            button.layer.shadowColor = UIColor.darkGray.cgColor
+            button.layer.shadowOffset = CGSize(width: 1, height: 1)
+        } else {
+            // Der Button ist nil
+            print("Der infoButton ist nil.")
+        }
     }
 
     @IBAction func infoButtonTapped(_ sender: UIButton) {

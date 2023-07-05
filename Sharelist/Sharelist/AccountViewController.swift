@@ -9,9 +9,11 @@ import UIKit
 import Firebase
 import Toast
 
+protocol ReloadArticleDelegate: AnyObject {
+    func reloadArticleTableView()
+}
 
-
-class AccountViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, TableViewReloadDelegate {
+class AccountViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
 
     @IBOutlet weak var listTableView: UITableView!
@@ -22,10 +24,13 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var closeBtn: UIButton!
     @IBOutlet weak var addListBtn: UIButton!
     
+    
+    
     let db = Firestore.firestore()
     var listArray = [List]()
     var list: List?
     private var document: [DocumentSnapshot] = []
+    weak var reloadArticleDelegate: ReloadArticleDelegate?
     
     var selectedListUID: String?
     var userID = Auth.auth().currentUser!.uid
@@ -34,23 +39,7 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewDidLoad()
 
         loadData()
-
-        addListBtn.layer.cornerRadius = addListBtn.bounds.height / 2
-        addListBtn.layer.shadowOpacity = 0.5
-        addListBtn.layer.shadowColor = UIColor.darkGray.cgColor
-        addListBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
-        
-        closeBtn.layer.cornerRadius = closeBtn.bounds.height / 2
-        closeBtn.layer.shadowRadius = 2
-        closeBtn.layer.shadowOpacity = 0.5
-        closeBtn.layer.shadowColor = UIColor.darkGray.cgColor
-        closeBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
-        
-        overlayView.layer.shadowRadius = 5
-        overlayView.layer.shadowOpacity = 0.5
-        overlayView.layer.shadowColor = UIColor.darkGray.cgColor
-        overlayView.layer.shadowOffset = CGSize(width: 1, height: 1)
-
+        loadDesign()
         
         self.listTableView.delegate = self
         self.listTableView.dataSource = self
@@ -67,15 +56,20 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         return listArray.count
     }
     
+    // Table View Cell Höhe
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let listCell = tableView.dequeueReusableCell(withIdentifier: "ListTableViewCell", for: indexPath)
+        let listCell = tableView.dequeueReusableCell(withIdentifier: "ListTableViewCell", for: indexPath) as! ListTableViewCell
         let list = listArray[indexPath.row]
 
         listCell.textLabel?.text = "\(list.name)"
         
         listCell.tag = indexPath.row
-        // listCell.delegate = self
-        // listCell.indexPath = indexPath
+        listCell.delegate = self
+        listCell.indexPath = indexPath
         
         return listCell
     }
@@ -86,9 +80,16 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             appDelegate.updateSelectedListID(selectedEntry.id) // newListID ist der Wert der neuen Listen-ID
         }
+        // reload der aktuell ausgewählten Shoppinglist
+        if let delegate = self.reloadArticleDelegate {
+            delegate.reloadArticleTableView()
+        }
     }
     
     func loadData() {
+        
+        // Vor dem Laden neuer Daten das listArray leeren
+        listArray.removeAll()
         
         let db = Firestore.firestore()
 
@@ -152,4 +153,61 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         print("Reload Funktion wird aufgerufen")
         self.listTableView.reloadData()
     }
+    
+    func loadDesign() {
+        addListBtn.layer.cornerRadius = addListBtn.bounds.height / 2
+        addListBtn.layer.shadowOpacity = 0.5
+        addListBtn.layer.shadowColor = UIColor.darkGray.cgColor
+        addListBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
+        
+        closeBtn.layer.cornerRadius = closeBtn.bounds.height / 2
+        closeBtn.layer.shadowRadius = 2
+        closeBtn.layer.shadowOpacity = 0.5
+        closeBtn.layer.shadowColor = UIColor.darkGray.cgColor
+        closeBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
+        
+        overlayView.layer.shadowRadius = 5
+        overlayView.layer.shadowOpacity = 0.5
+        overlayView.layer.shadowColor = UIColor.darkGray.cgColor
+        overlayView.layer.shadowOffset = CGSize(width: 1, height: 1)
+    }
 }
+
+// Initialisierung der delete Buttons
+extension AccountViewController: ListTableViewCellDelegate {
+
+    func deleteButtonTapped(at indexPath: IndexPath) {
+        let list = listArray[indexPath.row]
+        deleteListFromDatabase(list)
+        
+        listArray.remove(at: indexPath.row)
+        listTableView.deleteRows(at: [indexPath], with: .fade)
+        listTableView.reloadData()
+        
+        
+
+    }
+    
+    // Funktion zum löschen des Datenbankeintrages
+    private func deleteListFromDatabase(_ list: List) {
+            let db = Firestore.firestore()
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+           let selectedListID = appDelegate.selectedListID {
+            db.collection("shoppinglist").document(selectedListID).delete() { error in
+                if let error = error {
+                    print("Error deleting article: \(error)")
+                } else {
+                    print("Article deleted successfully!")
+                }
+            }
+        }
+    }
+}
+
+// Extension für Delegation zur AccountViewController Klasse --> Reload TableView
+extension AccountViewController: ReloadListDelegate {
+    func reloadListTableView() {
+        loadData()
+    }
+}
+

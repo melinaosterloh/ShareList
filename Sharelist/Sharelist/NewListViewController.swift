@@ -9,6 +9,10 @@ import UIKit
 import Firebase
 import Toast
 
+protocol ReloadListDelegate: AnyObject {
+    func reloadListTableView()
+}
+
 class NewListViewController: UIViewController {
 
 
@@ -28,7 +32,7 @@ class NewListViewController: UIViewController {
     var currentUser : String?
     var listname: String?
     var memberArray = [String]()
-    weak var reloadDelegate: TableViewReloadDelegate?
+    weak var reloadDelegate: ReloadListDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,7 +73,10 @@ class NewListViewController: UIViewController {
             print("Listen ID ist:", newList.documentID)
             print(memberArray)
             dismiss(animated: true) {
-                self.reloadDelegate?.reloadTableView()
+                if let delegate = self.reloadDelegate {
+                    delegate.reloadListTableView()
+                    
+                }
             }
         }
     }
@@ -199,6 +206,13 @@ class NewListViewController: UIViewController {
         checkBtn.layer.shadowOpacity = 0.5
         checkBtn.layer.shadowColor = UIColor.darkGray.cgColor
         checkBtn.layer.shadowOffset = CGSize(width: 1, height: 1)
+        
+        listNameLabel.textColor = .white
+        member1.textColor = .white
+        member2.textColor = .white
+        member3.textColor = .white
+        member4.textColor = .white
+        member5.textColor = .white
     }
     
     

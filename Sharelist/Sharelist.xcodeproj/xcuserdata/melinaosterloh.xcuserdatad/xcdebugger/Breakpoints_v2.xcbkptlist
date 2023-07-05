@@ -20,5 +20,113 @@
             landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "ABF53F13-7DE5-4194-8E23-612EAEA45384"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Sharelist/TableViewCells/ListTableViewCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
+            landmarkName = "ListTableViewCell"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "ABF53F13-7DE5-4194-8E23-612EAEA45384 - 51990ef0f5f244ce"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Sharelist.ListTableViewCell.indexPath.getter : Swift.Optional&lt;Foundation.IndexPath&gt;"
+                  moduleName = "Sharelist"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/melinaosterloh/Documents/Uni/MobileComputing/Git_Repository/ShareList/Sharelist/Sharelist/TableViewCells/ListTableViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "85">
+               </Location>
+               <Location
+                  uuid = "ABF53F13-7DE5-4194-8E23-612EAEA45384 - f06e8a713834f2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Sharelist.ListTableViewCell.indexPath.setter : Swift.Optional&lt;Foundation.IndexPath&gt;"
+                  moduleName = "Sharelist"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/melinaosterloh/Documents/Uni/MobileComputing/Git_Repository/ShareList/Sharelist/Sharelist/TableViewCells/ListTableViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "156">
+               </Location>
+               <Location
+                  uuid = "ABF53F13-7DE5-4194-8E23-612EAEA45384 - 7d779f183b16b0c3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Sharelist.ListTableViewCell.indexPath.modify : Swift.Optional&lt;Foundation.IndexPath&gt;"
+                  moduleName = "Sharelist"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/melinaosterloh/Documents/Uni/MobileComputing/Git_Repository/ShareList/Sharelist/Sharelist/TableViewCells/ListTableViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  uuid = "ABF53F13-7DE5-4194-8E23-612EAEA45384 - 495e2220041deced"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Sharelist.ListTableViewCell.indexPath.modify : Swift.Optional&lt;Foundation.IndexPath&gt; with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "Sharelist"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/melinaosterloh/Documents/Uni/MobileComputing/Git_Repository/ShareList/Sharelist/Sharelist/TableViewCells/ListTableViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "15">
+               </Location>
+               <Location
+                  uuid = "ABF53F13-7DE5-4194-8E23-612EAEA45384 - 265d5df65e3bd460"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Sharelist.ListTableViewCell.init(style: __C.UITableViewCellStyle, reuseIdentifier: Swift.Optional&lt;Swift.String&gt;) -&gt; Sharelist.ListTableViewCell"
+                  moduleName = "Sharelist"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/melinaosterloh/Documents/Uni/MobileComputing/Git_Repository/ShareList/Sharelist/Sharelist/TableViewCells/ListTableViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "114">
+               </Location>
+               <Location
+                  uuid = "ABF53F13-7DE5-4194-8E23-612EAEA45384 - 552763d6c22b034c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Sharelist.ListTableViewCell.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;Sharelist.ListTableViewCell&gt;"
+                  moduleName = "Sharelist"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/melinaosterloh/Documents/Uni/MobileComputing/Git_Repository/ShareList/Sharelist/Sharelist/TableViewCells/ListTableViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "71">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

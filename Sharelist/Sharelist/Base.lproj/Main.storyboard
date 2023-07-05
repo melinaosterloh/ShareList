@@ -420,11 +420,12 @@
                                         </view>
                                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsMultipleSelection="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="mJU-zV-I8j">
                                             <rect key="frame" x="21" y="229" width="198" height="333"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="333" id="mSq-26-cu7"/>
                                             </constraints>
                                             <prototypes>
-                                                <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ListTableViewCell" rowHeight="65" id="d1S-12-jqV" customClass="ArticleTableViewCell" customModule="Sharelist">
+                                                <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ListTableViewCell" rowHeight="65" id="d1S-12-jqV" customClass="ListTableViewCell" customModule="Sharelist" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="50" width="198" height="65"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="d1S-12-jqV" id="8bt-9F-RNW">
@@ -485,7 +486,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="2R8-n8-yqA"/>
                     <connections>
-                        <outlet property="addListBtn" destination="qpX-e4-6dt" id="H3d-FT-xAm"/>
+                        <outlet property="addListBtn" destination="qpX-e4-6dt" id="47a-Ql-axj"/>
                         <outlet property="closeBtn" destination="Y0b-zC-Hgv" id="V5H-mL-z9t"/>
                         <outlet property="emailLabel" destination="KkC-es-0UN" id="WOF-MN-7jo"/>
                         <outlet property="listTableView" destination="mJU-zV-I8j" id="cQ8-rI-i1P"/>
@@ -610,13 +611,13 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hFq-tn-1vt">
                                 <rect key="frame" x="16" y="752" width="51" height="50"/>
-                                <color key="backgroundColor" red="0.62857574220000001" green="0.70564872030000003" blue="0.84029895070000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.3060487509" green="0.32154738900000002" blue="0.33382815119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="LUb-iC-q6f"/>
                                     <constraint firstAttribute="height" constant="50" id="Ngh-88-ScF"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="QL3-Oq-oVb"/>
                                 </constraints>
-                                <color key="tintColor" red="0.3060487509" green="0.32154738900000002" blue="0.33382815119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="1" green="0.98823529409999999" blue="0.97896668190000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="line.3.horizontal" catalog="system"/>
                                 <connections>
@@ -626,16 +627,16 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aTU-GV-5FO">
                                 <rect key="frame" x="167" y="752" width="50" height="50"/>
-                                <color key="backgroundColor" red="0.89422911410000006" green="0.94133508210000005" blue="0.81379908320000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.62857574220000001" green="0.70564872030000003" blue="0.84029895070000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="o1i-Lo-CJi"/>
                                     <constraint firstAttribute="width" constant="50" id="wRj-ju-une"/>
                                 </constraints>
                                 <color key="tintColor" red="0.3060487509" green="0.32154738900000002" blue="0.33382815119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="basket" catalog="system"/>
+                                <buttonConfiguration key="configuration" style="plain" image="eurosign" catalog="system"/>
                                 <connections>
-                                    <segue destination="KQX-al-rna" kind="show" identifier="goToBasket" id="OXO-HA-YS4"/>
+                                    <segue destination="i2l-Qb-f7C" kind="show" id="exg-Gl-kyn"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -890,11 +891,11 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tYl-qT-WF7">
                                 <rect key="frame" x="16" y="752" width="51" height="50"/>
-                                <color key="backgroundColor" red="0.62857574220000001" green="0.70564872030000003" blue="0.84029895070000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.3060487509" green="0.32154738900000002" blue="0.33382815119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="HTe-mn-3Dr"/>
                                 </constraints>
-                                <color key="tintColor" red="0.3060487509" green="0.32154738900000002" blue="0.33382815119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="1" green="0.98823529409999999" blue="0.97896668190000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="line.3.horizontal" catalog="system"/>
                                 <connections>
@@ -904,15 +905,15 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="id6-k3-7Ve">
-                                <rect key="frame" x="311.33333333333331" y="752" width="50" height="50"/>
-                                <color key="backgroundColor" red="0.3060487509" green="0.32154738900000002" blue="0.33382815119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="163" y="752" width="50" height="50"/>
+                                <color key="backgroundColor" red="0.89422911410000006" green="0.94133508210000005" blue="0.81379908320000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="Dyf-Qf-Wy2"/>
                                     <constraint firstAttribute="height" constant="50" id="Nja-oa-hB5"/>
                                 </constraints>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" red="0.3060487509" green="0.32154738900000002" blue="0.33382815119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="house" catalog="system"/>
+                                <buttonConfiguration key="configuration" style="plain" image="basket" catalog="system"/>
                                 <connections>
                                     <action selector="addArticleButton:" destination="IYt-Ht-p4r" eventType="touchUpInside" id="F6g-F2-jbk"/>
                                     <segue destination="IYt-Ht-p4r" kind="show" id="5Il-rP-K6M"/>
@@ -961,6 +962,21 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CdL-dJ-DbW">
+                                <rect key="frame" x="309" y="752" width="50" height="50"/>
+                                <color key="backgroundColor" red="0.62857574220000001" green="0.70564872030000003" blue="0.84029895070000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="Kzw-gh-6BY"/>
+                                    <constraint firstAttribute="height" constant="50" id="ahy-AI-eMw"/>
+                                </constraints>
+                                <color key="tintColor" red="1" green="0.98823529409999999" blue="0.97896668190000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system"/>
+                                <connections>
+                                    <action selector="addArticleButton:" destination="IYt-Ht-p4r" eventType="touchUpInside" id="i7R-rA-7hC"/>
+                                    <segue destination="KQX-al-rna" kind="show" id="c4J-BO-rLU"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="icS-Mb-PCD"/>
                         <color key="backgroundColor" red="1" green="0.98823529409999999" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -968,10 +984,13 @@
                             <constraint firstItem="id6-k3-7Ve" firstAttribute="bottom" secondItem="icS-Mb-PCD" secondAttribute="bottom" id="00R-TU-hvi"/>
                             <constraint firstItem="tYl-qT-WF7" firstAttribute="bottom" secondItem="icS-Mb-PCD" secondAttribute="bottom" id="6FJ-di-bmB"/>
                             <constraint firstItem="Rp7-9i-Zna" firstAttribute="leading" secondItem="icS-Mb-PCD" secondAttribute="leading" constant="91" id="7mr-za-Vct"/>
+                            <constraint firstItem="icS-Mb-PCD" firstAttribute="trailing" secondItem="CdL-dJ-DbW" secondAttribute="trailing" constant="16" id="8Oh-Ik-YlC"/>
                             <constraint firstItem="6WC-cQ-evn" firstAttribute="top" secondItem="icS-Mb-PCD" secondAttribute="top" constant="99" id="G8p-ZV-e51"/>
                             <constraint firstItem="pr8-0y-Zvc" firstAttribute="top" secondItem="esa-5L-dMS" secondAttribute="bottom" constant="110" id="IiN-dd-Q1Z"/>
                             <constraint firstItem="Rp7-9i-Zna" firstAttribute="centerX" secondItem="esa-5L-dMS" secondAttribute="centerX" id="LOu-wA-x6e"/>
+                            <constraint firstItem="icS-Mb-PCD" firstAttribute="bottom" secondItem="CdL-dJ-DbW" secondAttribute="bottom" id="LlW-cQ-65l"/>
                             <constraint firstItem="T9p-8L-nab" firstAttribute="leading" secondItem="icS-Mb-PCD" secondAttribute="leading" constant="16" id="TDS-5O-YDS"/>
+                            <constraint firstItem="id6-k3-7Ve" firstAttribute="leading" secondItem="tYl-qT-WF7" secondAttribute="trailing" constant="96" id="UE4-pt-Rld"/>
                             <constraint firstItem="pr8-0y-Zvc" firstAttribute="leading" secondItem="T9p-8L-nab" secondAttribute="leading" id="cUj-SS-IUq"/>
                             <constraint firstItem="tYl-qT-WF7" firstAttribute="leading" secondItem="icS-Mb-PCD" secondAttribute="leading" constant="16" id="jfg-UV-x0Q"/>
                             <constraint firstItem="T9p-8L-nab" firstAttribute="top" secondItem="icS-Mb-PCD" secondAttribute="top" constant="32" id="jw1-m3-ojd"/>
@@ -980,7 +999,6 @@
                             <constraint firstItem="icS-Mb-PCD" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="id6-k3-7Ve" secondAttribute="trailing" id="vae-hD-J78"/>
                             <constraint firstItem="Rp7-9i-Zna" firstAttribute="top" secondItem="pr8-0y-Zvc" secondAttribute="bottom" constant="43" id="xvC-XB-Kyb"/>
                             <constraint firstItem="esa-5L-dMS" firstAttribute="centerX" secondItem="icS-Mb-PCD" secondAttribute="centerX" id="y3H-xE-TMy"/>
-                            <constraint firstItem="id6-k3-7Ve" firstAttribute="leading" secondItem="tYl-qT-WF7" secondAttribute="trailing" constant="244.33333333333331" id="yFU-4i-IrD"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Ausgaben" id="ui6-6M-gLJ"/>
@@ -1523,8 +1541,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="exg-Gl-kyn"/>
         <segue reference="5Il-rP-K6M"/>
-        <segue reference="OO0-ke-RPC"/>
+        <segue reference="GZ9-nP-exc"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="basket" catalog="system" width="128" height="108"/>
@@ -17933,8 +17952,8 @@ AZY
         <image name="carrot" catalog="system" width="128" height="122"/>
         <image name="checkmark" catalog="system" width="128" height="114"/>
         <image name="cup.and.saucer" catalog="system" width="128" height="91"/>
+        <image name="eurosign" catalog="system" width="128" height="121"/>
         <image name="frying.pan" catalog="system" width="128" height="81"/>
-        <image name="house" catalog="system" width="128" height="104"/>
         <image name="info" catalog="system" width="93" height="128"/>
         <image name="line.3.horizontal" catalog="system" width="128" height="65"/>
         <image name="pencil" catalog="system" width="128" height="113"/>
