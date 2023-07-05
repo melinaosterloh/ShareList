@@ -119,9 +119,7 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
 
                     }
                 }
-            //} else {
-                print("User ist null")
-            //}
+        
     }
 
     

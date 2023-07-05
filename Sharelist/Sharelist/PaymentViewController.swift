@@ -45,8 +45,9 @@ class PaymentViewController: UIViewController, UITableViewDelegate, UITableViewD
         let expenses = expensesArray[indexPath.row]
         let number = expenses.price
         let string = "\(number)"
+        let dateString = DateFormatter.localizedString(from: expenses.date, dateStyle: .short, timeStyle: .none)
 
-        expensesCell.textLabel?.text = "\(expenses.date + "    " + expenses.description)"
+        expensesCell.textLabel?.text = "\(dateString + "    " + expenses.description)"
         expensesCell.detailTextLabel?.text = "\(string + " €")"
         expensesCell.layer.cornerRadius = 10
         expensesCell.layer.borderColor = UIColor.darkGray.cgColor
@@ -70,12 +71,21 @@ class PaymentViewController: UIViewController, UITableViewDelegate, UITableViewD
                             for document in snapshot.documents {
                                 let data = document.data()
                                 let id = data["id"] as? String ?? ""
-                                let date = data["date"] as? String ?? ""
-                                let description = data["description"] as? String ?? ""
-                                let price = data["price"] as? Double ?? 0
-                                let newExpenses = Expenses(id: id, date: date, description: description, price: price)
-                                self.expensesArray.append(newExpenses)
+                                if let timestamp = data["date"] as? Timestamp {
+                                    let date = timestamp.dateValue()
+                                    
+                                    //let date = data["date"] as? Date ?? nil
+                                    let description = data["description"] as? String ?? ""
+                                    let price = data["price"] as? Double ?? 0
+                                    let newExpenses = Expenses(id: id, date: date, description: description, price: price)
+                                    self.expensesArray.append(newExpenses)
+                                }
                             }
+                            // Sortiere das Array nach dem Datum in absteigender Reihenfolge (neuestes Datum zuerst)
+                            let sortedExpensesArray = self.expensesArray.sorted { $0.date > $1.date }
+
+                            // Verwende das sortierte Array als Datenquelle für die TableView
+                            self.expensesArray = sortedExpensesArray
                             self.paymentTableView.reloadData()
                             self.getUserBalance()
                         }
@@ -99,24 +109,41 @@ class PaymentViewController: UIViewController, UITableViewDelegate, UITableViewD
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
            let selectedListID = appDelegate.selectedListID {
             let userBalances = self.db.collection("shoppinglist").document(selectedListID).collection("userBalances")
-            userBalances.getDocuments { (snapshot, error) in
+            userBalances.getDocuments { (querySnapshot, error) in
                 if let error = error {
-                    print(error.localizedDescription)
-                } else {
-                    if let snapshot = snapshot {
-                        for document in snapshot.documents {
-                            let data = document.data()
-                            let balance = 0.00
+                    print("Fehler beim Abrufen der Dokumente: \(error.localizedDescription)")
+                    return
+                }
+                for document in querySnapshot?.documents ?? [] {
+                    let userBalance = userBalances.document(document.documentID)
+                    userBalance.updateData(["balance": 0.00]) { error in
+                        if let error = error {
+                            print("Fehler beim Aktualisieren des Dokuments: \(error.localizedDescription)")
+                        } else {
+                            print("Dokument erfolgreich aktualisiert: \(document.documentID)")
+                            self.getUserBalance()
+                            let currentDate = Date()
+                            let debtClearing = Expenses(id: "-", date: currentDate, description: "Schuldenausgleich", price: 0.00)
+                            self.expensesArray.append(debtClearing)
+                            let newExpense = self.db.collection("shoppinglist").document(selectedListID).collection("expenses").document()
+                            newExpense.setData(["description":"Schuldenausgleich", "price":"-", "date":currentDate])
+                            // Sortiere das Array nach dem Datum in absteigender Reihenfolge (neuestes Datum zuerst)
+                            let sortedExpensesArray = self.expensesArray.sorted { $0.date > $1.date }
+
+                            // Verwende das sortierte Array als Datenquelle für die TableView
+                            self.expensesArray = sortedExpensesArray
+                            self.paymentTableView.reloadData()
                         }
-                        let debtClearing = Expenses(id: -, date: -, description: "Schuldenausgleich", price: -)
-                        self.expensesArray.append(debtClearing)
                     }
                 }
+                
             }
         }
     }
+                        
+  
     
-    // Liste die Balance des aktuell angemeldeten Users aus der aktuell ausgewählten Liste aus
+    // Gibt die Balance des aktuell angemeldeten Users aus der aktuell ausgewählten Liste aus
     func getUserBalance() {
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
            let selectedListID = appDelegate.selectedListID {
@@ -131,7 +158,10 @@ class PaymentViewController: UIViewController, UITableViewDelegate, UITableViewD
                         self.balance.text = "0.00"
                     }
                 }
-                else { print("keine Liste") }
+                else {
+                    self.balance.text = "0.00"
+                    print("noch keine Ausgaben")
+                }
             }
         } else {
             print("keine Liste ausgewählt")

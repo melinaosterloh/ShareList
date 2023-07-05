@@ -10,7 +10,7 @@ import Foundation
 struct Expenses:Identifiable {
     
     var id: String
-    var date: String
+    var date: Date
     var description: String
     var price: Double
     

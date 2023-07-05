@@ -18,6 +18,7 @@ class BasketViewController: UIViewController {
     
     var userID = Auth.auth().currentUser!.uid
     var db = Firestore.firestore()
+    var selectedDate: Date?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,32 +34,48 @@ class BasketViewController: UIViewController {
     
     
     @IBAction func checkButton(_ sender: UIButton) {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.maximumFractionDigits = 2
+        numberFormatter.minimumFractionDigits = 2
+        //numberFormatter.decimalSeparator = "."
+        
         guard let description = basketDescription.text else {
             self.view.makeToast("Bitte gib eine Beschreibung ein!", duration: 2.0)
             return
         }
-        guard let price = Double(basketPrice.text!) else {
-                self.view.makeToast("Bitte gib einen Preis ein!", duration: 2.0)
+        guard let inputText = basketPrice.text, !inputText.isEmpty else {
+            // Keine Eingabe vorhanden
+            self.view.makeToast("Bitte gib einen Preis ein!", duration: 2.0)
             return
         }
-        guard let date = basketDate.text else {
+        let inputTextWithDecimal = inputText.contains(".") || inputText.contains(",") ? inputText : inputText + ".00"
+        guard let price = numberFormatter.number(from: inputText.replacingOccurrences(of: ",", with: "."))?.doubleValue ?? numberFormatter.number(from: inputText)?.doubleValue else {
+            // Ungültige Eingabe
+            self.view.makeToast("Ungültiger Preis!", duration: 2.0)
+            return
+        }
+        guard let date = selectedDate else {
             return
         }
             if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
                let selectedListID = appDelegate.selectedListID {
                 let currentList = self.db.collection("shoppinglist").document(selectedListID)
                 let newExpense = currentList.collection("expenses").document()
-                newExpense.setData(["description":description, "price":price, "date":date])
+                newExpense.setData(["description":description, "price":price, "date": date])
                 currentList.getDocument { (document, error) in
                     if let document = document, document.exists {
                         // Array der Listen Besitzer/Mitglieder
                         if let listMember = document.data()?["owner"] as? [String] {
-                            self.splitExpenses(expense: price, member: listMember, listID: selectedListID)
-                            print("Array aus Firebase: \(listMember)")
-                            self.performSegue(withIdentifier: "goToExpensesList", sender: self)
-                        } else {
+                            let expensesSplitted = self.splitExpenses(expense: price, member: listMember, listID: selectedListID)
+                            if expensesSplitted {
+                                self.performSegue(withIdentifier: "goToExpensesList", sender: self)
+                            }
+                        }
+                        else {
                             print("Feld existiert nicht oder hat keinen Wert")
                         }
+                        
                     } else {
                         // Das Dokument wurde nicht gefunden oder es gab einen Fehler
                         print("Das Dokument existiert nicht oder es gab einen Fehler: \(error?.localizedDescription ?? "")")
@@ -69,7 +86,8 @@ class BasketViewController: UIViewController {
     }
     
     // Funktion zum Aufteilen der Ausgaben
-    func splitExpenses (expense: Double, member: Array<String>, listID: String) {
+    func splitExpenses (expense: Double, member: Array<String>, listID: String) -> Bool {
+        var success = true
         let memberCount = Double(member.count)
         let share = expense/memberCount
         let userBalances = self.db.collection("shoppinglist").document(listID).collection("userBalances")
@@ -80,27 +98,30 @@ class BasketViewController: UIViewController {
                 if let document = document, document.exists {
                     if let currentBalance = document.data()?["balance"] as? Double {
                         // Aktualisiert die Balance in der Datenbank
-                        if i == self.userID {
+                        if i == self.userID && memberCount > 1 { // prüft, ob es sich um den aktuell eingeloggten User handelt und ob die Liste mehr als 1 Mitglied hat
                             userBalance.setData(["balance": currentBalance+(expense-share)], merge: true) { error in
                                 if let error = error {
                                     print("Fehler beim Aktualisieren der Balance: \(error.localizedDescription)")
+                                    success = false
                                 }
                             }
                         } else {
                             userBalance.setData(["balance": currentBalance-share], merge: true) { error in
                                 if let error = error {
                                     print("Fehler beim Aktualisieren des Zellenpreises: \(error.localizedDescription)")
+                                    success = false
                                 }
                             }
                         }
                     }
                 // Falls der User noch keine Balance hat
                 } else {
-                    if i == self.userID {
+                    if i == self.userID && memberCount > 1 {
                         let documentData: [String: Double] = ["balance": (expense - share)]
                         userBalances.document(i).setData(documentData) { error in
                             if let error = error {
                                 print("Fehler beim Hinzufügen des Dokuments: \(error.localizedDescription)")
+                                success = false
                             }
                         }
                     } else {
@@ -108,12 +129,14 @@ class BasketViewController: UIViewController {
                         userBalances.document(i).setData(documentData) { error in
                             if let error = error {
                                 print("Fehler beim Hinzufügen des Dokuments: \(error.localizedDescription)")
+                                success = false
                             }
                         }
                     }
                 }
             }
         }
+        return success
     }
     
     func loadDesign () {
@@ -147,13 +170,16 @@ class BasketViewController: UIViewController {
         datePicker.addTarget(self, action: #selector(dateChange(datePicker:)), for: UIControl.Event.valueChanged)
         datePicker.frame.size = CGSize(width: 0, height: 300)
         datePicker.preferredDatePickerStyle = .wheels
-        
+        datePicker.date = Date()
+        selectedDate = datePicker.date
         basketDate.inputView = datePicker
+        
         basketDate.text = formatDate(date: Date())
     }
     
     @objc func dateChange(datePicker: UIDatePicker) {
         basketDate.text = formatDate(date: datePicker.date)
+        selectedDate = datePicker.date
     }
     
     func formatDate(date: Date) -> String {

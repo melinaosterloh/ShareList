@@ -106,7 +106,7 @@ class RegistrationViewController: UIViewController {
         // Erstellt für jeden User per default eine Liste "Privat"
         func createDefaultListAndUser(userID : String) {
             let newList = db.collection("shoppinglist").document()
-            newList.setData(["name":"Privat", "balance":0, "owner": [userID]])
+            newList.setData(["name":"Privat", "owner": [userID]])
             //Gibt die default List als aktuell ausgewählte Liste weiter
             if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
                 appDelegate.updateSelectedListID(newList.documentID)

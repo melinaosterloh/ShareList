@@ -111,7 +111,7 @@ class NewListViewController: UIViewController {
     @IBAction func checkButton(_ sender: UIButton) {
         if let name = listname {
             let newList = self.db.collection("shoppinglist").document()
-            newList.setData(["name": name, "balance":0, "owner": memberArray])
+            newList.setData(["name": name, "owner": memberArray])
             if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
                 appDelegate.updateSelectedListID(newList.documentID)
                 print("Die ID der neuen Liste:", newList.documentID)
