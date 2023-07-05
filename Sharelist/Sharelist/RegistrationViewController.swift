@@ -7,6 +7,8 @@
 
 import UIKit
 import Firebase
+import FirebaseStorage
+import FirebaseFirestore
 import Toast
 
 class RegistrationViewController: UIViewController {
@@ -19,6 +21,9 @@ class RegistrationViewController: UIViewController {
     @IBOutlet weak var registrationBtn: UIButton!
     @IBOutlet weak var UserImageView: UIImageView!
     @IBOutlet weak var SelectImageBtn: UIButton!
+    
+    var selectedImage: UIImage?
+    var selectedImageData: Data?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,39 +71,37 @@ class RegistrationViewController: UIViewController {
         
     }
     
+    // Bild aus Galerie auswählen, Größe anpassen und dann Default Bild ersetzen
     @IBAction func selectImage(_ sender: UIButton) {
         let imagePicker = UIImagePickerController()
-               imagePicker.sourceType = .photoLibrary
-               imagePicker.delegate = self
-               present(imagePicker, animated: true, completion: nil)
-           }
-       }
-
-       extension RegistrationViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-           func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-               if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-                   // Setze das ausgewählte Bild in der UIImageView
-                   UserImageView.image = selectedImage
-                   
-                   let circleSize: CGFloat = 150.0 // Die gewünschte Größe des Kreises
-
-                   // Bild als Kreis anzeigen
-                   UserImageView.layer.cornerRadius = circleSize / 2
-                   UserImageView.layer.masksToBounds = true
-                   UserImageView.frame = CGRect(x: 0, y: 0, width: circleSize, height: circleSize)
-               }
-               
-               picker.dismiss(animated: true, completion: nil)
-           }
-
-
-           func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-               picker.dismiss(animated: true, completion: nil)
-           }
-    
-    
-
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.allowsEditing = true
+        imagePicker.delegate = self
+        present(imagePicker, animated: true, completion: nil)
+    }
+        
     @IBAction func registrationBtn(_ sender: UIButton) {
+        
+        // Kontrollfunktion, dass ausgewähltes Bild nicht nil ist
+        guard selectedImage != nil else { return }
+        // Get a reference to the storage service using the default Firebase App
+        let storage = Storage.storage()
+        // Create a storage reference from our storage service
+        let storageRef = storage.reference()
+        // Bild wird umgewandelt in Data ?
+        let imageData = selectedImage!.jpegData(compressionQuality: 0.8)
+        // Kontrollfunktion, dass Data nicht nil ist und Bild konvertiert wurde
+        guard imageData != nil else { return }
+        // Festlegen, wo Bilddaten gespeichert werden und des Namenformates
+        let dataRef = storageRef.child("images/\(UUID().uuidString).jpg")
+        // Upload
+        let uploadData = dataRef.putData(imageData!, metadata: nil) { metadata,
+            error in
+            print("Upload successful")
+            // Check for errors
+            if error == nil && metadata != nil {
+            }
+        }
         
         guard let firstname = firstnameRegistration.text else {
             return
@@ -150,11 +153,29 @@ class RegistrationViewController: UIViewController {
                 appDelegate.updateSelectedListID(newList.documentID)
             }
             print("Listen ID ist:", newList.documentID)
+            
             let newUser = db.collection("user").document(userID)
-            newUser.setData(["defaultListID": newList.documentID, "name": firstname, "email": email])
+            newUser.setData(["defaultListID": newList.documentID, "name": firstname, "email": email, "profileImageURL": imageData!])
         }
 
     }
-    
+}
 
+    extension RegistrationViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+        internal func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+                selectedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
+
+                // Setze das ausgewählte Bild an Stelle vom Default Bild
+                UserImageView.image = selectedImage
+
+                // Gewünschte Größe vom Kreis anpassen
+                let circleSize: CGFloat = 150.0
+
+                // Bild als Kreis anzeigen
+                UserImageView.layer.cornerRadius = circleSize / 2
+                UserImageView.layer.masksToBounds = true
+                UserImageView.frame = CGRect(x: 0, y: 0, width: circleSize, height: circleSize)
+
+                picker.dismiss(animated: true, completion: nil)
+        }
 }

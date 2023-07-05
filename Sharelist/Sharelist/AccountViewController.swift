@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import FirebaseStorage
 import Toast
 
 protocol ReloadArticleDelegate: AnyObject {
@@ -23,15 +24,17 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var overlayView: UIView!
     @IBOutlet weak var closeBtn: UIButton!
     @IBOutlet weak var addListBtn: UIButton!
+    @IBOutlet weak var userImage: UIImageView!
     
     
     
     let db = Firestore.firestore()
+    let storage = Storage.storage().reference()
     var listArray = [List]()
     var list: List?
     private var document: [DocumentSnapshot] = []
     weak var reloadArticleDelegate: ReloadArticleDelegate?
-    
+    var user = Auth.auth().currentUser
     var selectedListUID: String?
     var userID = Auth.auth().currentUser!.uid
     
@@ -44,11 +47,29 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.listTableView.delegate = self
         self.listTableView.dataSource = self
         
-        if let user = Auth.auth().currentUser {
-            let email = user.email
-            emailLabel.text = email
-        } else {
-            emailLabel.text = "Benutzer ist nicht eingeloggt"
+        
+        getUserData()
+        
+    }
+    
+    func getUserData() {
+        let email = self.user?.email
+        let userId = (self.user?.uid)!
+        emailLabel.text = email
+            
+        let currentUser = self.db.collection("user").document(userId)
+        currentUser.getDocument { (document, error) in
+            if let document = document, document.exists {
+                if let userName = document.data()?["name"] as? String {
+                    self.nameLabel.text = userName
+                }
+                if let userImage = document.data()?["profileImageURL"] as? Data {
+                    self.userImage.image = UIImage(data: userImage)
+                } else {
+                    print("blob Feld konnte nicht gefunden werden")
+                }
+                
+            }
         }
     }
     
@@ -155,6 +176,8 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func loadDesign() {
+        userImage.layer.cornerRadius = userImage.bounds.height / 2
+        
         addListBtn.layer.cornerRadius = addListBtn.bounds.height / 2
         addListBtn.layer.shadowOpacity = 0.5
         addListBtn.layer.shadowColor = UIColor.darkGray.cgColor
